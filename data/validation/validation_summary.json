@@ -1,0 +1,20 @@
+{
+  "total_products": 1000,
+  "products_passed": 587,
+  "products_passed_with_warnings": 411,
+  "products_failed": 2,
+  "total_validation_checks": 15576,
+  "total_passes": 13640,
+  "total_warnings": 1299,
+  "total_failures": 7,
+  "required_field_failures": 0,
+  "lov_failures": 7,
+  "uom_failures": 0,
+  "character_limit_failures": 0,
+  "evidence_failures": 0,
+  "provenance_failures": 0,
+  "identity_failures": 0,
+  "category_failures": 0,
+  "conflict_failures": 0,
+  "referential_integrity_failures": 0
+}

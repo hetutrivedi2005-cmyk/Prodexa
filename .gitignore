@@ -1,0 +1,18 @@
+# Environment variables
+.env
+.env.local
+
+# Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+env/
+venv/
+
+# Output datasets
+data/processed/understood_products.csv

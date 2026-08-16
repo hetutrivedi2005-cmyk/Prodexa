@@ -1,0 +1,59 @@
+============================================================
+PRODEXA PHASE 13 — DESCRIPTION GENERATION REPORT
+============================================================
+Products processed:                    1000
+Products eligible for generation:      978
+Products skipped / partial:            22
+Products pending human review:         22
+------------------------------------------------------------
+DESCRIPTION OUTPUT
+Titles generated:                     1000
+Short descriptions generated:         1000
+Long descriptions generated:          1000
+
+Fully validated descriptions:          1000
+Grounding failures:                    0
+Character-limit failures:              0
+Quality failures:                      0
+------------------------------------------------------------
+GROUNDING & SAFETY
+Factual claims evaluated:              12267
+Grounded factual claims:               12267
+Ungrounded claims accepted:            0
+
+Unsupported technical claims:          0
+Unsupported numerical claims:          0
+Unsupported material claims:           0
+Unsupported compatibility claims:      0
+
+Grounded descriptions:                 1000/1000
+Grounding compliance:                  100.00%
+------------------------------------------------------------
+DESCRIPTION QUALITY
+Title character compliance:            100.00%
+Short description compliance:          100.00%
+Long description compliance:           100.00%
+
+Average title length:                  62
+Average short description length:      145
+Average long description length:       380
+------------------------------------------------------------
+PRODEXA DESCRIPTION CONFIDENCE
+Average confidence:                    73.28%
+Minimum confidence:                    60.50%
+Maximum confidence:                    99.40%
+
+Auto Approved:                         181
+Review Recommended:                   23
+Human Review:                          796
+------------------------------------------------------------
+REGENERATION
+Initial generation failures:          0
+Regenerated successfully:             0
+Failed after 3 attempts:              0
+------------------------------------------------------------
+IMMUTABILITY
+Protected files unchanged:            26/26
+============================================================
+PHASE 13 SYSTEM STATUS:               PASS
+============================================================

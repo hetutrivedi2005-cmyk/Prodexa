@@ -1,0 +1,61 @@
+============================================================
+PRODEXA PHASE 6 — LOV RESOLUTION REPORT
+============================================================
+Total products:                  1000
+Total attributes received:       453
+Resolved attributes:             453
+Unresolved attributes:           0
+Ambiguous attributes:            0
+Resolution rate:                 100.00%
+
+Exact matches:                   453
+Normalized matches:              0
+Alias matches:                   0
+Unit normalization:              0
+Numeric normalization:           0
+Fuzzy matches:                   0
+LLM resolutions:                 0
+Unresolved:                      0
+
+LLM calls:                       0
+LLM accepted:                    0
+LLM rejected:                    0
+
+Attribute Resolution Confidence: 1.0000
+Overall Dataset Coverage Conf:   0.2830
+============================================================
+
+============================================================
+MANDATORY BEFORE / AFTER COMPARISON EXAMPLES
+RAW VALUE -> NORMALIZED VALUE -> CANONICAL LOV VALUE -> METHOD -> CONFIDENCE -> STATUS
+============================================================
+RAW: '1/2 in x 18 in' -> NORM: '1/2 in x 18 in' -> CANONICAL: '1/2 in x 18 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '6' -> NORM: '6' -> CANONICAL: '6' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P150' -> NORM: 'p150' -> CANONICAL: 'P150' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P120' -> NORM: 'p120' -> CANONICAL: 'P120' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P80' -> NORM: 'p80' -> CANONICAL: 'P80' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P180' -> NORM: 'p180' -> CANONICAL: 'P180' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P220' -> NORM: 'p220' -> CANONICAL: 'P220' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P320' -> NORM: 'p320' -> CANONICAL: 'P320' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '50' -> NORM: '50' -> CANONICAL: '50' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P80' -> NORM: 'p80' -> CANONICAL: 'P80' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '5 in' -> NORM: '5 in' -> CANONICAL: '5 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: 'P120' -> NORM: 'p120' -> CANONICAL: 'P120' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '5 in' -> NORM: '5 in' -> CANONICAL: '5 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '2.75 in x 30 in' -> NORM: '2.75 in x 30 in' -> CANONICAL: '2.75 in x 30 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '2.75 in x 30 in' -> NORM: '2.75 in x 30 in' -> CANONICAL: '2.75 in x 30 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '9 in' -> NORM: '9 in' -> CANONICAL: '9 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '12 in' -> NORM: '12 in' -> CANONICAL: '12 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '12 in' -> NORM: '12 in' -> CANONICAL: '12 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '14 in' -> NORM: '14 in' -> CANONICAL: '14 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '14 in' -> NORM: '14 in' -> CANONICAL: '14 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '5 in' -> NORM: '5 in' -> CANONICAL: '5 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '6-1/2 in' -> NORM: '6-1/2 in' -> CANONICAL: '6-1/2 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '7 in' -> NORM: '7 in' -> CANONICAL: '7 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '4 in' -> NORM: '4 in' -> CANONICAL: '4 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved
+RAW: '7 in' -> NORM: '7 in' -> CANONICAL: '7 in' | METHOD: exact | CONF: 1.0 | STATUS: resolved

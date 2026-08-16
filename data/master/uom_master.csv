@@ -1,0 +1,10 @@
+uom_id,canonical_uom,normalized_uom,aliases,dimension_type,is_active
+UOM_IN,in,in,"IN;INCH;INCHES;""",length,True
+UOM_MM,mm,mm,MM;MILLIMETER;MILLIMETERS;M.M.,length,True
+UOM_FT,ft,ft,FT;FEET;FOOT;',length,True
+UOM_V,V,v,VOLT;VOLTS;V;v,electrical,True
+UOM_W,W,w,WATT;WATTS;W;w,power,True
+UOM_AH,Ah,ah,AH;AMP HOUR;AMP-HOUR,capacity,True
+UOM_K,K,k,KELVIN;K;k,temperature,True
+UOM_PC,pcs,pcs,PC;PCS;PIECE;PIECES;PK;PACK;BOX,count,True
+UOM_GRIT,Grit,grit,GRIT;P-GRIT,coarseness,True

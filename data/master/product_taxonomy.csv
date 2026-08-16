@@ -1,0 +1,51 @@
+category_id,category_name,parent_category_id,parent_category_name,hierarchy_level,category_path,source_product_types,keywords,aliases
+ABR,Abrasives & Cutting Accessories,,,1,Abrasives & Cutting Accessories,Abrasives,abrasive;sanding;cut-off;grinding,abrasives
+PWR,Power Tools & Equipment,,,1,Power Tools & Equipment,Power Tools,saw;drill;driver;planer;jointer;shaper;rotary;extractor;nailer,power tools
+LGT,Lighting & Electrical Supplies,,,1,Lighting & Electrical Supplies,Lighting & Electrical,led;light;sconce;chandelier;pendant;downlight;box;wire;tape;bulb,electrical;lighting
+APP,Home Appliances,,,1,Home Appliances,Appliances,dishwasher;dryer;washer;laundry;fridge;refrigerator;microwave;heater,appliances
+BLD,"Building, Decking & Railing Materials",,,1,"Building, Decking & Railing Materials",Building Materials,decking;railing;fence;lumber;post;fascia;rainscreen;door;window,building supplies
+SAF,Safety & Workwear,,,1,Safety & Workwear,Safety & Apparel,heated;glove;liner;safety;glasses,apparel;safety
+ABR_DISC,Abrasive Discs & Wheels,ABR,Abrasives & Cutting Accessories,2,Abrasives & Cutting Accessories > Abrasive Discs & Wheels,Abrasive Discs,disc;wheel;sponge;mesh,sanding discs
+ABR_BELT,Abrasive Belts,ABR,Abrasives & Cutting Accessories,2,Abrasives & Cutting Accessories > Abrasive Belts,Abrasive Belts,belt;sanding belt,sanding belts
+PWR_SAW,Power Saws,PWR,Power Tools & Equipment,2,Power Tools & Equipment > Power Saws,Power Saws,saw;circular;jig;table saw;miter,saws
+PWR_DRILL,Drills & Drivers,PWR,Power Tools & Equipment,2,Power Tools & Equipment > Drills & Drivers,Drills & Drivers,drill;driver;impact;hydraulic;nailer,drills
+PWR_BENCH,Woodworking & Machinery,PWR,Power Tools & Equipment,2,Power Tools & Equipment > Woodworking & Machinery,Woodworking Machinery,planer;jointer;shaper;feeder;miter sled,machinery
+PWR_ACC,Tool Accessories & Attachments,PWR,Power Tools & Equipment,2,Power Tools & Equipment > Tool Accessories & Attachments,Tool Accessories,bit;blade;tile blade;laser;organizer;battery;charger;dust extractor,accessories
+LGT_FIX,Light Fixtures,LGT,Lighting & Electrical Supplies,2,Lighting & Electrical Supplies > Light Fixtures,Light Fixtures,sconce;chandelier;pendant;ceiling;wall lt;down light;bath light,luminaires
+LGT_BULB,Light Bulbs,LGT,Lighting & Electrical Supplies,2,Lighting & Electrical Supplies > Light Bulbs,Light Bulbs,led;bulb;incan;cand,bulbs
+LGT_ELEC,Electrical Boxes & Wiring,LGT,Lighting & Electrical Supplies,2,Lighting & Electrical Supplies > Electrical Boxes & Wiring,Electrical Equipment,box;outlet;gfi;wire;cord;tape,wiring
+APP_CLEAN,Cleaning & Laundry Appliances,APP,Home Appliances,2,Home Appliances > Cleaning & Laundry Appliances,Laundry & Cleaning,dishwasher;dryer;washer;laundry center,laundry
+APP_KITCHEN,Kitchen Appliances & Cooking,APP,Home Appliances,2,Home Appliances > Kitchen Appliances & Cooking,Kitchen Appliances,fridge;refrigerator;microwave;range;heater kit,kitchen appliances
+BLD_DECK,Decking & Railing,BLD,"Building, Decking & Railing Materials",2,"Building, Decking & Railing Materials > Decking & Railing",Decking & Railing,decking;railing;fence;post;fascia,decking
+BLD_LUMBER,Lumber & Structural Panels,BLD,"Building, Decking & Railing Materials",2,"Building, Decking & Railing Materials > Lumber & Structural Panels",Lumber & Panels,lumber;doug fir;rainscreen;patio dr;plate,lumber
+SAF_WORK,Workwear & Safety Gear,SAF,Safety & Workwear,2,Safety & Workwear > Workwear & Safety Gear,Workwear & Safety,heated;glove;liner;safety glasses,safety gear
+ABR_DISC_CUT,Cut-Off Discs,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Cut-Off Discs,Cut-Off Disc,cut-off;cut off;cut off disc,cut-off wheel
+ABR_DISC_GRIND,Grinding Wheels,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Grinding Wheels,Grinding Wheel,grinding wheel;grind,grinding disc
+ABR_DISC_CUTGRIND,Cut and Grind Discs,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Cut and Grind Discs,Cut and Grind Disc,cut and grind;cut n grind,cut & grind
+ABR_DISC_STIKIT,Stikit Film Discs,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Stikit Film Discs,Stikit Film Disc,stikit;stikit film,film disc
+ABR_DISC_GEN,Abrasive Sanding Discs,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Abrasive Sanding Discs,Abrasive Disc;Sanding Disc,abrasive disc;sanding disc;sanding sponge,disc
+ABR_DISC_MESH,Abrasive Mesh Strips,ABR_DISC,Abrasive Discs & Wheels,3,Abrasive Discs & Wheels > Abrasive Mesh Strips,Abrasive Mesh Strip,abranet;mesh strip;mesh,mesh strip
+ABR_BELT_SANDING,Sanding Belts,ABR_BELT,Abrasive Belts,3,Abrasive Belts > Sanding Belts,Sanding Belt,sanding belt;belt,sanding band
+PWR_SAW_CIRC,Circular Saws & Kits,PWR_SAW,Power Saws,3,Power Saws > Circular Saws & Kits,Circular Saw;Circular Saw Kit,circ saw;circular saw;circ,circ saw
+PWR_SAW_JIG,Jig Saws,PWR_SAW,Power Saws,3,Power Saws > Jig Saws,Jig Saw,jig saw;jigsaw,sabre saw
+PWR_DRILL_IMP,Impact Drivers & Nailers,PWR_DRILL,Drills & Drivers,3,Drills & Drivers > Impact Drivers & Nailers,Combo Kit,hydraulic driver;impact driver;hex driver;framing nailer;drill;combo kit,drivers
+PWR_BENCH_PLANER,Planers & Jointers,PWR_BENCH,Woodworking & Machinery,3,Woodworking & Machinery > Planers & Jointers,Planer;Jointer;Shaper,planer;benchtop planer;jointer;shaper;stock feeder;miter sled,planers
+PWR_ACC_BATT,Batteries & Chargers,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Batteries & Chargers,Battery;Battery Pack;Battery Charger,battery;battery pack;charger;rapid charger,powerpack
+PWR_ACC_BLADE,Saw & Tile Blades,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Saw & Tile Blades,Blade,tile blade;diamond blade;rim glass tile;blade,blades
+PWR_ACC_BIT,Drive Bits,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Drive Bits,Drive Bit,square drive bit;torx drive bit;drive bit;hex bit,bits
+PWR_ACC_EXTRACT,Dust Extractors,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Dust Extractors,Dust Extractor,dust extractor;vacuum,extractor
+PWR_ACC_ORG,Tool Organizers & Boxes,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Tool Organizers & Boxes,Organizer,organizer;packout;tool box,storage
+PWR_ACC_ROTARY,Rotary Tools,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Rotary Tools,Rotary Tool,rotary tool;dremel,rotary
+PWR_ACC_LASER,Laser Levels,PWR_ACC,Tool Accessories & Attachments,3,Tool Accessories & Attachments > Laser Levels,Laser Level,cross line laser;laser;line laser,lasers
+LGT_FIX_WALL,Wall Sconces & Bath Lights,LGT_FIX,Light Fixtures,3,Light Fixtures > Wall Sconces & Bath Lights,Wall Light,wall sconce;wall lt;bath light;ext wall lt,wall lighting
+LGT_FIX_CEIL,Chandeliers & Pendant Lights,LGT_FIX,Light Fixtures,3,Light Fixtures > Chandeliers & Pendant Lights,Ceiling Light,chandelier;pendant lt;ceiling lt;down light,pendant
+LGT_BULB_LED,LED Light Bulbs,LGT_BULB,Light Bulbs,3,Light Bulbs > LED Light Bulbs,LED Bulb,led med;led st19;led cand;incan cand;60w led;150w led;75w led,led bulbs
+LGT_ELEC_BOX,Electrical Boxes & Covers,LGT_ELEC,Electrical Boxes & Wiring,3,Electrical Boxes & Wiring > Electrical Boxes & Covers,Electrical Box,2g box;oct box;gfi box cover;box cover,junction box
+LGT_ELEC_WIRE,Electrical Wire & Cable,LGT_ELEC,Electrical Boxes & Wiring,3,Electrical Boxes & Wiring > Electrical Wire & Cable,Tape,so cord;stranded wire;vinyl elect tape;tape,cable
+APP_CLEAN_DISH,Built-In Dishwashers,APP_CLEAN,Cleaning & Laundry Appliances,3,Cleaning & Laundry Appliances > Built-In Dishwashers,Dishwasher,dishwasher;built-in dishwasher;ss dishwasher,dishwashers
+APP_CLEAN_LAUNDRY,"Washers, Dryers & Laundry Centers",APP_CLEAN,Cleaning & Laundry Appliances,3,"Cleaning & Laundry Appliances > Washers, Dryers & Laundry Centers",Electric Dryer;Washer;Laundry Center,elect dryer;gas dryer;washer;laundry center,laundry
+APP_KITCHEN_MICROWAVE,Microwaves & Ranges,APP_KITCHEN,Kitchen Appliances & Cooking,3,Kitchen Appliances & Cooking > Microwaves & Ranges,Microwave,microwave;fridge;refrigerator;heater kit,microwaves
+BLD_DECK_PVC,PVC & Composite Decking,BLD_DECK,Decking & Railing,3,Decking & Railing > PVC & Composite Decking,Decking,pvc decking;composite decking;azek decking;trex;lineage;biscayne;carmel;grooved;sq edge;fascia,decking
+BLD_DECK_RAIL,Railing & Fence Kits,BLD_DECK,Decking & Railing,3,Decking & Railing > Railing & Fence Kits,Railing Kit;Fence,t-rail kit;rail panel;classic horiz;fence;post sleeve;gate;balusters;bal;finyline,railing
+BLD_LUMBER_BOARDS,Lumber & Building Supplies,BLD_LUMBER,Lumber & Panels,3,Lumber & Panels > Lumber & Building Supplies,Lumber,doug fir;smart pan cedar;zip rainscreen;patio dr;plate;mortar;type n,boards
+SAF_WORK_HEATED,Heated Workwear & Gear,SAF_WORK,Workwear & Safety Gear,3,Workwear & Safety Gear > Heated Workwear & Gear,Heated Apparel,heated work glove;glove liners;safety glasses,heated gear

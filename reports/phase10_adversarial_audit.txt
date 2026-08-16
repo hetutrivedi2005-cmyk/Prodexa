@@ -1,0 +1,53 @@
+============================================================
+PRODEXA PHASE 10 — ADVERSARIAL AUDIT
+============================================================
+
+Mandatory adversarial cases:        35
+Cases passed:                       35
+Cases failed:                        0
+
+Synthetic invalid LOV items:
+PROD-0395 -> correctly rejected
+PROD-0447 -> correctly rejected
+
+Invalid data accepted:               0
+
+------------------------------------------------------------
+Adversarial Audit:                  PASS
+============================================================
+
+[PASS] Case 1: Missing brand rejected (FAIL).
+[PASS] Case 2: Missing MPN rejected (FAIL).
+[PASS] Case 3: Missing manufacturer handled safely (WARNING/FAIL).
+[PASS] Case 4: Missing category handled safely (WARNING/FAIL).
+[PASS] Case 5: Missing product type handled safely (WARNING).
+[PASS] Case 6: Invalid LOV value rejected (FAIL).
+[PASS] Case 7: Valid approved LOV value accepted (PASS).
+[PASS] Case 8: Wrong-category LOV rejected (FAIL).
+[PASS] Case 9: Non-canonical UOM evaluated safely.
+[PASS] Case 10: Canonical UOM accepted (PASS).
+[PASS] Case 11: Unsupported UOM unit rejected (FAIL).
+[PASS] Case 12: Character limit exceeded rejected (FAIL/ERROR).
+[PASS] Case 13: Character limit boundary accepted (PASS).
+[PASS] Case 14: Missing evidence handled safely (WARNING/FAIL).
+[PASS] Case 15: Invalid incomplete evidence record handled safely (WARNING/FAIL).
+[PASS] Case 16: Evidence/value mismatch handled via grounding validation.
+[PASS] Case 17: Wrong MPN identity rejected (FAIL).
+[PASS] Case 18: Wrong manufacturer identity rejected (FAIL).
+[PASS] Case 19: Missing product_id in referential integrity rejected (WARNING/FAIL).
+[PASS] Case 20: Missing provenance key handled safely (WARNING/FAIL).
+[PASS] Case 21: Confidence < 0 rejected (FAIL).
+[PASS] Case 22: Confidence > 1 rejected (FAIL).
+[PASS] Case 23: Invalid status enum rejected (FAIL).
+[PASS] Case 24: Unresolved conflict flagged (WARNING).
+[PASS] Case 25: Protected value overwrite attempt prevented.
+[PASS] Case 26: Duplicate evidence ID handled.
+[PASS] Case 27: Duplicate contradictory evidence handled.
+[PASS] Case 28: Cross-product evidence leakage rejected (FAIL).
+[PASS] Case 29: Broken source reference rejected (WARNING/FAIL).
+[PASS] Case 30: Broken evidence reference rejected (WARNING/FAIL).
+[PASS] Case 31: Invalid category attribute schema violation flagged.
+[PASS] Case 32: Schema corruption / non-numeric confidence rejected (FAIL).
+[PASS] Case 33: Clean fully valid product quality gate PASS.
+[PASS] Case 34: Warning-only product quality gate PASS_WITH_WARNINGS.
+[PASS] Case 35: Product with ERROR-level failure quality gate FAIL.

@@ -1,0 +1,37 @@
+============================================================
+PRODEXA PHASE 9.1 — EVIDENCE QUALITY REPORT
+============================================================
+Products processed:                  1000
+Attributes examined:                 892
+Verified attributes:                 883
+Partially verified attributes:       0
+Unverified attributes:               9
+Conflicted attributes:               0
+Rejected attributes:                 0
+
+Evidence coverage %:                 98.99%
+Provenance completeness %:           100.00%
+Grounding verification %:            100.00%
+Source verification %:               100.00%
+MPN verification %:                  100.00%
+Manufacturer verification %:         100.00%
+LOV validation %:                    100.00%
+UOM validation %:                    100.00%
+
+High-confidence evidence count (>=0.95):     892
+Medium-confidence evidence count (0.85-0.94): 0
+Low-confidence evidence count (0.70-0.84):    0
+
+Duplicate evidence removed:          55
+Duplicate sources removed:           732
+Conflicting evidence detected:       0
+Wrong MPN rejected:                  0
+Wrong manufacturer rejected:         0
+Cross-product evidence rejected:     0
+Ungrounded evidence rejected:        0
+Missing evidence rejected:           0
+
+Average confidence:                  0.9999
+Minimum confidence:                  0.9875
+Maximum confidence:                  1.0000
+============================================================

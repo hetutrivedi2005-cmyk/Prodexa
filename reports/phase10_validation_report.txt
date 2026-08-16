@@ -1,0 +1,79 @@
+============================================================
+PRODEXA PHASE 10 — VALIDATION REPORT
+============================================================
+DATASET SUMMARY
+Products processed:                  1000
+
+PRODUCTION DATASET METRICS
+Products PASS:                      587
+Products PASS_WITH_WARNINGS:        413
+Products FAIL:                      0
+
+SYNTHETIC ADVERSARIAL TEST ITEMS
+Synthetic adversarial test items:   2
+Synthetic invalid items detected:   2
+Synthetic invalid items accepted:   0
+------------------------------------------------------------
+REQUIRED FIELD VALIDATION
+Products checked:                    1000
+Passed:                              1000
+Failed:                              0
+Missing Brand:                       0
+Missing MPN:                         0
+Missing Category:                    0
+Missing Product Type:                0
+------------------------------------------------------------
+LOV VALIDATION
+LOV attributes checked:              947
+Production LOV valid:                940
+Synthetic invalid LOV rejected:     7
+Production LOV compliance %:         100.00%
+------------------------------------------------------------
+UOM VALIDATION
+UOM values checked:                  408
+Valid:                               408
+Invalid:                             0
+UOM compliance %:                    100.00%
+------------------------------------------------------------
+CHARACTER LIMIT VALIDATION
+Fields checked:                      4000
+Within limit:                        4000
+Exceeded limit:                      0
+Character limit compliance %:        100.00%
+------------------------------------------------------------
+SOURCE & EVIDENCE VALIDATION
+Evidence-backed attributes:         892
+Evidence found:                      892
+Evidence missing:                    0
+Grounded:                            892
+Ungrounded:                          0
+Source verification %:               100.00%
+------------------------------------------------------------
+PROVENANCE VALIDATION
+Attributes audited:                  892
+Fully traceable:                     892
+Incomplete provenance:               0
+Provenance completeness %:           100.00%
+------------------------------------------------------------
+IDENTITY VALIDATION
+MPN checks:                          892
+MPN failures:                        0
+Manufacturer checks:                 892
+Manufacturer failures:               0
+Cross-product violations:            0
+------------------------------------------------------------
+CATEGORY VALIDATION
+Attributes checked:                  892
+Allowed:                             892
+Schema violations:                   0
+------------------------------------------------------------
+CONFLICT VALIDATION
+Conflicts:                           0
+Manual review required:              0
+Trusted values overwritten:          0
+------------------------------------------------------------
+REFERENTIAL INTEGRITY VALIDATION
+References checked:                  892
+Broken references:                   0
+Referential integrity compliance %: 100.00%
+============================================================

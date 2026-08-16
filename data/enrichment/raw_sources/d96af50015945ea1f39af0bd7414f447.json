@@ -1,0 +1,14 @@
+{
+  "source_id": "SRC-d96af500",
+  "url": "https://www.dewalt.com/docs/datasheets/bmdw20ylw6.pdf",
+  "domain": "dewalt.com",
+  "source_type": "manufacturer_pdf",
+  "manufacturer": "Metalmark Industrial Inc",
+  "brand": "DEWALT",
+  "mpn": "BMDW20YLW6",
+  "content_hash": "33f095897edcfe22c170ccf2adf5be978d10b7c098f2b1abe9f0c3a682bfcbd8",
+  "retrieval_status": "success",
+  "retrieved_at": "2026-08-16T12:00:00Z",
+  "raw_text": "Manufacturer: Metalmark Industrial Inc\nBrand: DEWALT\nModel / MPN: BMDW20YLW6\nOFFICIAL MANUFACTURER TECHNICAL DATASHEET\nProduct Specifications:\n- Part Number: BMDW20YLW6\n- Manufacturer: Metalmark Industrial Inc\n- Material Composition: Industrial Grade High Speed Steel / Aluminum Oxide\n- Finish: Corrosion Resistant Coating\n- Quality Certification: ISO 9001 Certified\n",
+  "is_duplicate": true
+}

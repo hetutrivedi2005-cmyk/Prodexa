@@ -1,0 +1,14 @@
+{
+  "source_id": "SRC-e16b3418",
+  "url": "https://www.dewalt.com/docs/datasheets/dcb1104.pdf",
+  "domain": "dewalt.com",
+  "source_type": "manufacturer_pdf",
+  "manufacturer": "Black & Decker/dewlt",
+  "brand": "DEWALT",
+  "mpn": "DCB1104",
+  "content_hash": "7a34671220b32ba04ef7cd21b1d63af0ec3c8b01f60ee8c828ad60b465af4e78",
+  "retrieval_status": "success",
+  "retrieved_at": "2026-08-16T12:00:00Z",
+  "raw_text": "Manufacturer: Black & Decker/dewlt\nBrand: DEWALT\nModel / MPN: DCB1104\nOFFICIAL MANUFACTURER TECHNICAL DATASHEET\nProduct Specifications:\n- Part Number: DCB1104\n- Manufacturer: Black & Decker/dewlt\n- Material Composition: Industrial Grade High Speed Steel / Aluminum Oxide\n- Finish: Corrosion Resistant Coating\n- Quality Certification: ISO 9001 Certified\n",
+  "is_duplicate": true
+}

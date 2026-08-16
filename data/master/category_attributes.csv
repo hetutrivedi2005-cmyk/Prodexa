@@ -1,0 +1,160 @@
+category_id,category_name,attribute_id,attribute_name,attribute_type,is_required,unit_of_measure,allowed_values,extraction_keywords,aliases
+ABR_BELT_SANDING,Sanding Belts,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_BELT_SANDING,Sanding Belts,dimensions,Belt/Strip Dimensions,measurement,False,in,,dimensions;size;x;width;length;1/2 x 18;2.75x30,belt dimensions
+ABR_BELT_SANDING,Sanding Belts,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;6pc;50pc,package count
+ABR_DISC_MESH,Abrasive Mesh Strips,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_MESH,Abrasive Mesh Strips,dimensions,Belt/Strip Dimensions,measurement,False,in,,dimensions;size;x;width;length;1/2 x 18;2.75x30,belt dimensions
+ABR_DISC_MESH,Abrasive Mesh Strips,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;6pc;50pc,package count
+ABR_DISC_CUT,Cut-Off Discs,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_CUT,Cut-Off Discs,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC_CUT,Cut-Off Discs,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC_CUT,Cut-Off Discs,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC_CUT,Cut-Off Discs,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR_DISC_STIKIT,Stikit Film Discs,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_STIKIT,Stikit Film Discs,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC_STIKIT,Stikit Film Discs,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC_STIKIT,Stikit Film Discs,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC_STIKIT,Stikit Film Discs,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR_DISC_GEN,Abrasive Sanding Discs,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_GEN,Abrasive Sanding Discs,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC_GEN,Abrasive Sanding Discs,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC_GEN,Abrasive Sanding Discs,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC_GEN,Abrasive Sanding Discs,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR_DISC_GRIND,Grinding Wheels,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_GRIND,Grinding Wheels,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC_GRIND,Grinding Wheels,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC_GRIND,Grinding Wheels,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC_GRIND,Grinding Wheels,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR_DISC_CUTGRIND,Cut and Grind Discs,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC_CUTGRIND,Cut and Grind Discs,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC_CUTGRIND,Cut and Grind Discs,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC_CUTGRIND,Cut and Grind Discs,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC_CUTGRIND,Cut and Grind Discs,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR_DISC,Abrasive Discs,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR_DISC,Abrasive Discs,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR_DISC,Abrasive Discs,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR_DISC,Abrasive Discs,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR_DISC,Abrasive Discs,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+ABR,Abrasives & Cutting Accessories,grit,Grit Rating,enum,False,Grit,P80;P120;P150;P180;P220;P320,grit;p80;p120;p150;p180;p220;p320,grit size
+ABR,Abrasives & Cutting Accessories,diameter,Disc Diameter,measurement,False,in,4 in;5 in;6 in;7 in;9 in;12 in;14 in,"diameter;disc;inch;in;4"";5"";7"";9"";12"";14""",disc diameter
+ABR,Abrasives & Cutting Accessories,arbor_size,Arbor Hole Size,measurement,False,in,7/8 in;5/8 in;20mm;1 in,arbor;hole;bore;7/8;5/8;20mm,arbor size
+ABR,Abrasives & Cutting Accessories,pack_quantity,Pack Quantity,integer,False,pcs,,pc;pcs;box;pack;disc/box,package count
+ABR,Abrasives & Cutting Accessories,target_material,Target Material,string,False,,Metal;Steel Demon;Speed Demon;Tile;General Purpose,metal;steel;tile;masonry,application material
+LGT_BULB_LED,LED Light Bulbs,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT_BULB_LED,LED Light Bulbs,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT_BULB_LED,LED Light Bulbs,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT_BULB_LED,LED Light Bulbs,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+LGT_FIX_WALL,Wall Sconces & Bath Lights,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT_FIX_WALL,Wall Sconces & Bath Lights,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT_FIX_WALL,Wall Sconces & Bath Lights,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT_FIX_WALL,Wall Sconces & Bath Lights,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+LGT_FIX_CEIL,Chandeliers & Pendant Lights,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT_FIX_CEIL,Chandeliers & Pendant Lights,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT_FIX_CEIL,Chandeliers & Pendant Lights,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT_FIX_CEIL,Chandeliers & Pendant Lights,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+LGT_BULB,Light Bulbs,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT_BULB,Light Bulbs,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT_BULB,Light Bulbs,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT_BULB,Light Bulbs,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+LGT_FIX,Lighting,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT_FIX,Lighting,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT_FIX,Lighting,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT_FIX,Lighting,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+LGT,Lighting & Electrical Supplies,wattage,Wattage,measurement,False,W,4W;6W;7W;10W;12W;25W;60W;75W;150W,w;watt;wattage;60w;75w;150w,power consumption
+LGT,Lighting & Electrical Supplies,color_temperature,Color Temperature,enum,False,K,2700K;3000K;4000K;5000K,27k;30k;50k;2700k;3000k;5000k,color temp;cct
+LGT,Lighting & Electrical Supplies,color_finish,Color / Finish,string,False,,Black;Brushed Nickel;White;Architectural Bronze;Distressed Black;Brushed Slate,black;bk;ni;wh;dbk;bsl,finish
+LGT,Lighting & Electrical Supplies,pack_quantity,Pack Quantity,integer,False,pk,,pk;pack;2pk;4pk,bulb count
+BLD_DECK_PVC,PVC & Composite Decking,length,Board / Rail Length,measurement,False,ft,6 ft;8 ft;12 ft;16 ft;20 ft,ft;length;6';8';12';16';20',length
+BLD_DECK_PVC,PVC & Composite Decking,width_profile,Width / Profile Size,measurement,False,in,1x6;4x4;6x6;1x8;1x12,1x6;4x4;6x6;1x8;1x12,profile
+BLD_DECK_PVC,PVC & Composite Decking,color,Color / Tone,enum,False,,Coastline;English Walnut;French White Oak;Slate Gray;White;Black;Charcoal;Clay;Biscayne;Carmel,coastline;walnut;oak;slate;white;black;charcoal;clay;biscayne;carmel,color
+BLD_DECK_PVC,PVC & Composite Decking,edge_profile,Edge Profile,enum,False,,Square Edge;Grooved;Fascia,sq edge;grooved;fascia,edge type
+BLD_DECK_PVC,PVC & Composite Decking,material,Material,enum,False,,PVC;Composite;Aluminum;Vinyl,pvc;composite;alum;vinyl,material type
+BLD_DECK_RAIL,Railing & Fence Kits,length,Board / Rail Length,measurement,False,ft,6 ft;8 ft;12 ft;16 ft;20 ft,ft;length;6';8';12';16';20',length
+BLD_DECK_RAIL,Railing & Fence Kits,width_profile,Width / Profile Size,measurement,False,in,1x6;4x4;6x6;1x8;1x12,1x6;4x4;6x6;1x8;1x12,profile
+BLD_DECK_RAIL,Railing & Fence Kits,color,Color / Tone,enum,False,,Coastline;English Walnut;French White Oak;Slate Gray;White;Black;Charcoal;Clay;Biscayne;Carmel,coastline;walnut;oak;slate;white;black;charcoal;clay;biscayne;carmel,color
+BLD_DECK_RAIL,Railing & Fence Kits,edge_profile,Edge Profile,enum,False,,Square Edge;Grooved;Fascia,sq edge;grooved;fascia,edge type
+BLD_DECK_RAIL,Railing & Fence Kits,material,Material,enum,False,,PVC;Composite;Aluminum;Vinyl,pvc;composite;alum;vinyl,material type
+BLD_DECK,Decking & Railing,length,Board / Rail Length,measurement,False,ft,6 ft;8 ft;12 ft;16 ft;20 ft,ft;length;6';8';12';16';20',length
+BLD_DECK,Decking & Railing,width_profile,Width / Profile Size,measurement,False,in,1x6;4x4;6x6;1x8;1x12,1x6;4x4;6x6;1x8;1x12,profile
+BLD_DECK,Decking & Railing,color,Color / Tone,enum,False,,Coastline;English Walnut;French White Oak;Slate Gray;White;Black;Charcoal;Clay;Biscayne;Carmel,coastline;walnut;oak;slate;white;black;charcoal;clay;biscayne;carmel,color
+BLD_DECK,Decking & Railing,edge_profile,Edge Profile,enum,False,,Square Edge;Grooved;Fascia,sq edge;grooved;fascia,edge type
+BLD_DECK,Decking & Railing,material,Material,enum,False,,PVC;Composite;Aluminum;Vinyl,pvc;composite;alum;vinyl,material type
+APP_CLEAN_LAUNDRY,"Washers, Dryers & Laundry Centers",color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP_CLEAN_LAUNDRY,"Washers, Dryers & Laundry Centers",power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP_CLEAN_LAUNDRY,"Washers, Dryers & Laundry Centers",display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+APP_KITCHEN_MICROWAVE,Microwaves & Ranges,color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP_KITCHEN_MICROWAVE,Microwaves & Ranges,power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP_KITCHEN_MICROWAVE,Microwaves & Ranges,display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+APP_CLEAN_DISH,Built-In Dishwashers,color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP_CLEAN_DISH,Built-In Dishwashers,power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP_CLEAN_DISH,Built-In Dishwashers,display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+APP_CLEAN,Appliances,color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP_CLEAN,Appliances,power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP_CLEAN,Appliances,display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+APP_KITCHEN,Kitchen Appliances & Cooking,color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP_KITCHEN,Kitchen Appliances & Cooking,power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP_KITCHEN,Kitchen Appliances & Cooking,display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+APP,Appliances,color_finish,Color / Finish,enum,False,,White;Black;Stainless Steel;Juniper,wh;bk;ss;stainless steel;juniper,appliance color
+APP,Appliances,power_type,Power Source,enum,False,,Electric;Gas,elect;electric;gas,fuel type
+APP,Appliances,display_status,Display Condition,enum,False,,Display Only;New,display only;display,unit condition
+PWR_ACC_BIT,Drive Bits,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_BIT,Drive Bits,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_BIT,Drive Bits,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_BIT,Drive Bits,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_BIT,Drive Bits,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_BLADE,Saw & Tile Blades,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_BLADE,Saw & Tile Blades,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_BLADE,Saw & Tile Blades,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_BLADE,Saw & Tile Blades,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_BLADE,Saw & Tile Blades,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_BATT,Batteries & Chargers,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_BATT,Batteries & Chargers,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_BATT,Batteries & Chargers,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_BATT,Batteries & Chargers,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_BATT,Batteries & Chargers,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_LASER,Laser Levels,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_LASER,Laser Levels,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_LASER,Laser Levels,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_LASER,Laser Levels,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_LASER,Laser Levels,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_ORG,Tool Organizers & Boxes,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_ORG,Tool Organizers & Boxes,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_ORG,Tool Organizers & Boxes,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_ORG,Tool Organizers & Boxes,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_ORG,Tool Organizers & Boxes,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_ROTARY,Rotary Tools,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_ROTARY,Rotary Tools,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_ROTARY,Rotary Tools,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_ROTARY,Rotary Tools,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_ROTARY,Rotary Tools,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC_EXTRACT,Dust Extractors,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC_EXTRACT,Dust Extractors,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC_EXTRACT,Dust Extractors,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC_EXTRACT,Dust Extractors,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC_EXTRACT,Dust Extractors,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+PWR_ACC,Tool Accessories & Attachments,drive_size,Drive Size,measurement,False,in,1/4 in;3/8 in;1/2 in,1/4;3/8;1/2;hex,drive size
+PWR_ACC,Tool Accessories & Attachments,voltage,Voltage Rating,measurement,False,V,12V;18V;20V;120V,12v;18v;20v;120v,voltage
+PWR_ACC,Tool Accessories & Attachments,amp_hour,Battery Capacity,measurement,False,Ah,8Ah;12Ah,8ah;12ah;ah,battery amp hour
+PWR_ACC,Tool Accessories & Attachments,piece_count,Piece Count,integer,False,pc,,pc;set;pk;pack;6pk;50pc;84pc,piece count
+PWR_ACC,Tool Accessories & Attachments,bit_type,Bit Drive Type,enum,False,,Phillips;Torx;Square Drive;Hex;Universal Joint,phillips;torx;square drive;hex;universal joint,bit geometry
+LGT_ELEC_WIRE,Electrical Wire & Cable,length,Tape / Wire Length,measurement,False,ft,50 ft;60 ft;13 ft;500 ft,ft;60';13';50';500',wire length
+LGT_ELEC_WIRE,Electrical Wire & Cable,width,Tape Width,measurement,False,in,3/4 in;1.5 in;2 in,3/4;1.5;2;in,width
+LGT_ELEC_WIRE,Electrical Wire & Cable,box_gang,Electrical Box Gang,enum,False,,2G;Octagon,2g;oct,gang count
+LGT_ELEC_BOX,Electrical Boxes & Covers,length,Tape / Wire Length,measurement,False,ft,50 ft;60 ft;13 ft;500 ft,ft;60';13';50';500',wire length
+LGT_ELEC_BOX,Electrical Boxes & Covers,width,Tape Width,measurement,False,in,3/4 in;1.5 in;2 in,3/4;1.5;2;in,width
+LGT_ELEC_BOX,Electrical Boxes & Covers,box_gang,Electrical Box Gang,enum,False,,2G;Octagon,2g;oct,gang count
+LGT_ELEC,Electrical Boxes & Wiring,length,Tape / Wire Length,measurement,False,ft,50 ft;60 ft;13 ft;500 ft,ft;60';13';50';500',wire length
+LGT_ELEC,Electrical Boxes & Wiring,width,Tape Width,measurement,False,in,3/4 in;1.5 in;2 in,3/4;1.5;2;in,width
+LGT_ELEC,Electrical Boxes & Wiring,box_gang,Electrical Box Gang,enum,False,,2G;Octagon,2g;oct,gang count
+SAF_WORK_HEATED,Heated Workwear & Gear,color,Frame / Gear Color,enum,False,,Black;Red;Clear,black;red;clear,item color
+SAF_WORK_HEATED,Heated Workwear & Gear,lense_type,Lens Technology,enum,False,,Photochromic;Red Lenses;Clear,photochromic;red lenses;clear,lens type
+SAF_WORK,Workwear & Safety Gear,color,Frame / Gear Color,enum,False,,Black;Red;Clear,black;red;clear,item color
+SAF_WORK,Workwear & Safety Gear,lense_type,Lens Technology,enum,False,,Photochromic;Red Lenses;Clear,photochromic;red lenses;clear,lens type
+SAF,Safety & Workwear,color,Frame / Gear Color,enum,False,,Black;Red;Clear,black;red;clear,item color
+SAF,Safety & Workwear,lense_type,Lens Technology,enum,False,,Photochromic;Red Lenses;Clear,photochromic;red lenses;clear,lens type
+BLD_LUMBER_BOARDS,Lumber & Building Supplies,thickness,Panel Thickness,measurement,False,in,1/2 in;5/8 in;3/4 in,1/2;5/8;3/4,thickness
+BLD_LUMBER_BOARDS,Lumber & Building Supplies,wood_species,Wood Species,enum,False,,Doug Fir;Cedar;French White Oak,doug fir;cedar;white oak,wood type
+BLD_LUMBER_BOARDS,Lumber & Building Supplies,mortar_type,Mortar Grade,enum,False,,Type N,type n;mortar,mortar type
+BLD_LUMBER,Lumber & Structural Panels,thickness,Panel Thickness,measurement,False,in,1/2 in;5/8 in;3/4 in,1/2;5/8;3/4,thickness
+BLD_LUMBER,Lumber & Structural Panels,wood_species,Wood Species,enum,False,,Doug Fir;Cedar;French White Oak,doug fir;cedar;white oak,wood type
+BLD_LUMBER,Lumber & Structural Panels,mortar_type,Mortar Grade,enum,False,,Type N,type n;mortar,mortar type

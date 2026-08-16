@@ -1,0 +1,38 @@
+============================================================
+PRODEXA PHASE 9.1 — ADVERSARIAL AUDIT REPORT
+============================================================
+Total Test Cases: 30
+Passed Cases:     30
+Audit Result:     PASS (100.0%)
+============================================================
+
+[PASS] Case 1: Exact evidence match verified.
+[PASS] Case 2: Missing evidence text rejected.
+[PASS] Case 3: Wrong evidence value rejected.
+[PASS] Case 4: Wrong MPN rejected.
+[PASS] Case 5: Wrong manufacturer rejected.
+[PASS] Case 6: Missing MPN identity rejected.
+[PASS] Case 7: Cross-product evidence handled with identity validation.
+[PASS] Case 8: Cross-brand evidence rejected.
+[PASS] Case 9: Conflicting manufacturer sources detected.
+[PASS] Case 10: Duplicate evidence deduplicated.
+[PASS] Case 11: Duplicate source URL deduplicated.
+[PASS] Case 12: PDF vs HTML duplicate evidence merged.
+[PASS] Case 13: Invalid LOV value rejected/flagged.
+[PASS] Case 14: Invalid UOM value rejected/flagged.
+[PASS] Case 15: Unsupported value transformation rejected.
+[PASS] Case 16: Semantic guessing rejected.
+[PASS] Case 17: LLM invented value rejected.
+[PASS] Case 18: Missing source URL marked unverified.
+[PASS] Case 19: Fake source URL marked unverified.
+[PASS] Case 20: Missing evidence text rejected.
+[PASS] Case 21: Evidence text/value mismatch rejected.
+[PASS] Case 22: Low-authority source confidence calibrated.
+[PASS] Case 23: Marketplace source deprioritized.
+[PASS] Case 24: Official manufacturer source prioritized.
+[PASS] Case 25: Phase 7 trusted value protected.
+[PASS] Case 26: Phase 8.1 trusted value protected.
+[PASS] Case 27: Confidence score never overrides evidence grounding failure.
+[PASS] Case 28: Evidence status rules strictly enforced.
+[PASS] Case 29: Complete 7-step provenance verified.
+[PASS] Case 30: UI view-model schema validated.

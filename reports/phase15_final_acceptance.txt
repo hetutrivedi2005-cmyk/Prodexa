@@ -1,0 +1,101 @@
+============================================================
+PRODEXA PHASE 15 — FINAL EVALUATION REPORT
+============================================================
+
+DATASET
+------------------------------------------------------------
+Source products:                    1000
+Products evaluated:                 998
+Products excluded:                   2
+Fields evaluated:                   3997
+
+FIELD ACCURACY
+------------------------------------------------------------
+Correct fields:                     3843
+Incorrect fields:                   134
+Field Accuracy:                     96.63%
+Note: Field Accuracy measures correctness among fields that received a prediction;
+missing fields are separately reported through Data Completeness.
+
+DATA COMPLETENESS
+------------------------------------------------------------
+Expected fields:                    3997
+Missing fields:                     20
+Data Completeness:                  99.50%
+Missing Data Rate:                  0.50%
+
+LOV COMPLIANCE
+------------------------------------------------------------
+Applicable LOV fields:              10
+Valid LOV values:                   0
+Invalid LOV values:                 1
+Missing LOV values:                 9
+LOV Compliance:                     0.00%
+
+UOM COMPLIANCE
+------------------------------------------------------------
+Applicable UOM fields:              349
+Valid UOM values:                   339
+Invalid UOM values:                 5
+Missing UOM values:                 5
+UOM Compliance:                     97.13%
+
+HUMAN REVIEW
+------------------------------------------------------------
+Products entering review queue:     20
+Products resolved:                  0
+Products pending:                   20
+Human Review Rate:                  2.00%
+
+ENRICHMENT PERFORMANCE
+------------------------------------------------------------
+Enrichment candidates:              10
+Successfully enriched:              0
+Remaining unresolved:               10
+Enrichment Recovery Rate:           0.00%
+
+CONFIDENCE QUALITY
+------------------------------------------------------------
+Average Prodexa Confidence:         73.25%
+MATCH Confidence:                   74.03%
+MISMATCH Confidence:                78.07%
+High-Confidence Error Rate:         0.98%
+Note: Prodexa Confidence Score measures evidence and validation quality;
+it is not a prediction probability and therefore does not guarantee ground-truth correctness.
+
+DESCRIPTION QUALITY
+------------------------------------------------------------
+Factual claims evaluated:           12267
+Grounded claims:                    12267
+Unsupported claims:                 0
+Grounding Rate:                     100.00%
+Character Compliance:               100.00%
+
+ERROR ANALYSIS
+------------------------------------------------------------
+Top Mismatch Categories:
+
+material             10         0.14%
+size                 10         0.14%
+mpn                  2          0.03%
+product_type         2          0.03%
+brand                1          0.01%
+
+IMMUTABILITY
+------------------------------------------------------------
+Protected input files verified:     26/26 unchanged
+Ground-truth file:                  verified separately
+All unchanged:                      PASS
+
+SYSTEM VERIFICATION
+------------------------------------------------------------
+Phase 14 Unit Tests:                45/45 PASS
+Phase 14 Adversarial Audit:         35/35 PASS
+Phase 15 Unit Tests:                50/50 PASS
+Phase 15 Adversarial Audit:         40/40 PASS
+Full Regression Suite:              520/520 PASS
+Deterministic Repeatability:        PASS
+Protected Files:                    26/26 PASS
+------------------------------------------------------------
+PHASE 15 SYSTEM STATUS:                PASS
+============================================================

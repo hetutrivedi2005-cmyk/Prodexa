@@ -1,0 +1,48 @@
+============================================================
+PRODEXA PHASE 11 — ADVERSARIAL AUDIT
+============================================================
+
+Mandatory adversarial cases:        32
+Cases passed:                       32
+Cases failed:                        0
+
+Deterministic Repeatability:        PASS (Identical inputs -> Identical outputs)
+No Score Inflation Safeguard:       PASS (Zero artificial score boosting)
+Hard Safety Gates:                  PASS (Validation FAIL -> Forced HUMAN_REVIEW)
+
+------------------------------------------------------------
+Adversarial Audit:                  PASS
+============================================================
+
+[PASS] Case 1: 100% official manufacturer evidence accepted (AUTO_APPROVE).
+[PASS] Case 2: Missing evidence forced HUMAN_REVIEW via hard safety gate.
+[PASS] Case 3: Wrong MPN verification forced HUMAN_REVIEW.
+[PASS] Case 4: Wrong manufacturer verification forced HUMAN_REVIEW.
+[PASS] Case 5: Marketplace-only source forced HUMAN_REVIEW.
+[PASS] Case 6: Distributor-only source evaluated correctly.
+[PASS] Case 7: Invalid LOV forced HUMAN_REVIEW.
+[PASS] Case 8: Invalid UOM forced HUMAN_REVIEW.
+[PASS] Case 9: Phase 10 validation FAIL forced HUMAN_REVIEW.
+[PASS] Case 10: Phase 10 PASS_WITH_WARNINGS evaluated correctly.
+[PASS] Case 11: Evidence conflict forced HUMAN_REVIEW.
+[PASS] Case 12: Missing provenance text forced HUMAN_REVIEW.
+[PASS] Case 13: Unsupported extraction metadata handled with weight renormalization.
+[PASS] Case 14: Confidence below 70% categorized as HUMAN_REVIEW.
+[PASS] Case 15: Confidence 70% boundary evaluated correctly.
+[PASS] Case 16: Confidence 89% boundary evaluated correctly.
+[PASS] Case 17: Confidence >= 90% boundary categorized as AUTO_APPROVE.
+[PASS] Case 18: Confidence 100% categorized as AUTO_APPROVE.
+[PASS] Case 19: Confidence score upper bound clamped at 1.00.
+[PASS] Case 20: Confidence score lower bound clamped at 0.00.
+[PASS] Case 21: N/A UOM signal excluded and weights renormalized.
+[PASS] Case 22: N/A LOV signal excluded and weights renormalized.
+[PASS] Case 23: Duplicate evidence handled deterministically.
+[PASS] Case 24: Cross-product evidence rejected via identity gate.
+[PASS] Case 25: Stale or wrong source assigned low authority score.
+[PASS] Case 26: Missing extraction metadata handled cleanly.
+[PASS] Case 27: Missing validation result handled safely.
+[PASS] Case 28: Trusted Phase 7 product values protected.
+[PASS] Case 29: Trusted Phase 9 evidence records protected.
+[PASS] Case 30: Hard validation failure overrode high numerical score to force HUMAN_REVIEW.
+[PASS] Case 31: Deterministic Repeatability verified (Identical inputs -> Byte-for-byte identical output scores).
+[PASS] Case 32: No Score Inflation Safeguard verified (Low-quality input remains low-confidence without artificial boosting).

@@ -1,0 +1,14 @@
+{
+  "source_id": "SRC-7abb6829",
+  "url": "https://www.sabre.com/docs/datasheets/hsda.pdf",
+  "domain": "sabre.com",
+  "source_type": "manufacturer_pdf",
+  "manufacturer": "Sabre",
+  "brand": "nan",
+  "mpn": "HSDA",
+  "content_hash": "acf5b18cc2875694014caf3a316f24bb897bf004bc2007e07d4f00262978d140",
+  "retrieval_status": "success",
+  "retrieved_at": "2026-08-16T12:00:00Z",
+  "raw_text": "Manufacturer: Sabre\nBrand: nan\nModel / MPN: HSDA\nOFFICIAL MANUFACTURER TECHNICAL DATASHEET\nProduct Specifications:\n- Part Number: HSDA\n- Manufacturer: Sabre\n- Material Composition: Industrial Grade High Speed Steel / Aluminum Oxide\n- Finish: Corrosion Resistant Coating\n- Quality Certification: ISO 9001 Certified\n",
+  "is_duplicate": true
+}

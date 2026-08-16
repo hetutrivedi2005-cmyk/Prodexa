@@ -1,0 +1,52 @@
+============================================================
+PRODEXA PHASE 8 — PRODUCT ENRICHMENT REPORT
+============================================================
+Total products:                      1000
+Products with missing attributes:    763
+Products enriched:                   1
+Products partially enriched:         22
+Products unresolved:                 740
+Products with conflicts:             0
+
+Sources discovered:                  2428
+Sources verified:                    2428
+Manufacturer sources:                1665
+Distributor sources:                 763
+Marketplace sources:                 0
+
+Attributes targeted:                 2736
+Attributes enriched:                 23
+Attributes unresolved:               2713
+Attributes rejected:                 0
+
+Manufacturer-source enrichment rate: 68.57%
+LLM extraction calls:                763
+LLM accepted outputs:                23
+LLM rejected outputs:                0
+Hallucinated values rejected:        0
+Average enrichment confidence:       0.9500
+============================================================
+
+============================================================
+20 REAL BEFORE -> AFTER EXAMPLES
+============================================================
+MPN: DCB518ASTS06G | Mfg: Freud Inc | Cat: ABR_BELT_SANDING | Attr: grit | BEFORE: null -> AFTER: 'P120' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Custom | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Custom | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Clay | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Clay | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Finyline | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: Black | Mfg: nan | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: XT524 | Mfg: Bow Products | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: XT536 | Mfg: Bow Products | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: XT546 | Mfg: Bow Products | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted
+MPN: TGP2-FA | Mfg: Saw Stop LLC | Cat: BLD_DECK_RAIL | Attr: material | BEFORE: null -> AFTER: 'Aluminum' | Source: manufacturer_product_page | Conf: 0.95 | Status: accepted

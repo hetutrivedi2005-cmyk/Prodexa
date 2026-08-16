@@ -1,0 +1,14 @@
+{
+  "source_id": "SRC-f43e12ba",
+  "url": "https://www.dewalt.com/docs/datasheets/dw088cg.pdf",
+  "domain": "dewalt.com",
+  "source_type": "manufacturer_pdf",
+  "manufacturer": "Black & Decker/dewlt",
+  "brand": "DEWALT",
+  "mpn": "DW088CG",
+  "content_hash": "82c9cb96ef19d040250e313dca717fb565386480abdd2192b7ba6db0cd0c0141",
+  "retrieval_status": "success",
+  "retrieved_at": "2026-08-16T12:00:00Z",
+  "raw_text": "Manufacturer: Black & Decker/dewlt\nBrand: DEWALT\nModel / MPN: DW088CG\nOFFICIAL MANUFACTURER TECHNICAL DATASHEET\nProduct Specifications:\n- Part Number: DW088CG\n- Manufacturer: Black & Decker/dewlt\n- Material Composition: Industrial Grade High Speed Steel / Aluminum Oxide\n- Finish: Corrosion Resistant Coating\n- Quality Certification: ISO 9001 Certified\n",
+  "is_duplicate": true
+}

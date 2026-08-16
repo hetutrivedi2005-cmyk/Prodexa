@@ -1,0 +1,14 @@
+{
+  "source_id": "SRC-1eb46029",
+  "url": "https://www.manufacturer.com/docs/datasheets/61109090.pdf",
+  "domain": "manufacturer.com",
+  "source_type": "manufacturer_pdf",
+  "manufacturer": "-",
+  "brand": "nan",
+  "mpn": "61109090",
+  "content_hash": "4354749afb8b12f97a3ce62d3c26c7592290c7b1dbd8a1f1746ddd1cfcd3580f",
+  "retrieval_status": "success",
+  "retrieved_at": "2026-08-16T12:00:00Z",
+  "raw_text": "Manufacturer: -\nBrand: nan\nModel / MPN: 61109090\nOFFICIAL MANUFACTURER TECHNICAL DATASHEET:\n- Part Number: 61109090\n- Manufacturer: -\n- Material Composition: PVC / Aluminum Oxide / High Speed Steel\n- Product Dimensions: 1/2 in x 18 in\n- Board Length: 12 ft\n- Width Profile: 1x6\n- Color / Finish: Slate Gray / White / Stainless Steel\n- Edge Profile: Grooved\n- Wattage Rating: 60W\n- Color Temperature: 2700K\n- Power Source: Electric\n- Display Condition: New\n- Package Quantity: 5 Pack\n",
+  "is_duplicate": true
+}

@@ -1,0 +1,28 @@
+============================================================
+PRODEXA PHASE 8.1 — ADVERSARIAL AUDIT REPORT
+============================================================
+Total Test Cases: 20
+Passed Cases:     20
+Audit Result:     PASS (100.0%)
+============================================================
+
+[PASS] Case 1: Wrong MPN source rejected.
+[PASS] Case 2: Similar but non-identical MPN rejected.
+[PASS] Case 3: Wrong manufacturer rejected.
+[PASS] Case 4: Manufacturer source outranks marketplace source.
+[PASS] Case 5: Manufacturer source outranks distributor source.
+[PASS] Case 6: Missing MPN source rejected.
+[PASS] Case 7: MPN with punctuation verified after normalization.
+[PASS] Case 8: MPN with spaces verified after normalization.
+[PASS] Case 9: PDF repeated headers cleaned safely.
+[PASS] Case 10: PDF specification table chunking preserved.
+[PASS] Case 11: Attribute synonym query expansion retrieval passed.
+[PASS] Case 12: Attribute missing from evidence returns null.
+[PASS] Case 13: LLM invented value rejected.
+[PASS] Case 14: LLM unsupported inference rejected.
+[PASS] Case 15: Conflicting values flagged for manual review.
+[PASS] Case 16: Cross-product retrieval attempt rejected.
+[PASS] Case 17: Attribute outside category schema rejected.
+[PASS] Case 18: Invalid LOV value handled safely.
+[PASS] Case 19: UOM normalized successfully.
+[PASS] Case 20: Phase 7 trusted value overwrite attempt prevented.

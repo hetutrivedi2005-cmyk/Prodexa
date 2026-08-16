@@ -1,0 +1,485 @@
+============================================================
+PRODEXA PHASE 11 — CONFIDENCE REPORT
+============================================================
+DATASET CONFIDENCE SUMMARY
+Products processed:                  1000
+Total attributes evaluated:          947
+Evidence-backed enriched attributes: 947
+Baseline native attributes:          0
+Attributes missing required evidence: 0
+
+ATTRIBUTE CONFIDENCE METRICS
+Average confidence (all attributes): 0.9867 (98.67%)
+Average confidence (evidence-backed):0.9867 (98.67%)
+Minimum attribute confidence:        0.7781 (77.81%)
+Maximum attribute confidence:        1.0000 (100.00%)
+
+ATTRIBUTE DECISION DISTRIBUTION
+AUTO_APPROVE (>=90%):               883
+REVIEW_RECOMMENDED (70-89%):        64
+HUMAN_REVIEW (<70%):                0
+
+PRODUCT-LEVEL CONFIDENCE DISTRIBUTION
+Products High Confidence (>=90%):    587
+Products Review Recommended (70-89%):411
+Products Human Review (<70%):        2
+Average Product Confidence:          0.2225 (22.25%)
+Lowest Product Confidence:           0.0000 (0.00%)
+
+CONFIDENCE SCORE BRACKETS
+95–100%:                            883
+90–94%:                             0
+80–89%:                             42
+70–79%:                             22
+50–69%:                             0
+0–49%:                              0
+------------------------------------------------------------
+IMMUTABILITY
+Protected files verified:           19/19 unchanged
+------------------------------------------------------------
+EXPLANATION SAMPLES (FIRST 20 ATTRIBUTES)
+------------------------------------------------------------
+=== Prodexa Confidence Score: grit ===
+Value: P120
+Confidence Score: 86% [█████████████████░░░]
+Decision: REVIEW_RECOMMENDED
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    40% (Weight: 20%)
+- Extraction Quality:    99% (Weight: 20%)
+- LOV Compliance:       100% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ PARTIAL_EVIDENCE
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ LOV_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: length ===
+Value: 12 ft
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: length ===
+Value: 12 ft
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: color ===
+Value: Slate Gray
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: edge_profile ===
+Value: Grooved
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: length ===
+Value: 12 ft
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: material ===
+Value: PVC
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       100% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ LOV_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: width_profile ===
+Value: 1x6
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: color ===
+Value: Slate Gray
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: edge_profile ===
+Value: Grooved
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: length ===
+Value: 12 ft
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: material ===
+Value: PVC
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       100% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ LOV_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: width_profile ===
+Value: 1x6
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: color ===
+Value: Slate Gray
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: edge_profile ===
+Value: Grooved
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: length ===
+Value: 12 ft
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: material ===
+Value: PVC
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       100% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ LOV_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: width_profile ===
+Value: 1x6
+Confidence Score: 100% [████████████████████]
+Decision: AUTO_APPROVE
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    100% (Weight: 20%)
+- Extraction Quality:    100% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       100% (Weight: 10%)
+- Phase 10 Validation:   100% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ EVIDENCE_GROUNDED
+  ✓ EXACT_MPN_MATCH
+  ✓ MANUFACTURER_VERIFIED
+  ✓ DIRECT_SPECIFICATION_MATCH
+  ✓ UOM_VALID
+  ✓ VALIDATION_PASS
+
+=== Prodexa Confidence Score: color ===
+Value: Slate Gray
+Confidence Score: 78% [███████████████░░░░░]
+Decision: REVIEW_RECOMMENDED
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    40% (Weight: 20%)
+- Extraction Quality:    90% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   75% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ PARTIAL_EVIDENCE
+  ✓ VALIDATION_WARNING
+
+=== Prodexa Confidence Score: edge_profile ===
+Value: Grooved
+Confidence Score: 78% [███████████████░░░░░]
+Decision: REVIEW_RECOMMENDED
+
+Score Breakdown:
+- Source Authority:      100% (Weight: 25%)
+- Evidence Grounding:    40% (Weight: 20%)
+- Extraction Quality:    90% (Weight: 20%)
+- LOV Compliance:       N/A% (Weight: 10%)
+- UOM Compliance:       N/A% (Weight: 10%)
+- Phase 10 Validation:   75% (Weight: 15%)
+
+Reason Codes:
+  ✓ OFFICIAL_MANUFACTURER_SOURCE
+  ✓ HIGH_AUTHORITY_SOURCE
+  ✓ PARTIAL_EVIDENCE
+  ✓ VALIDATION_WARNING
+============================================================

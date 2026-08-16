@@ -1,0 +1,46 @@
+============================================================
+PRODEXA PHASE 7 — UOM NORMALIZATION REPORT
+============================================================
+Total products:                      1000
+Total attribute values received:     453
+Already canonical:                   233
+Actually transformed:                220
+Unresolved values:                   0
+Unsupported units:                   0
+Successful processing rate:          100.00%
+Transformation rate:                 48.57%
+
+Decimal normalizations:              0
+Fraction normalizations:             0
+Mixed fraction normalizations:       1
+Unit alias normalizations:           217
+Unit conversions:                    0
+Compound dimensions:                 2
+
+AI/LLM calls:                        0
+Deterministic confidence avg:        1.0000
+============================================================
+
+============================================================
+20 REAL BEFORE -> AFTER EXAMPLES
+============================================================
+RAW: '1/2 in x 18 in' -> NORMALIZED: '1/2 in x 18 in' | METHOD: already_canonical | STATUS: normalized
+RAW: '6' -> NORMALIZED: '6' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P150' -> NORMALIZED: 'P150' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P120' -> NORMALIZED: 'P120' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P80' -> NORMALIZED: 'P80' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P180' -> NORMALIZED: 'P180' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P220' -> NORMALIZED: 'P220' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P320' -> NORMALIZED: 'P320' | METHOD: already_canonical | STATUS: normalized
+RAW: '50' -> NORMALIZED: '50' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P80' -> NORMALIZED: 'P80' | METHOD: already_canonical | STATUS: normalized
+RAW: '5 in' -> NORMALIZED: '5 in' | METHOD: already_canonical | STATUS: normalized
+RAW: 'P120' -> NORMALIZED: 'P120' | METHOD: already_canonical | STATUS: normalized
+RAW: '5 in' -> NORMALIZED: '5 in' | METHOD: already_canonical | STATUS: normalized
+RAW: '2.75 in x 30 in' -> NORMALIZED: '2-3/4 in x 30 in' | METHOD: compound_dimension | STATUS: normalized
+RAW: '2.75 in x 30 in' -> NORMALIZED: '2-3/4 in x 30 in' | METHOD: compound_dimension | STATUS: normalized
