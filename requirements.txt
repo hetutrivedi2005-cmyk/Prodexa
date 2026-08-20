@@ -3,3 +3,9 @@ google-genai
 pydantic
 python-dotenv
 pytest
+fastapi
+uvicorn
+pyjwt
+passlib
+bcrypt
+python-multipart

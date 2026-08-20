@@ -113,8 +113,8 @@ def run_phase9_adversarial_audit(report_path: str = "reports/phase9_evidence_aud
     test_cases_passed += 1
 
     # 15. Marketplace-only evidence -> Deprioritized
-    conf15, _ = confidence_engine.calculate_confidence(0.30, True, True, True, True, True, False)
-    conf_mfg, _ = confidence_engine.calculate_confidence(1.00, True, True, True, True, True, False)
+    conf15, _, _ = confidence_engine.calculate_confidence(0.30, True, True, True, True, True, False)
+    conf_mfg, _, _ = confidence_engine.calculate_confidence(1.00, True, True, True, True, True, False)
     assert conf15 < conf_mfg
     audit_logs.append("[PASS] Case 15: Marketplace evidence deprioritized.")
     test_cases_passed += 1

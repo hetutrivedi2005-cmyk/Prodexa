@@ -1,13 +1,33 @@
 ============================================================
-PRODEXA PHASE 9 — EVIDENCE ENGINE AUDIT REPORT
+PRODEXA PHASE 9 — ADVERSARIAL AUDIT REPORT
 ============================================================
-100% Provenance Traceability Audit: PASS (947/947 Traceable)
-Protected-File SHA256 Verification: PASS (13/13 Files Unchanged)
-Evidence/Value Grounding Audit:     PASS (0 Ungrounded Accepted)
-Source Authority Audit:             PASS (0 Marketplace Overrides)
-MPN Identity Audit:                 PASS (0 MPN Mismatches)
-LOV Compliance Audit:               PASS (100% Compliant)
-UOM Compliance Audit:               PASS (100% Compliant)
-Conflict Protection Audit:          PASS (0 Overwritten Trusted Values)
-Cross-Product Leakage Audit:        PASS (0 Cross-Product Leakage)
+Total Test Cases: 25
+Passed Cases:     25
+Audit Result:     PASS (100.0%)
 ============================================================
+
+[PASS] Case 1: Missing source rejected / marked unverified.
+[PASS] Case 2: Missing source URL rejected / marked unverified.
+[PASS] Case 3: Missing evidence text rejected / marked unverified.
+[PASS] Case 4: Wrong MPN rejected.
+[PASS] Case 5: Wrong normalized MPN rejected.
+[PASS] Case 6: Wrong manufacturer rejected.
+[PASS] Case 7: Wrong manufacturer domain rejected.
+[PASS] Case 8: Invalid source URL rejected.
+[PASS] Case 9: Unsupported attribute rejected.
+[PASS] Case 10: Evidence/value mismatch rejected.
+[PASS] Case 11: Invented value rejected.
+[PASS] Case 12: Ungrounded value rejected.
+[PASS] Case 13: Invalid LOV value handled safely.
+[PASS] Case 14: Invalid UOM value handled safely.
+[PASS] Case 15: Marketplace evidence deprioritized.
+[PASS] Case 16: Duplicate evidence deduplicated.
+[PASS] Case 17: Cross-product evidence leakage prevented.
+[PASS] Case 18: Cross-MPN evidence leakage prevented.
+[PASS] Case 19: Phase 7 trusted-value overwrite attempt prevented.
+[PASS] Case 20: Phase 8.1 trusted-value overwrite attempt prevented.
+[PASS] Case 21: Conflict detected and flagged for manual review.
+[PASS] Case 22: Invalid confidence out-of-bounds rejected.
+[PASS] Case 23: Missing provenance field marked unverified.
+[PASS] Case 24: Malformed evidence record status rejected.
+[PASS] Case 25: Valid evidence accepted and verified.

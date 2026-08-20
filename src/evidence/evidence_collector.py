@@ -114,7 +114,7 @@ class EvidenceCollector:
                 has_conflict, conf_reason = self.conflict_detector.check_conflict(attr_name, existing_trusted_val, val)
 
                 # Confidence Calculation
-                conf_score, conf_breakdown = self.confidence_engine.calculate_confidence(
+                conf_score, conf_breakdown, _ = self.confidence_engine.calculate_confidence(
                     source_authority_score=src_info.get("authority_score", 0.95),
                     mpn_verified=val_res["mpn_verified"],
                     manufacturer_verified=val_res["manufacturer_verified"],

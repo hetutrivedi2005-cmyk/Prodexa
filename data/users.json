@@ -1,0 +1,26 @@
+{
+  "user@prodexa.com": {
+    "id": "USR-001",
+    "email": "user@prodexa.com",
+    "name": "Product Specialist",
+    "password_hash": "b613fd6e6ed516f2cb9715f0d6076bbf85dae963a2e23bd4c708074b3ab5a4e7",
+    "role": "USER",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  "admin@prodexa.com": {
+    "id": "ADM-001",
+    "email": "admin@prodexa.com",
+    "name": "System Administrator",
+    "password_hash": "117792fab2316bc4c0fa69f8b9b057cb5947db7dd8c9471328dec822c6cba3ec",
+    "role": "ADMIN",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  "het@prodexa.com": {
+    "id": "USR-003",
+    "email": "het@prodexa.com",
+    "name": "het",
+    "password_hash": "34812df244b0a85bd9365525796472478a6e7f9b53faeb7d28ce78ab6be94597",
+    "role": "USER",
+    "created_at": "2026-08-20T13:08:24.835578Z"
+  }
+}
