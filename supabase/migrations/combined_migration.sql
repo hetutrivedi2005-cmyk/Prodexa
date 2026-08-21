@@ -370,6 +370,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+DROP POLICY IF EXISTS "Public read categories" ON public.categories;
+DROP POLICY IF EXISTS "Public read products" ON public.products;
+DROP POLICY IF EXISTS "Public read attributes" ON public.product_attributes;
+DROP POLICY IF EXISTS "Public read evidence" ON public.evidence;
+DROP POLICY IF EXISTS "Public read validations" ON public.validations;
+DROP POLICY IF EXISTS "Public read confidence" ON public.confidence_scores;
+DROP POLICY IF EXISTS "Public read descriptions" ON public.product_descriptions;
+DROP POLICY IF EXISTS "Public read reports" ON public.reports;
+DROP POLICY IF EXISTS "Public read exports" ON public.exports;
+DROP POLICY IF EXISTS "Public read review queue" ON public.review_queue;
+DROP POLICY IF EXISTS "Public read review actions" ON public.review_actions;
+
 CREATE POLICY "Public read categories" ON public.categories FOR SELECT USING (true);
 CREATE POLICY "Public read products" ON public.products FOR SELECT USING (true);
 CREATE POLICY "Public read attributes" ON public.product_attributes FOR SELECT USING (true);
@@ -381,3 +393,4 @@ CREATE POLICY "Public read reports" ON public.reports FOR SELECT USING (true);
 CREATE POLICY "Public read exports" ON public.exports FOR SELECT USING (true);
 CREATE POLICY "Public read review queue" ON public.review_queue FOR SELECT USING (true);
 CREATE POLICY "Public read review actions" ON public.review_actions FOR SELECT USING (true);
+
