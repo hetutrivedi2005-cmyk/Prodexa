@@ -23,6 +23,8 @@ if str(BASE_DIR) not in sys.path:
 # Import existing backend modules
 from src.review.review_service import ReviewService
 from src.review.review_model import ReviewItem
+from src.database.connection import db_manager
+from src.database.repositories import repo
 
 # Application Setup
 app = FastAPI(
@@ -216,6 +218,10 @@ def get_me(user: dict = Depends(get_current_user)):
 # -------------------------------------------------------------------
 # SYSTEM & HEALTH ENDPOINTS
 # -------------------------------------------------------------------
+@app.get("/api/health/database")
+def database_health_check():
+    return db_manager.get_database_health()
+
 @app.get("/api/health")
 def health_check():
     product_file = BASE_DIR / "data" / "final" / "product.json"
@@ -233,6 +239,8 @@ def health_check():
             "reports_count": len(list(reports_dir.glob("*.txt"))) if reports_dir.exists() else 0
         }
     }
+
+
 
 
 # -------------------------------------------------------------------
