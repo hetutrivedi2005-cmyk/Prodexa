@@ -1,27 +1,135 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --bg-dark: #080c14;
-    --bg-surface: #0f172a;
-    --bg-card: #1e293b;
-    --border-color: #334155;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent-cyan: #06b6d4;
-    --accent-emerald: #10b981;
-    --accent-amber: #f59e0b;
-    --accent-rose: #f43f5e;
-  }
+:root {
+  --bg: #0A0E13;
+  --panel: #11161C;
+  --panel-2: #161D26;
+  --panel-3: #1B232D;
+  --border: #232B35;
+  --border-soft: #1B222B;
+  --text: #E7ECF2;
+  --muted: #8B95A3;
+  --muted-2: #5C6572;
+  --amber: #E2A340;
+  --amber-dim: #8A6A32;
+  --blue: #5B9EE8;
+  --green: #4FB477;
+  --red: #E2634A;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
 
-  body {
-    background-color: #080c14;
-    color: #f8fafc;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    overflow-x: hidden;
-    background-image: radial-gradient(rgba(30, 41, 59, 0.4) 1px, transparent 0);
-    background-size: 24px 24px;
-  }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Blueprint Grid Backdrop */
+.blueprint-bg {
+  background-image: 
+    linear-gradient(rgba(226, 163, 64, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 163, 64, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(1100px 700px at 50% 0%, black, transparent 75%);
+}
+
+.glow-backdrop {
+  background: 
+    radial-gradient(900px 500px at 78% -8%, rgba(226, 163, 64, 0.12), transparent 60%),
+    radial-gradient(800px 500px at 8% 20%, rgba(91, 158, 232, 0.08), transparent 60%),
+    var(--bg);
+}
+
+/* 3D Stack Stage Styles */
+.stage-stage {
+  height: 440px;
+  perspective: 1400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stack3d {
+  position: relative;
+  width: 260px;
+  height: 160px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.slab {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(226, 163, 64, 0.35);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 14px 18px;
+  transform-style: preserve-3d;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+.slab .num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted-2);
+}
+
+.slab .lbl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 3px;
+}
+
+.slab0 { background: rgba(92, 101, 114, 0.18); border-color: rgba(139, 149, 163, 0.35); }
+.slab1 { background: rgba(91, 158, 232, 0.14); border-color: rgba(91, 158, 232, 0.4); }
+.slab2 { background: rgba(226, 163, 64, 0.12); border-color: rgba(226, 163, 64, 0.35); }
+.slab3 { background: rgba(91, 158, 232, 0.14); border-color: rgba(91, 158, 232, 0.4); }
+.slab4 { background: rgba(226, 163, 64, 0.24); border-color: var(--amber); }
+.slab4 .lbl { color: var(--amber); }
+
+.particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  left: 50%;
+  top: 50%;
+  box-shadow: 0 0 8px 2px rgba(226, 163, 64, 0.6);
+  animation: rise 3.6s ease-in-out infinite;
+}
+
+@keyframes rise {
+  0% { transform: translate3d(-40px, 60px, 0px); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translate3d(30px, -110px, 140px); opacity: 0; }
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: rgba(17, 22, 28, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.font-mono-tech {
+  font-family: var(--font-mono);
+}
+
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* Custom Scrollbars */
@@ -30,34 +138,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #080c14;
+  background: #0A0E13;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1B232D;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
-/* Glass & Metallic Surface Utilities */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.glass-panel-hover:hover {
-  transform: translateY(-4px);
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.2);
-}
-
-/* Monospace font utility */
-.font-mono-tech {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: #232B35;
 }

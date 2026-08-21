@@ -858,8 +858,28 @@ async def upload_file(file: UploadFile = File(...)):
 
 
 # -------------------------------------------------------------------
+# FRONTEND STATIC FILES & SPA FALLBACK ROUTE
+# -------------------------------------------------------------------
+from fastapi.staticfiles import StaticFiles
+
+DIST_DIR = BASE_DIR / "frontend" / "dist"
+if DIST_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API endpoint not found")
+        target = DIST_DIR / full_path
+        if target.exists() and target.is_file():
+            return FileResponse(target)
+        return FileResponse(DIST_DIR / "index.html")
+
+
+# -------------------------------------------------------------------
 # ENTRYPOINT
 # -------------------------------------------------------------------
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
+

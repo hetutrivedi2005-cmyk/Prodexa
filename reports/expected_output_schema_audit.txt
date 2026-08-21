@@ -1,0 +1,316 @@
+================================================================================
+           PRODEXA - OFFICIAL EXPECTED-OUTPUT SCHEMA COVERAGE AUDIT            
+================================================================================
+Audit Timestamp: 2026-08-21
+Target Delivery Schema: Unihack_ Expected Output - Delivery Format.csv
+Internal Data Models Evaluated: PRODEXA Intelligence Pipeline & data/final/enriched.csv
+Final Output Dataset Generated: data/final/unihack_expected_output.csv
+================================================================================
+
+1. SCHEMA DISTINCTION & COVERAGE SUMMARY
+--------------------------------------------------------------------------------
+  - Expected schema fields                           : 252
+  - Fields originally present in enriched.csv        : 22
+  - Directly matched fields                          : 17
+  - Internal/extra fields in enriched.csv            : 5
+  - Fields Not Directly Available in enriched.csv    : 235
+  - Final delivery columns                           : 252
+  - Fields populated in at least one product         : 63 (25.0%)
+  - Fields completely empty across all products     : 189 (75.0%)
+
+  [EXPLANATION REGARDING 'Fields Not Directly Available in enriched.csv: 235']
+  Note: The 235 fields not directly present in enriched.csv are NOT missing from the final delivery schema.
+  The generated delivery file (data/final/unihack_expected_output.csv) contains ALL 252 required columns.
+  These 235 non-direct fields are either:
+    a) Deterministically mapped from other PRODEXA intelligence outputs (e.g. described_products.csv,
+       attribute_evidence.csv, source_registry.csv, product_taxonomy.csv, dynamic attribute store), or
+    b) Left strictly as clean empty strings when required product information is genuinely unavailable.
+
+2. SUPPORT CATEGORY BREAKDOWN & DEFINITIONS
+--------------------------------------------------------------------------------
+Category Definitions:
+  - FULLY_SUPPORTED    : >= 80% product population (>= 800 out of 1000 products)
+  - PARTIALLY_SUPPORTED: 1% to 79% product population (1 to 799 out of 1000 products)
+  - NOT_SUPPORTED      : 0% product population (0 out of 1000 products; clean empty strings)
+
+Category Counts:
+  - FULLY_SUPPORTED    : 20 fields
+  - PARTIALLY_SUPPORTED: 43 fields
+  - NOT_SUPPORTED      : 189 fields
+  - Verification Check : 20 + 43 + 189 = 252 (Matches Expected 252: True)
+
+3. INTERNAL METADATA FIELDS IN enriched.csv
+--------------------------------------------------------------------------------
+  - validation_status (Internal validation/confidence flag)
+  - confidence_score (Internal validation/confidence flag)
+  - confidence_decision (Internal validation/confidence flag)
+  - human_review_status (Internal validation/confidence flag)
+  - evidence_status (Internal validation/confidence flag)
+
+4. COMPLETE FIELD-BY-FIELD MAPPING & AUDIT TABLE
+--------------------------------------------------------------------------------
+IDX  | EXPECTED HEADER                   | SUPPORT CATEGORY    | POPULATED | POP %  | SOURCE PRODEXA FIELD           | TRANSFORMATION / UNSUPPORTED EXPLANATION
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+1    | MFR URL                           | PARTIALLY_SUPPORTED | 494/1000  | 49.4%  | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+2    | Ref URL 1                         | PARTIALLY_SUPPORTED | 494/1000  | 49.4%  | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+3    | Ref URL 2                         | PARTIALLY_SUPPORTED | 494/1000  | 49.4%  | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+4    | Ref URL 3                         | PARTIALLY_SUPPORTED | 30/1000   | 3.0%   | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+5    | Ref URL 4                         | NOT_SUPPORTED       | 0/1000    | 0.0%   | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+6    | Ref URL 5                         | NOT_SUPPORTED       | 0/1000    | 0.0%   | source_registry.csv [source_url] | PRODEXA Source Registry & Discovery (Phase 8)
+7    | PART_NUMBER                       | FULLY_SUPPORTED     | 1000/1000 | 100.0% | Derived from SKU / Part_Desc   | Deterministic Delivery Schema Format Layer
+8    | Dept                              | PARTIALLY_SUPPORTED | 740/1000  | 74.0%  | described_products.csv [category_path/name] | PRODEXA Product Taxonomy Classifier (Phase 4)
+9    | Class                             | FULLY_SUPPORTED     | 813/1000  | 81.3%  | described_products.csv [category_path/name] | PRODEXA Product Taxonomy Classifier (Phase 4)
+10   | Fine                              | PARTIALLY_SUPPORTED | 295/1000  | 29.5%  | described_products.csv [category_path/name] | PRODEXA Product Taxonomy Classifier (Phase 4)
+11   | SKU - MY_PART_NUMBER              | FULLY_SUPPORTED     | 1000/1000 | 100.0% | Derived from SKU / Part_Desc   | Deterministic Delivery Schema Format Layer
+12   | Mfg_Part_Num                      | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [Mfg_Part_Num] | Direct pass-through from raw input dataset
+13   | Part_Desc                         | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [Part_Desc] | Direct pass-through from raw input dataset
+14   | E1_Brand                          | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [E1_Brand]  | Direct pass-through from raw input dataset
+15   | Unilog_Brand                      | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [Unilog_Brand] | Direct pass-through from raw input dataset
+16   | DIB_Brand                         | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [DIB_Brand] | Direct pass-through from raw input dataset
+17   | Part_Manuf                        | FULLY_SUPPORTED     | 1000/1000 | 100.0% | data/raw/input.csv [Part_Manuf] | Direct pass-through from raw input dataset
+18   | MANUFACTURER_NAME                 | FULLY_SUPPORTED     | 959/1000  | 95.9%  | described_products.csv [manufacturer_name] | PRODEXA Canonical Identity Resolution (Phases 1-3)
+19   | BRAND_NAME                        | PARTIALLY_SUPPORTED | 638/1000  | 63.8%  | described_products.csv [brand_name] | PRODEXA Canonical Identity Resolution (Phases 1-3)
+20   | TRADE_NAME                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+21   | MANUFACTURER_PART_NUMBER          | FULLY_SUPPORTED     | 1000/1000 | 100.0% | described_products.csv [manufacturer_part_number] | PRODEXA Canonical Identity Resolution (Phases 1-3)
+22   | ALTERNATE_PART_NUMBER             | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+23   | Classpath                         | FULLY_SUPPORTED     | 813/1000  | 81.3%  | described_products.csv [category_path/name] | PRODEXA Product Taxonomy Classifier (Phase 4)
+24   | MOBILE_DESC                       | FULLY_SUPPORTED     | 1000/1000 | 100.0% | Derived from SKU / Part_Desc   | Deterministic Delivery Schema Format Layer
+25   | INVOICE_DESC                      | FULLY_SUPPORTED     | 1000/1000 | 100.0% | Derived from SKU / Part_Desc   | Deterministic Delivery Schema Format Layer
+26   | SHORT_DESC                        | FULLY_SUPPORTED     | 1000/1000 | 100.0% | described_products.csv [long/short_desc] | PRODEXA Description Generator (Phase 13)
+27   | LONG_DESC1                        | FULLY_SUPPORTED     | 1000/1000 | 100.0% | described_products.csv [long/short_desc] | PRODEXA Description Generator (Phase 13)
+28   | RETAIL_DESC                       | FULLY_SUPPORTED     | 1000/1000 | 100.0% | Derived from SKU / Part_Desc   | Deterministic Delivery Schema Format Layer
+29   | MARKETING_DESCRIPTION             | FULLY_SUPPORTED     | 1000/1000 | 100.0% | described_products.csv [long/short_desc] | PRODEXA Description Generator (Phase 13)
+30   | ITEM_FEATURES_1                   | PARTIALLY_SUPPORTED | 208/1000  | 20.8%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+31   | ITEM_FEATURES_2                   | PARTIALLY_SUPPORTED | 208/1000  | 20.8%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+32   | ITEM_FEATURES_3                   | PARTIALLY_SUPPORTED | 208/1000  | 20.8%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+33   | ITEM_FEATURES_4                   | PARTIALLY_SUPPORTED | 208/1000  | 20.8%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+34   | ITEM_FEATURES_5                   | PARTIALLY_SUPPORTED | 208/1000  | 20.8%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+35   | ITEM_FEATURES_6                   | PARTIALLY_SUPPORTED | 201/1000  | 20.1%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+36   | ITEM_FEATURES_7                   | PARTIALLY_SUPPORTED | 201/1000  | 20.1%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+37   | ITEM_FEATURES_8                   | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+38   | ITEM_FEATURES_9                   | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+39   | ITEM_FEATURES_10                  | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+40   | ITEM_FEATURES_11                  | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+41   | ITEM_FEATURES_12                  | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+42   | ITEM_FEATURES_13                  | PARTIALLY_SUPPORTED | 200/1000  | 20.0%  | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+43   | ITEM_FEATURES_14                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+44   | ITEM_FEATURES_15                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+45   | ITEM_FEATURES_16                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+46   | ITEM_FEATURES_17                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+47   | ITEM_FEATURES_18                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+48   | ITEM_FEATURES_19                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+49   | ITEM_FEATURES_20                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | attribute_evidence.csv [evidence_text] | PRODEXA Bullet Feature Extractor (Phase 9)
+50   | With                              | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+51   | Standard/Approvals                | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+52   | Prop 65                           | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+53   | Application                       | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+54   | Includes                          | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+55   | Product Name                      | PARTIALLY_SUPPORTED | 295/1000  | 29.5%  | described_products.csv [category_path/name] | PRODEXA Product Taxonomy Classifier (Phase 4)
+56   | ATTRIBUTE_LABEL 1                 | PARTIALLY_SUPPORTED | 641/1000  | 64.1%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+57   | ATTRIBUTE_VALUE 1                 | PARTIALLY_SUPPORTED | 641/1000  | 64.1%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+58   | ATTRIBUTE_UOM 1                   | PARTIALLY_SUPPORTED | 192/1000  | 19.2%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+59   | ATTRIBUTE_LABEL 2                 | PARTIALLY_SUPPORTED | 382/1000  | 38.2%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+60   | ATTRIBUTE_VALUE 2                 | PARTIALLY_SUPPORTED | 382/1000  | 38.2%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+61   | ATTRIBUTE_UOM 2                   | PARTIALLY_SUPPORTED | 115/1000  | 11.5%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+62   | ATTRIBUTE_LABEL 3                 | PARTIALLY_SUPPORTED | 283/1000  | 28.3%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+63   | ATTRIBUTE_VALUE 3                 | PARTIALLY_SUPPORTED | 283/1000  | 28.3%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+64   | ATTRIBUTE_UOM 3                   | PARTIALLY_SUPPORTED | 55/1000   | 5.5%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+65   | ATTRIBUTE_LABEL 4                 | PARTIALLY_SUPPORTED | 254/1000  | 25.4%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+66   | ATTRIBUTE_VALUE 4                 | PARTIALLY_SUPPORTED | 254/1000  | 25.4%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+67   | ATTRIBUTE_UOM 4                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+68   | ATTRIBUTE_LABEL 5                 | PARTIALLY_SUPPORTED | 193/1000  | 19.3%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+69   | ATTRIBUTE_VALUE 5                 | PARTIALLY_SUPPORTED | 193/1000  | 19.3%  | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+70   | ATTRIBUTE_UOM 5                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+71   | ATTRIBUTE_LABEL 6                 | PARTIALLY_SUPPORTED | 91/1000   | 9.1%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+72   | ATTRIBUTE_VALUE 6                 | PARTIALLY_SUPPORTED | 91/1000   | 9.1%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+73   | ATTRIBUTE_UOM 6                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+74   | ATTRIBUTE_LABEL 7                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+75   | ATTRIBUTE_VALUE 7                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+76   | ATTRIBUTE_UOM 7                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+77   | ATTRIBUTE_LABEL 8                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+78   | ATTRIBUTE_VALUE 8                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+79   | ATTRIBUTE_UOM 8                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+80   | ATTRIBUTE_LABEL 9                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+81   | ATTRIBUTE_VALUE 9                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+82   | ATTRIBUTE_UOM 9                   | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+83   | ATTRIBUTE_LABEL 10                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+84   | ATTRIBUTE_VALUE 10                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+85   | ATTRIBUTE_UOM 10                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+86   | ATTRIBUTE_LABEL 11                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+87   | ATTRIBUTE_VALUE 11                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+88   | ATTRIBUTE_UOM 11                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+89   | ATTRIBUTE_LABEL 12                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+90   | ATTRIBUTE_VALUE 12                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+91   | ATTRIBUTE_UOM 12                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+92   | ATTRIBUTE_LABEL 13                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+93   | ATTRIBUTE_VALUE 13                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+94   | ATTRIBUTE_UOM 13                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+95   | ATTRIBUTE_LABEL 14                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+96   | ATTRIBUTE_VALUE 14                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+97   | ATTRIBUTE_UOM 14                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+98   | ATTRIBUTE_LABEL 15                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+99   | ATTRIBUTE_VALUE 15                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+100  | ATTRIBUTE_UOM 15                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+101  | ATTRIBUTE_LABEL 16                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+102  | ATTRIBUTE_VALUE 16                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+103  | ATTRIBUTE_UOM 16                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+104  | ATTRIBUTE_LABEL 17                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+105  | ATTRIBUTE_VALUE 17                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+106  | ATTRIBUTE_UOM 17                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+107  | ATTRIBUTE_LABEL 18                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+108  | ATTRIBUTE_VALUE 18                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+109  | ATTRIBUTE_UOM 18                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+110  | ATTRIBUTE_LABEL 19                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+111  | ATTRIBUTE_VALUE 19                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+112  | ATTRIBUTE_UOM 19                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+113  | ATTRIBUTE_LABEL 20                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+114  | ATTRIBUTE_VALUE 20                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+115  | ATTRIBUTE_UOM 20                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+116  | ATTRIBUTE_LABEL 21                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+117  | ATTRIBUTE_VALUE 21                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+118  | ATTRIBUTE_UOM 21                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+119  | ATTRIBUTE_LABEL 22                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+120  | ATTRIBUTE_VALUE 22                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+121  | ATTRIBUTE_UOM 22                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+122  | ATTRIBUTE_LABEL 23                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+123  | ATTRIBUTE_VALUE 23                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+124  | ATTRIBUTE_UOM 23                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+125  | ATTRIBUTE_LABEL 24                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+126  | ATTRIBUTE_VALUE 24                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+127  | ATTRIBUTE_UOM 24                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+128  | ATTRIBUTE_LABEL 25                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+129  | ATTRIBUTE_VALUE 25                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+130  | ATTRIBUTE_UOM 25                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+131  | ATTRIBUTE_LABEL 26                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+132  | ATTRIBUTE_VALUE 26                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+133  | ATTRIBUTE_UOM 26                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+134  | ATTRIBUTE_LABEL 27                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+135  | ATTRIBUTE_VALUE 27                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+136  | ATTRIBUTE_UOM 27                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+137  | ATTRIBUTE_LABEL 28                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+138  | ATTRIBUTE_VALUE 28                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+139  | ATTRIBUTE_UOM 28                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+140  | ATTRIBUTE_LABEL 29                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+141  | ATTRIBUTE_VALUE 29                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+142  | ATTRIBUTE_UOM 29                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+143  | ATTRIBUTE_LABEL 30                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+144  | ATTRIBUTE_VALUE 30                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+145  | ATTRIBUTE_UOM 30                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+146  | ATTRIBUTE_LABEL 31                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+147  | ATTRIBUTE_VALUE 31                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+148  | ATTRIBUTE_UOM 31                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+149  | ATTRIBUTE_LABEL 32                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+150  | ATTRIBUTE_VALUE 32                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+151  | ATTRIBUTE_UOM 32                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+152  | ATTRIBUTE_LABEL 33                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+153  | ATTRIBUTE_VALUE 33                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+154  | ATTRIBUTE_UOM 33                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+155  | ATTRIBUTE_LABEL 34                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+156  | ATTRIBUTE_VALUE 34                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+157  | ATTRIBUTE_UOM 34                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+158  | ATTRIBUTE_LABEL 35                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+159  | ATTRIBUTE_VALUE 35                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+160  | ATTRIBUTE_UOM 35                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+161  | ATTRIBUTE_LABEL 36                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+162  | ATTRIBUTE_VALUE 36                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+163  | ATTRIBUTE_UOM 36                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+164  | ATTRIBUTE_LABEL 37                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+165  | ATTRIBUTE_VALUE 37                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+166  | ATTRIBUTE_UOM 37                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+167  | ATTRIBUTE_LABEL 38                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+168  | ATTRIBUTE_VALUE 38                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+169  | ATTRIBUTE_UOM 38                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+170  | ATTRIBUTE_LABEL 39                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+171  | ATTRIBUTE_VALUE 39                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+172  | ATTRIBUTE_UOM 39                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+173  | ATTRIBUTE_LABEL 40                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+174  | ATTRIBUTE_VALUE 40                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+175  | ATTRIBUTE_UOM 40                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+176  | ATTRIBUTE_LABEL 41                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+177  | ATTRIBUTE_VALUE 41                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+178  | ATTRIBUTE_UOM 41                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+179  | ATTRIBUTE_LABEL 42                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+180  | ATTRIBUTE_VALUE 42                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+181  | ATTRIBUTE_UOM 42                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+182  | ATTRIBUTE_LABEL 43                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+183  | ATTRIBUTE_VALUE 43                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+184  | ATTRIBUTE_UOM 43                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+185  | ATTRIBUTE_LABEL 44                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+186  | ATTRIBUTE_VALUE 44                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+187  | ATTRIBUTE_UOM 44                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+188  | ATTRIBUTE_LABEL 45                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+189  | ATTRIBUTE_VALUE 45                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+190  | ATTRIBUTE_UOM 45                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+191  | ATTRIBUTE_LABEL 46                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+192  | ATTRIBUTE_VALUE 46                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+193  | ATTRIBUTE_UOM 46                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+194  | ATTRIBUTE_LABEL 47                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+195  | ATTRIBUTE_VALUE 47                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+196  | ATTRIBUTE_UOM 47                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+197  | ATTRIBUTE_LABEL 48                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+198  | ATTRIBUTE_VALUE 48                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+199  | ATTRIBUTE_UOM 48                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+200  | ATTRIBUTE_LABEL 49                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+201  | ATTRIBUTE_VALUE 49                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+202  | ATTRIBUTE_UOM 49                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+203  | ATTRIBUTE_LABEL 50                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+204  | ATTRIBUTE_VALUE 50                | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+205  | ATTRIBUTE_UOM 50                  | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Dynamic Attribute Unpacking & UOM Normalizer (Phases 5-6)
+206  | UPC                               | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+207  | EAN                               | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+208  | GTIN                              | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+209  | UNSPSC                            | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+210  | Warranty                          | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+211  | List Price                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+212  | Selling Qty                       | PARTIALLY_SUPPORTED | 102/1000  | 10.2%  | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+213  | Selling UOM                       | PARTIALLY_SUPPORTED | 102/1000  | 10.2%  | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+214  | Standard Packaging Information    | PARTIALLY_SUPPORTED | 102/1000  | 10.2%  | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+215  | LENGTH                            | PARTIALLY_SUPPORTED | 45/1000   | 4.5%   | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+216  | LENGTH_UOM                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+217  | HEIGHT                            | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+218  | HEIGHT_UOM                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+219  | WIDTH                             | PARTIALLY_SUPPORTED | 45/1000   | 4.5%   | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+220  | WIDTH_UOM                         | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+221  | WEIGHT                            | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+222  | WEIGHT_UOM                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | uom_normalized_attributes_json | PRODEXA Physical Spec & Packaging Normalizer (Phase 6)
+223  | VOLUME                            | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+224  | VOLUME_UOM                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+225  | Product Image                     | FULLY_SUPPORTED     | 1000/1000 | 100.0% | source_registry.csv [source_type] | PRODEXA Document Asset Resolver (Phase 8/9)
+226  | Alternate Image 1                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+227  | Alternate Image 2                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+228  | Alternate Image 3                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+229  | Alternate Image 4                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+230  | SDS                               | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+231  | SDS_1                             | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+232  | Warranty Information              | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+233  | Catalog                           | PARTIALLY_SUPPORTED | 30/1000   | 3.0%   | source_registry.csv [source_type] | PRODEXA Document Asset Resolver (Phase 8/9)
+234  | Specification Sheet               | PARTIALLY_SUPPORTED | 494/1000  | 49.4%  | source_registry.csv [source_type] | PRODEXA Document Asset Resolver (Phase 8/9)
+235  | Instruction/Installation Manual   | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+236  | Service Manual                    | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+237  | Owners/User Manual                | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+238  | Line Drawing                      | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+239  | MTR                               | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+240  | RoHS                              | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+241  | Full Engineering Drawing          | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+242  | Energy Star Guide                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+243  | Technical Bulletin                | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+244  | Submittal                         | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+245  | Compatibility Chart               | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+246  | Size Chart                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+247  | Product Label/Insert              | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+248  | Video Link                        | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+249  | Video Link 1                      | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+250  | Country Of Origin                 | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+251  | Discontinued                      | NOT_SUPPORTED       | 0/1000    | 0.0%   | N/A (Not Captured in Pipeline) | Information genuinely unavailable in source catalog; preserved as clean empty string without fabrication.
+252  | Actual Image (Yes/No)             | FULLY_SUPPORTED     | 1000/1000 | 100.0% | source_registry.csv [source_type] | PRODEXA Document Asset Resolver (Phase 8/9)
+
+5. FINAL SCHEMA INTEGRITY VERIFICATION BLOCK
+--------------------------------------------------------------------------------
+Expected headers: 252
+Generated headers: 252
+Header mismatch: 0
+Duplicate headers: 0
+Unexpected headers: 0
+Row count: 1000
+Schema validation: PASS
+================================================================================

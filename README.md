@@ -1,10 +1,45 @@
 # Prodexa — Product Catalog Data Engineering, Matching & Evaluation Platform
 
-Prodexa is an enterprise-grade product catalog data engineering, matching, enrichment, human-in-the-loop validation, grounded content generation, and independent evaluation pipeline. It transforms raw, dirty catalog feeds into highly structured, evidence-proven, validated, and benchmarked product catalog data.
+Prodexa is an enterprise-grade product catalog data engineering, matching, enrichment, human-in-the-loop validation, grounded content generation, 252-column expected-output delivery format mapping, and web intelligence platform. It transforms raw, incomplete catalog feeds into highly structured, evidence-proven, validated, benchmarked, and commerce-ready product records.
 
 ---
 
-## Technical Architecture & Pipeline Phases
+## 🚀 Web Application & Architecture Stack
+
+Prodexa includes a full-stack web application designed with an industrial blueprint aesthetic:
+
+- **Backend API Server (`server.py`)**: Built with **FastAPI** running on `http://127.0.0.1:8000`, exposing JWT authentication, product catalog explorer endpoints, review queue actions (Accept, Edit, Reject, Escalate), evidence provenance APIs, dynamic report streaming, final output file downloads, and upload ingestion.
+- **Frontend SPA (`frontend/`)**: Built with **React** + **Vite** running on `http://localhost:3000`, featuring:
+  - **Dark Industrial Blueprint Design System**: `--bg: #0A0E13`, blueprint grid pattern backdrop, ambient radial glows, and Space Grotesk / Inter / IBM Plex Mono typography.
+  - **Interactive 3D Stage**: 5 stacked process slabs (`01 Raw feed` → `05 Delivery`) with interactive mouse/touch parallax drag rotation and particle animations.
+  - **Live Transformation & Evidence Inspector**: Side-by-side comparison of unstructured raw feeds vs. structured JSON records with evidence grounding quotes.
+  - **Workspace Console**: User Dashboard, Catalog Explorer, Product Detail Inspector, HITL Review Queue, Evidence Provenance, Final Output Downloads, and Admin Control Center.
+
+---
+
+## 📊 Official Delivery Format Schema Audit & Delivery Layer
+
+Prodexa provides a deterministic mapping layer that transforms internal product intelligence models to the official 252-column delivery format (`Unihack_ Expected Output - Delivery Format.csv`):
+
+- **Final Delivery CSV**: `data/final/unihack_expected_output.csv` (1,000 rows × 252 columns, matching exact template column names and header ordering).
+- **Schema Audit Report**: `reports/expected_output_schema_audit.txt` containing complete field-by-field mapping, population counts, percentages, and support category breakdown:
+  - **Expected Schema Fields**: `252`
+  - **Fields Originally Present in `enriched.csv`**: `22`
+  - **Directly Matched Fields**: `17`
+  - **Internal/Extra Metadata Fields**: `5` (`validation_status`, `confidence_score`, `confidence_decision`, `human_review_status`, `evidence_status`)
+  - **Fields Not Directly Available in `enriched.csv`**: `235` (mapped deterministically from other pipeline outputs or left clean empty when genuinely unavailable)
+  - **Populated Fields**: `63` (25.0%)
+  - **Clean Empty Fields**: `189` (75.0%)
+- **Support Category Breakdown**:
+  - `FULLY_SUPPORTED` (>= 80% populated): **20 fields**
+  - `PARTIALLY_SUPPORTED` (1% - 79% populated): **43 fields**
+  - `NOT_SUPPORTED` (0% populated; clean empty strings): **189 fields**
+  - **Category Verification Check**: $20 + 43 + 189 = 252$
+- **Schema Validation Status**: `PASS` (Expected: 252, Generated: 252, Mismatch: 0, Duplicate: 0, Unexpected: 0, Rows: 1000).
+
+---
+
+## 🛠️ The 15 Intelligence Pipeline Phases
 
 Prodexa consists of 15 modular processing, content generation, delivery, and evaluation phases:
 
@@ -65,29 +100,38 @@ Prodexa consists of 15 modular processing, content generation, delivery, and eva
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Python 3.10 - 3.14**
-- **Pandas / NumPy**: Tabular data processing and statistical analysis.
-- **Pydantic v2**: Strict schema-level validation of output files.
-- **Official Google GenAI SDK**: Structured JSON structured data generation.
-- **pytest**: Framework for dedicated unit tests and regression suites.
+- **Backend**: Python 3.10–3.14, FastAPI, Uvicorn, Pandas, NumPy, Pydantic v2, PyJWT, Google GenAI SDK.
+- **Frontend**: React, Vite, Tailwind CSS, Lucide React Icons.
+- **Design System**: Space Grotesk, Inter, IBM Plex Mono, Custom Blueprint Backdrop Grid.
+- **Testing**: pytest unit testing and regression suites.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Prodexa/
 │
 ├── data/
-│   ├── raw/                           # Raw feeds
-│   ├── processed/                     # Intermediate pipeline stages
-│   ├── master/                        # Master taxonomies & Ground Truth
-│   ├── final/                         # Final output delivery artifacts
-│   └── evaluation/                    # Phase 15 comparison summary logs
+│   ├── raw/                           # Raw input feeds (input.csv)
+│   ├── processed/                     # Intermediate pipeline outputs (described_products.csv, etc.)
+│   ├── master/                        # Taxonomy, LOVs, UOMs, Ground Truth, Expected Template
+│   ├── final/                         # Production delivery outputs (unihack_expected_output.csv)
+│   ├── evidence/                      # Attribute evidence records
+│   └── evaluation/                    # Phase 15 evaluation summary logs
 │
-├── src/                               # Source modules for Phases 1-15
+├── frontend/                          # React + Vite Web Application
+│   ├── src/
+│   │   ├── components/                # Navbar, Sidebar, ParticleCanvas, ReviewModal, etc.
+│   │   ├── context/                   # AuthContext (JWT Authentication & Role state)
+│   │   ├── pages/                     # LandingPage, UserDashboard, AdminDashboard, ProductExplorer...
+│   │   └── api.js                     # Centralized API fetch layer
+│   ├── vite.config.js                 # Proxy config (/api -> http://127.0.0.1:8000)
+│   └── package.json
+│
+├── src/                               # Source modules for 15 Intelligence Pipeline Phases
 │   ├── cleaning/
 │   ├── understanding/
 │   ├── resolution/
@@ -104,75 +148,80 @@ Prodexa/
 │   ├── output/                        # Phase 14 Output components
 │   └── evaluation/                    # Phase 15 Evaluation components
 │
-├── tests/                             # Unit tests for Phases 2-15
-├── reports/                           # Output reports and audits
+├── scripts/                           # Audit & Schema mapping scripts
+│   └── audit_and_generate_expected_output.py
+│
+├── reports/                           # Output audit & validation reports
+│   └── expected_output_schema_audit.txt
+│
+├── server.py                          # FastAPI Backend API Server
 ├── requirements.txt                   # Dependencies
-└── README.md                          # Documentation
+└── README.md                          # Platform Documentation
 ```
 
 ---
 
-## Quick Start
+## ⚡ Quick Start
 
 ### 1. Installation
 
-Install required dependencies:
+Install Python dependencies:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### 2. Environment Setup
+Install Frontend dependencies:
 
-Create a `.env` file in the project root:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
+```bash
+cd frontend
+npm install
+cd ..
 ```
 
-### 3. Run Output & Evaluation Engines
+### 2. Run Delivery Schema Audit & Delivery CSV Generation
 
-#### Run Phase 14 Final Output Pipeline:
-This filters, schema-validates, and exports the final catalog delivery datasets:
+Generate the official 252-column delivery CSV and schema audit report:
+
 ```bash
-python -m src.output.phase14_pipeline
+python scripts/audit_and_generate_expected_output.py
 ```
 *Outputs generated:*
-- `data/final/product.json`
-- `data/final/enriched.csv`
-- `data/final/validation_report.csv`
-- `data/final/evidence.json`
-- `reports/phase14_final_acceptance.txt`
+- `data/final/unihack_expected_output.csv` (1000 rows × 252 columns)
+- `reports/expected_output_schema_audit.txt`
 
-#### Run Phase 15 Evaluation Pipeline:
-This runs comparison benchmarks against Ground Truth:
+### 3. Run FastAPI Backend Server
+
+Launch the FastAPI backend server on `http://127.0.0.1:8000`:
+
 ```bash
-python -m src.evaluation.phase15_pipeline
+python server.py
 ```
-*Outputs generated:*
-- `data/evaluation/field_comparison.jsonl`
-- `data/evaluation/evaluation_summary.json`
-- `data/evaluation/error_analysis.csv`
-- `reports/phase15_final_acceptance.txt` (Complete dashboard metrics)
+
+### 4. Run Frontend Web Application
+
+In a separate terminal, launch the React Vite dev server:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Open your browser to:
+- **Web Interface**: `http://localhost:3000/`
+- **FastAPI API & Production SPA**: `http://127.0.0.1:8000/`
 
 ---
 
-## Running Verification Suites & Tests
+## 🧪 Verification & Testing
 
-### Run Full Regression Test Suite
-Executes all **520 core regression unit tests** covering validation rules, LLM extraction caches, normalizations, and pipelines:
+### Run Full Regression Suite:
 ```bash
 python -m pytest -v
 ```
 
-### Run Phase 14 Unit Tests & Adversarial Audits
+### Run Phase 14 & 15 Verification Scripts:
 ```bash
-python -m pytest tests/test_phase14_output.py -v
-python -m src.output.phase14_adversarial_audit
-```
-
-### Run Phase 15 Unit Tests & Adversarial Audits
-```bash
-python -m pytest tests/test_phase15_evaluation.py -v
-python -m src.evaluation.phase15_adversarial_audit
+python -m src.output.phase14_pipeline
+python -m src.evaluation.phase15_pipeline
 ```
