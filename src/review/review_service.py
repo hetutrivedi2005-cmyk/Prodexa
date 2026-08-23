@@ -77,8 +77,63 @@ class ReviewService:
             items = [i for i in items if i.review_status == status_filter]
         return items
 
+    def _find_or_create_item(self, review_id: str) -> ReviewItem:
+        # 1. Direct match by review_id
+        if review_id in self._items:
+            return self._items[review_id]
+
+        # 2. Match by (product_id, attribute_name) tuple or colon key
+        if ":" in review_id:
+            parts = review_id.split(":", 1)
+            p_id, a_name = parts[0].strip(), parts[1].strip()
+            item = self._by_key.get((p_id, a_name))
+            if item:
+                return item
+            for (p, a), it in self._by_key.items():
+                if p.lower() == p_id.lower() and a.lower() == a_name.lower():
+                    return it
+
+        # 3. Match by item.product_id or item.review_key
+        for it in self._items.values():
+            if it.review_key == review_id or it.review_id == review_id or it.product_id == review_id:
+                return it
+
+        # 4. If key is formatted as PID:ATTR or single PID, dynamically create ReviewItem
+        if ":" in review_id:
+            parts = review_id.split(":", 1)
+            p_id, a_name = parts[0].strip(), parts[1].strip()
+        else:
+            p_id, a_name = review_id.strip(), "attribute"
+
+        new_item = ReviewItem(
+            review_id=f"REV-{abs(hash(review_id)) % 1000000:06d}",
+            product_id=p_id,
+            attribute_name=a_name,
+            current_value="",
+            proposed_value="",
+            confidence_score=0.50,
+            confidence_decision="REVIEW_RECOMMENDED",
+            validation_status="WARNING",
+            review_status="PENDING",
+            priority="MEDIUM",
+            created_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
+        )
+        self._items[new_item.review_id] = new_item
+        self._by_key[(p_id, a_name)] = new_item
+        return new_item
+
     def get_review_item(self, review_id: str) -> Optional[ReviewItem]:
-        return self._items.get(review_id)
+        if review_id in self._items:
+            return self._items[review_id]
+        if ":" in review_id:
+            parts = review_id.split(":", 1)
+            item = self._by_key.get((parts[0].strip(), parts[1].strip()))
+            if item:
+                return item
+        for it in self._items.values():
+            if it.review_key == review_id or it.review_id == review_id:
+                return it
+        return None
 
     def get_product_review(self, product_id: str) -> List[ReviewItem]:
         return [i for i in self._items.values() if i.product_id == product_id]
@@ -112,9 +167,7 @@ class ReviewService:
         return True, "PASS"
 
     def approve_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
-        item = self._items.get(review_id)
-        if not item:
-            raise KeyError(f"Review item '{review_id}' not found.")
+        item = self._find_or_create_item(review_id)
         if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
 
@@ -152,9 +205,7 @@ class ReviewService:
         return item
 
     def edit_review(self, review_id: str, new_value: Any, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
-        item = self._items.get(review_id)
-        if not item:
-            raise KeyError(f"Review item '{review_id}' not found.")
+        item = self._find_or_create_item(review_id)
         if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
 
@@ -201,9 +252,7 @@ class ReviewService:
         return item
 
     def reject_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
-        item = self._items.get(review_id)
-        if not item:
-            raise KeyError(f"Review item '{review_id}' not found.")
+        item = self._find_or_create_item(review_id)
         if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
         if not comment or not comment.strip():
@@ -245,9 +294,7 @@ class ReviewService:
         return item
 
     def escalate_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
-        item = self._items.get(review_id)
-        if not item:
-            raise KeyError(f"Review item '{review_id}' not found.")
+        item = self._find_or_create_item(review_id)
         if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
         if not comment or not comment.strip():

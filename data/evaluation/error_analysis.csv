@@ -1,8 +1,8 @@
 ATTRIBUTE,MISMATCHES,RATE
 mpn,1000,14.29%
-manufacturer,959,13.7%
+manufacturer,958,13.69%
 product_type,813,11.61%
-brand,638,9.11%
+brand,637,9.1%
 size,349,4.99%
 quantity,100,1.43%
 material,10,0.14%

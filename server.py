@@ -1044,88 +1044,94 @@ def get_confidence_metrics():
 # HUMAN REVIEW PERSISTENCE & DATA INTEGRATION
 # -------------------------------------------------------------------
 def save_review_queue_to_disk():
-    q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
-    q_file.parent.mkdir(parents=True, exist_ok=True)
-    items = review_service.get_review_queue()
-    with open(q_file, "w", encoding="utf-8") as f:
-        for item in items:
-            f.write(json.dumps(item.to_dict()) + "\n")
+    try:
+        q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
+        q_file.parent.mkdir(parents=True, exist_ok=True)
+        items = review_service.get_review_queue()
+        with open(q_file, "w", encoding="utf-8") as f:
+            for item in items:
+                f.write(json.dumps(item.to_dict()) + "\n")
+    except Exception as e:
+        print(f"[REVIEW] Note: Skipped persisting review_queue.jsonl ({e})")
 
 def update_product_and_regenerate_outputs(product_id: str, attribute_name: str, new_value: Any, action: str):
-    # Check if other pending review items remain for this product
-    other_pending = [
-        item for item in review_service.get_review_queue()
-        if item.product_id == product_id and item.attribute_name != attribute_name and item.review_status == "PENDING"
-    ]
-    has_remaining_pending = len(other_pending) > 0
+    try:
+        # Check if other pending review items remain for this product
+        other_pending = [
+            item for item in review_service.get_review_queue()
+            if item.product_id == product_id and item.attribute_name != attribute_name and item.review_status == "PENDING"
+        ]
+        has_remaining_pending = len(other_pending) > 0
 
-    # 1. Update in data/final/product.json
-    p_file = BASE_DIR / "data" / "final" / "product.json"
-    if p_file.exists():
-        try:
-            with open(p_file, "r", encoding="utf-8") as f:
-                products = json.load(f)
-            updated = False
-            for p in products:
-                p_info = p.get("product", {})
-                if p_info.get("product_id") == product_id or p_info.get("mpn") == product_id:
-                    if "attributes" not in p:
-                        p["attributes"] = {}
+        # 1. Update in data/final/product.json
+        p_file = BASE_DIR / "data" / "final" / "product.json"
+        if p_file.exists():
+            try:
+                with open(p_file, "r", encoding="utf-8") as f:
+                    products = json.load(f)
+                updated = False
+                for p in products:
+                    p_info = p.get("product", {})
+                    if p_info.get("product_id") == product_id or p_info.get("mpn") == product_id:
+                        if "attributes" not in p:
+                            p["attributes"] = {}
+                        if action == "REJECT":
+                            p["attributes"][attribute_name] = ""
+                        else:
+                            p["attributes"][attribute_name] = new_value
+
+                        if "validation" not in p:
+                            p["validation"] = {}
+
+                        if has_remaining_pending:
+                            p["validation"]["status"] = "needs_review"
+                        else:
+                            p["validation"]["status"] = "approved" if action != "REJECT" else "rejected"
+                            p["validation"]["confidence"] = 1.0 if action != "REJECT" else 0.0
+                        updated = True
+                        break
+                if updated:
+                    with open(p_file, "w", encoding="utf-8") as f:
+                        json.dump(products, f, indent=2)
+            except Exception as e:
+                print(f"[ERROR] Failed to update product.json: {e}")
+
+        # 2. Update in data/final/enriched.csv
+        csv_file = BASE_DIR / "data" / "final" / "enriched.csv"
+        if csv_file.exists():
+            try:
+                import pandas as pd
+                df = pd.read_csv(csv_file)
+                if attribute_name not in df.columns:
+                    df[attribute_name] = ""
+                df[attribute_name] = df[attribute_name].astype(object)
+                
+                mask = (df["product_id"] == product_id) | (df["mpn"] == product_id)
+                if mask.any():
                     if action == "REJECT":
-                        p["attributes"][attribute_name] = ""
+                        df.loc[mask, attribute_name] = ""
                     else:
-                        p["attributes"][attribute_name] = new_value
-
-                    if "validation" not in p:
-                        p["validation"] = {}
+                        df.loc[mask, attribute_name] = str(new_value)
 
                     if has_remaining_pending:
-                        p["validation"]["status"] = "needs_review"
+                        df.loc[mask, "human_review_status"] = "NEEDS_REVIEW"
+                        df.loc[mask, "validation_status"] = "WARNING"
                     else:
-                        p["validation"]["status"] = "approved" if action != "REJECT" else "rejected"
-                        p["validation"]["confidence"] = 1.0 if action != "REJECT" else 0.0
-                    updated = True
-                    break
-            if updated:
-                with open(p_file, "w", encoding="utf-8") as f:
-                    json.dump(products, f, indent=2)
-        except Exception as e:
-            print(f"[ERROR] Failed to update product.json: {e}")
+                        df.loc[mask, "confidence_score"] = 1.0 if action != "REJECT" else 0.0
+                        df.loc[mask, "validation_status"] = "PASS" if action != "REJECT" else "FAIL"
+                        df.loc[mask, "human_review_status"] = "APPROVED" if action != "REJECT" else "REJECTED"
+                    df.to_csv(csv_file, index=False)
+            except Exception as e:
+                print(f"[ERROR] Failed to update enriched.csv: {e}")
 
-    # 2. Update in data/final/enriched.csv
-    csv_file = BASE_DIR / "data" / "final" / "enriched.csv"
-    if csv_file.exists():
+        # 3. Regenerate downstream outputs via audit script in background
         try:
-            import pandas as pd
-            df = pd.read_csv(csv_file)
-            if attribute_name not in df.columns:
-                df[attribute_name] = ""
-            df[attribute_name] = df[attribute_name].astype(object)
-            
-            mask = (df["product_id"] == product_id) | (df["mpn"] == product_id)
-            if mask.any():
-                if action == "REJECT":
-                    df.loc[mask, attribute_name] = ""
-                else:
-                    df.loc[mask, attribute_name] = str(new_value)
-
-                if has_remaining_pending:
-                    df.loc[mask, "human_review_status"] = "NEEDS_REVIEW"
-                    df.loc[mask, "validation_status"] = "WARNING"
-                else:
-                    df.loc[mask, "confidence_score"] = 1.0 if action != "REJECT" else 0.0
-                    df.loc[mask, "validation_status"] = "PASS" if action != "REJECT" else "FAIL"
-                    df.loc[mask, "human_review_status"] = "APPROVED" if action != "REJECT" else "REJECTED"
-                df.to_csv(csv_file, index=False)
-        except Exception as e:
-            print(f"[ERROR] Failed to update enriched.csv: {e}")
-
-    # 3. Regenerate downstream outputs via audit script in background
-    try:
-        import subprocess
-        subprocess.Popen([sys.executable, str(BASE_DIR / "scripts" / "audit_and_generate_expected_output.py")])
+            import subprocess
+            subprocess.Popen([sys.executable, str(BASE_DIR / "scripts" / "audit_and_generate_expected_output.py")])
+        except Exception:
+            pass
     except Exception as e:
-        print(f"[ERROR] Failed to launch expected output generation: {e}")
+        print(f"[REVIEW] Non-fatal downstream update notice: {e}")
 
 
 # -------------------------------------------------------------------
@@ -1141,7 +1147,6 @@ def get_review_queue(status_filter: Optional[str] = None):
     build_clean_review_queue()
     items = review_service.get_review_queue(status_filter=status_filter)
     return [i.to_dict() for i in items]
-
 
 @app.get("/api/review/{review_id}")
 def get_review_item(review_id: str):
@@ -1160,13 +1165,26 @@ def accept_review_item(review_id: str, req: ActionRequest):
             comment=reason,
             force=True
         )
+        save_review_queue_to_disk()
+        update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.current_value, "ACCEPT")
+        return {
+            "success": True,
+            "status": "success",
+            "action": "accepted",
+            "product_id": item.product_id,
+            "field": item.attribute_name,
+            "value": item.current_value,
+            "updated_at": item.updated_at,
+            "message": f"Review item {review_id} accepted",
+            "item": item.to_dict()
+        }
     except KeyError:
-        raise HTTPException(status_code=404, detail="Review item not found")
+        raise HTTPException(status_code=404, detail=f"Review item '{review_id}' not found")
     except ValueError as e:
-        raise HTTPException(status_code=409, detail=str(e))
-    save_review_queue_to_disk()
-    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.current_value, "ACCEPT")
-    return {"status": "success", "message": f"Review item {review_id} accepted", "item": item.to_dict()}
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"[ACCEPT ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to accept review item: {str(e)}")
 
 @app.post("/api/review/{review_id}/edit")
 def edit_review_item(review_id: str, req: ActionRequest):
@@ -1182,16 +1200,29 @@ def edit_review_item(review_id: str, req: ActionRequest):
             comment=reason,
             force=True
         )
+        save_review_queue_to_disk()
+        update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.proposed_value, "EDIT")
+        return {
+            "success": True,
+            "status": "success",
+            "action": "edited",
+            "product_id": item.product_id,
+            "field": item.attribute_name,
+            "value": item.proposed_value,
+            "updated_at": item.updated_at,
+            "message": f"Review item {review_id} updated and approved",
+            "item": item.to_dict()
+        }
     except KeyError:
-        raise HTTPException(status_code=404, detail="Review item not found")
+        raise HTTPException(status_code=404, detail=f"Review item '{review_id}' not found")
     except ValueError as e:
         detail = str(e)
         if "Edit rejected" in detail:
             raise HTTPException(status_code=422, detail=detail)
-        raise HTTPException(status_code=409, detail=detail)
-    save_review_queue_to_disk()
-    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.proposed_value, "EDIT")
-    return {"status": "success", "message": f"Review item {review_id} updated and approved", "item": item.to_dict()}
+        raise HTTPException(status_code=400, detail=detail)
+    except Exception as e:
+        print(f"[EDIT ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to edit review item: {str(e)}")
 
 @app.post("/api/review/{review_id}/reject")
 def reject_review_item(review_id: str, req: ActionRequest):
@@ -1203,13 +1234,26 @@ def reject_review_item(review_id: str, req: ActionRequest):
             comment=reason,
             force=True
         )
+        save_review_queue_to_disk()
+        update_product_and_regenerate_outputs(item.product_id, item.attribute_name, "", "REJECT")
+        return {
+            "success": True,
+            "status": "success",
+            "action": "rejected",
+            "product_id": item.product_id,
+            "field": item.attribute_name,
+            "value": "",
+            "updated_at": item.updated_at,
+            "message": f"Review item {review_id} rejected",
+            "item": item.to_dict()
+        }
     except KeyError:
-        raise HTTPException(status_code=404, detail="Review item not found")
+        raise HTTPException(status_code=404, detail=f"Review item '{review_id}' not found")
     except ValueError as e:
-        raise HTTPException(status_code=409, detail=str(e))
-    save_review_queue_to_disk()
-    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, "", "REJECT")
-    return {"status": "success", "message": f"Review item {review_id} rejected", "item": item.to_dict()}
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"[REJECT ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to reject review item: {str(e)}")
 
 @app.post("/api/review/{review_id}/escalate")
 def escalate_review_item(review_id: str, req: ActionRequest):
@@ -1221,12 +1265,25 @@ def escalate_review_item(review_id: str, req: ActionRequest):
             comment=reason,
             force=True
         )
+        save_review_queue_to_disk()
+        return {
+            "success": True,
+            "status": "success",
+            "action": "escalated",
+            "product_id": item.product_id,
+            "field": item.attribute_name,
+            "value": item.current_value,
+            "updated_at": item.updated_at,
+            "message": f"Review item {review_id} escalated",
+            "item": item.to_dict()
+        }
     except KeyError:
-        raise HTTPException(status_code=404, detail="Review item not found")
+        raise HTTPException(status_code=404, detail=f"Review item '{review_id}' not found")
     except ValueError as e:
-        raise HTTPException(status_code=409, detail=str(e))
-    save_review_queue_to_disk()
-    return {"status": "success", "message": f"Review item {review_id} escalated", "item": item.to_dict()}
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        print(f"[ESCALATE ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to escalate review item: {str(e)}")
 
 
 

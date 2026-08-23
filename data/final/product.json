@@ -7,7 +7,7 @@
       "manufacturer": "Freud Inc",
       "product_type": "Abrasive Belts > Sanding Belts",
       "product_name": "Sanding Belt 1/2 in x 18 in",
-      "job_id": "job_1787493572_c1e5d9"
+      "job_id": "job_1787494467_a31010"
     },
     "attributes": {
       "mpn": "DCB518",
@@ -19,8 +19,8 @@
       "mpn": {
         "field_name": "mpn",
         "value": "DCB518",
-        "field_confidence": 0.98,
-        "confidence_percentage": 98.0,
+        "field_confidence": 0.99,
+        "confidence_percentage": 99.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -52,8 +52,8 @@
       "dimensions": {
         "field_name": "dimensions",
         "value": "1/2 in x 18 in",
-        "field_confidence": 0.99,
-        "confidence_percentage": 99.0,
+        "field_confidence": 0.98,
+        "confidence_percentage": 98.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -79,7 +79,7 @@
       "manufacturer": "Malco Products",
       "product_type": "Hardware & Industrial Supplies",
       "product_name": "Snip Offset Left",
-      "job_id": "job_1787493572_c1e5d9"
+      "job_id": "job_1787494467_a31010"
     },
     "attributes": {
       "mpn": "AVM6EV",
@@ -90,8 +90,8 @@
       "mpn": {
         "field_name": "mpn",
         "value": "AVM6EV",
-        "field_confidence": 0.62,
-        "confidence_percentage": 62.0,
+        "field_confidence": 0.64,
+        "confidence_percentage": 64.0,
         "review_status": "REVIEW_RECOMMENDED",
         "reason_codes": [
           "LOW_CONFIDENCE",
@@ -101,8 +101,8 @@
       "brand": {
         "field_name": "brand",
         "value": "Malco",
-        "field_confidence": 0.58,
-        "confidence_percentage": 58.0,
+        "field_confidence": 0.59,
+        "confidence_percentage": 59.0,
         "review_status": "REVIEW_RECOMMENDED",
         "reason_codes": [
           "LOW_CONFIDENCE",
@@ -112,8 +112,8 @@
       "manufacturer": {
         "field_name": "manufacturer",
         "value": "Malco Products",
-        "field_confidence": 0.59,
-        "confidence_percentage": 59.0,
+        "field_confidence": 0.63,
+        "confidence_percentage": 63.0,
         "review_status": "REVIEW_RECOMMENDED",
         "reason_codes": [
           "LOW_CONFIDENCE",
@@ -139,7 +139,7 @@
       "manufacturer": "Stanley Black & Decker",
       "product_type": "Building, Decking & Railing Materials > Lumber & Structural Panels",
       "product_name": "Drill Bit",
-      "job_id": "job_1787493572_c1e5d9"
+      "job_id": "job_1787494467_a31010"
     },
     "attributes": {
       "mpn": "DW1234",
@@ -150,8 +150,8 @@
       "mpn": {
         "field_name": "mpn",
         "value": "DW1234",
-        "field_confidence": 0.91,
-        "confidence_percentage": 91.0,
+        "field_confidence": 0.94,
+        "confidence_percentage": 94.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -161,8 +161,8 @@
       "brand": {
         "field_name": "brand",
         "value": "DeWalt",
-        "field_confidence": 0.95,
-        "confidence_percentage": 95.0,
+        "field_confidence": 0.94,
+        "confidence_percentage": 94.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -172,8 +172,8 @@
       "manufacturer": {
         "field_name": "manufacturer",
         "value": "Stanley Black & Decker",
-        "field_confidence": 0.94,
-        "confidence_percentage": 94.0,
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",

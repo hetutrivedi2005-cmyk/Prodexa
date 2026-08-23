@@ -14,9 +14,12 @@ class ReviewAuditLogger:
         self.audit_filepath = audit_filepath
 
     def log_action(self, record: ReviewAuditRecord):
-        os.makedirs(os.path.dirname(self.audit_filepath), exist_ok=True)
-        with open(self.audit_filepath, "a", encoding="utf-8") as f:
-            f.write(json.dumps(record.to_dict()) + "\n")
+        try:
+            os.makedirs(os.path.dirname(self.audit_filepath), exist_ok=True)
+            with open(self.audit_filepath, "a", encoding="utf-8") as f:
+                f.write(json.dumps(record.to_dict()) + "\n")
+        except Exception as e:
+            print(f"[AUDIT] Note: Skipped appending to audit log on read-only filesystem: {e}")
 
     def get_audit_history(self, product_id: Optional[str] = None) -> List[ReviewAuditRecord]:
         if not os.path.exists(self.audit_filepath):
