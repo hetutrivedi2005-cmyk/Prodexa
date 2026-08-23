@@ -1,0 +1,31 @@
+================================================================================
+           PRODEXA - SUPABASE IDEMPOTENT MIGRATION SUMMARY REPORT               
+================================================================================
+Migration Timestamp: 2026-08-21T10:05:15.681249+00:00
+Source Directory   : data/ & reports/
+Target Database    : Supabase PostgreSQL (public schema)
+================================================================================
+
+ENTITY MIGRATION SUMMARY
+--------------------------------------------------------------------------------
+ENTITY TYPE          | SOURCE COUNT  | IMPORTED   | DUPLICATES  | FAILED
+---------------------------------------------------------------------------
+Categories           | 50            | 50         | 0           | 0
+Products             | 998           | 998        | 0           | 0
+Attributes           | 653           | 653        | 0           | 0
+Evidence             | 129           | 129        | 0           | 0
+Validations          | 998           | 998        | 0           | 0
+Confidence Scores    | 998           | 998        | 0           | 0
+Descriptions         | 998           | 998        | 0           | 0
+Review Queue Items   | 64            | 64         | 0           | 0
+Evaluation Runs      | 1             | 1          | 0           | 0
+Report Artifacts     | 30            | 30         | 0           | 0
+
+MIGRATION INTEGRITY CHECKS
+--------------------------------------------------------------------------------
+  [OK] Ground Truth File (`data/master/ground_truth.csv`): UNMUTATED
+  [OK] 15-Phase Intelligence Pipeline Logic (`src/`): UNMUTATED
+  [OK] Deterministic Upsert Idempotency: VERIFIED
+  [OK] Zero Duplicate Products Created: VERIFIED
+  [OK] Migration Status: SUCCESSFUL & COMPLETE
+================================================================================
