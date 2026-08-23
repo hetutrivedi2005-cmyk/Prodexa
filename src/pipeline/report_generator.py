@@ -5,8 +5,20 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 import pandas as pd
 
+import tempfile
+import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-JOBS_DIR = BASE_DIR / "data" / "jobs"
+
+def get_jobs_dir() -> Path:
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        p = Path(tempfile.gettempdir()) / "prodexa" / "jobs"
+    else:
+        p = BASE_DIR / "data" / "jobs"
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+JOBS_DIR = get_jobs_dir()
 
 class ReportGenerator:
     """

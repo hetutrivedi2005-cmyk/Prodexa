@@ -9,9 +9,28 @@ import queue
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Generator
 
+import tempfile
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-JOBS_DIR = BASE_DIR / "data" / "jobs"
-JOBS_DIR.mkdir(parents=True, exist_ok=True)
+
+def get_writable_dir(relative_subpath: str) -> Path:
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        p = Path(tempfile.gettempdir()) / "prodexa" / relative_subpath
+    else:
+        try:
+            p = BASE_DIR / "data" / relative_subpath
+            p.mkdir(parents=True, exist_ok=True)
+            test_file = p / ".write_test"
+            test_file.touch()
+            test_file.unlink()
+            return p
+        except Exception:
+            p = Path(tempfile.gettempdir()) / "prodexa" / relative_subpath
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+JOBS_DIR = get_writable_dir("jobs")
+RAW_DIR = get_writable_dir("raw")
 
 # Import existing backend modules & pipeline helpers
 from src.pipeline.csv_adapter import CSVAdapter
