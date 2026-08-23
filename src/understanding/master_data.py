@@ -129,9 +129,11 @@ class MasterDataLoader:
         # 3. Build Manufacturer-Brand Relationships from input.csv + Phase 2
         try:
             combined_df = input_df.copy()
-            p2_df = pd.read_csv(self.phase2_csv_path)
-            if "brand" in p2_df.columns:
-                combined_df["p2_brand"] = p2_df["brand"]
+            from pathlib import Path
+            if Path(self.phase2_csv_path).exists():
+                p2_df = pd.read_csv(self.phase2_csv_path)
+                if "brand" in p2_df.columns:
+                    combined_df["p2_brand"] = p2_df["brand"]
 
             for _, row in combined_df.iterrows():
                 raw_pm = row.get("Part_Manuf")

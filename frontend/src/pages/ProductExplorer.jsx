@@ -193,7 +193,7 @@ export const ProductExplorer = () => {
                   <th className="py-3 px-3">PRODUCT NAME</th>
                   <th className="py-3 px-3">MANUFACTURER</th>
                   <th className="py-3 px-3">CATEGORY</th>
-                  <th className="py-3 px-3">CONFIDENCE</th>
+                  <th className="py-3 px-3">OVERALL CONFIDENCE</th>
                   <th className="py-3 px-3">STATUS</th>
                   <th className="py-3 px-3">LAST UPDATED</th>
                   <th className="py-3 px-3 text-right">ACTION</th>
@@ -211,16 +211,27 @@ export const ProductExplorer = () => {
                     const p = item.product || {};
                     const val = item.validation || {};
                     const des = item.descriptions || {};
-                    const confPct = ((val.confidence || 0.95) * 100).toFixed(1);
+                    const overallConf = item.overall_confidence ?? val.confidence ?? 0.95;
+                    const confPct = (overallConf * 100).toFixed(1);
 
                     // Form product name dynamically
-                    const productName = des.title || `${p.brand || 'Unmapped'} ${p.product_type || 'Product'}`;
+                    const brandPart = (p.brand && String(p.brand).toLowerCase() !== 'nan') ? p.brand.trim() : '';
+                    const typePart = (p.product_type && String(p.product_type).toLowerCase() !== 'nan' && p.product_type !== 'Uncategorized') ? p.product_type.trim() : '';
+                    let productName = p.product_name || (des.title && String(des.title).toLowerCase() !== 'nan' ? des.title.trim() : '');
+                    if (!productName || productName.toLowerCase() === 'nan' || productName.toLowerCase() === 'nan nan') {
+                      productName = brandPart ? `${brandPart} ${typePart || 'Product'}` : (typePart || `Unnamed Product (${p.product_id || 'N/A'})`);
+                    }
+
+                    const mfgDisplay = (p.manufacturer && String(p.manufacturer).toLowerCase() !== 'nan') ? p.manufacturer : 'Unknown Manufacturer';
+                    const catDisplay = (p.product_type && String(p.product_type).toLowerCase() !== 'nan') ? p.product_type : 'Uncategorized';
 
                     let statusText = 'Validated';
                     let statusColorClass = 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400';
                     let requiresReview = false;
 
-                    if (val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
+                    const overallStatus = item.overall_status || (String(val.status).toLowerCase() === 'needs_review' ? 'NEEDS_REVIEW' : 'VALIDATED');
+
+                    if (overallStatus === 'NEEDS_REVIEW' || val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
                       statusText = 'Needs Review';
                       statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
                       requiresReview = true;
@@ -243,10 +254,11 @@ export const ProductExplorer = () => {
                             <div className="text-[10px] text-[#64748B] mt-0.5 font-mono">ID: {p.product_id} | MPN: {p.mpn}</div>
                           </div>
                         </td>
-                        <td className="py-3.5 px-3 text-[#94A3B8]">{p.manufacturer || 'Unmapped'}</td>
-                        <td className="py-3.5 px-3 text-[#94A3B8]">{p.product_type}</td>
+                        <td className="py-3.5 px-3 text-[#94A3B8]">{mfgDisplay}</td>
+                        <td className="py-3.5 px-3 text-[#94A3B8]">{catDisplay}</td>
                         <td className="py-3.5 px-3">
-                          <span className="text-[#F1F5F9] font-bold">{confPct}%</span>
+                          <span className="text-[#F1F5F9] font-bold font-mono-tech">{confPct}%</span>
+                          <span className="text-[10px] text-[#64748B] block font-mono">Overall Score</span>
                         </td>
                         <td className="py-3.5 px-3">
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${statusColorClass}`}>

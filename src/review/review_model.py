@@ -23,6 +23,7 @@ class ReviewItem:
     validation_status: str
     review_status: str = "PENDING"
     priority: str = "HIGH"
+    previous_value: Optional[Any] = None
     reviewer_id: Optional[str] = None
     reviewer_name: Optional[str] = None
     review_action: Optional[str] = None
@@ -44,8 +45,45 @@ class ReviewItem:
         if self.priority not in ALLOWED_PRIORITIES:
             raise ValueError(f"Invalid priority '{self.priority}'. Allowed: {ALLOWED_PRIORITIES}")
 
+    @property
+    def review_key(self) -> str:
+        return f"{self.product_id}:{self.attribute_name}"
+
     def to_dict(self) -> dict:
-        return asdict(self)
+        data = asdict(self)
+        data["review_key"] = self.review_key
+        data["field_name"] = self.attribute_name
+        data["field_confidence"] = self.confidence_score
+        return data
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "ReviewItem":
+        """Construct a ReviewItem from a raw dict (e.g. from JSONL)."""
+        return cls(
+            review_id=d["review_id"],
+            product_id=d["product_id"],
+            attribute_name=d["attribute_name"],
+            current_value=d.get("current_value", ""),
+            proposed_value=d.get("proposed_value", ""),
+            confidence_score=float(d.get("confidence_score", 0.0)),
+            confidence_decision=d.get("confidence_decision", "HUMAN_REVIEW"),
+            validation_status=d.get("validation_status", "UNKNOWN"),
+            review_status=d.get("review_status", "PENDING"),
+            priority=d.get("priority", "MEDIUM"),
+            previous_value=d.get("previous_value"),
+            reviewer_id=d.get("reviewer_id"),
+            reviewer_name=d.get("reviewer_name"),
+            review_action=d.get("review_action"),
+            review_comment=d.get("review_comment"),
+            evidence_id=d.get("evidence_id"),
+            source_id=d.get("source_id"),
+            source_url=d.get("source_url"),
+            evidence_text=d.get("evidence_text"),
+            reason_codes=d.get("reason_codes") or [],
+            created_at=d.get("created_at", ""),
+            updated_at=d.get("updated_at", ""),
+            resolved_at=d.get("resolved_at"),
+        )
 
 
 @dataclass

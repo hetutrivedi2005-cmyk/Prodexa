@@ -231,7 +231,7 @@ export const UserDashboard = () => {
               <tr className="border-b border-[#202B3B] text-[#64748B]">
                 <th className="py-2.5 px-3">PRODUCT</th>
                 <th className="py-2.5 px-3">STATUS</th>
-                <th className="py-2.5 px-3">CONFIDENCE</th>
+                <th className="py-2.5 px-3">OVERALL CONFIDENCE</th>
                 <th className="py-2.5 px-3">LAST UPDATED</th>
                 <th className="py-2.5 px-3 text-right">ACTION</th>
               </tr>
@@ -240,7 +240,9 @@ export const UserDashboard = () => {
               {recentProducts.map((item, index) => {
                 const p = item.product || {};
                 const val = item.validation || {};
-                const confPct = ((val.confidence || 0.95) * 100).toFixed(1);
+                const overallConf = item.overall_confidence ?? val.confidence ?? 0.95;
+                const confPct = (overallConf * 100).toFixed(1);
+                const overallStatus = item.overall_status || (String(val.status).toLowerCase() === 'needs_review' ? 'NEEDS_REVIEW' : 'VALIDATED');
                 
                 // Status Mapping: Validated (green), Needs Review (amber), Processing (cyan), Error (red)
                 let statusText = 'Validated';
@@ -248,7 +250,7 @@ export const UserDashboard = () => {
                 let actionText = 'View →';
                 let actionPath = `/user/products/${p.product_id}`;
 
-                if (val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
+                if (overallStatus === 'NEEDS_REVIEW' || val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
                   statusText = 'Needs Review';
                   statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
                   actionText = 'Review →';
@@ -264,7 +266,12 @@ export const UserDashboard = () => {
                 }
 
                 // Make up a realistic name from brand and type
-                const productName = `${p.brand || 'Diablo'} ${p.product_type || 'Sanding Belt'} (${p.mpn || 'N/A'})`;
+                const brandPart = (p.brand && String(p.brand).toLowerCase() !== 'nan') ? p.brand.trim() : '';
+                const typePart = (p.product_type && String(p.product_type).toLowerCase() !== 'nan' && p.product_type !== 'Uncategorized') ? p.product_type.trim() : '';
+                let productName = p.product_name || (brandPart ? `${brandPart} ${typePart || 'Product'}` : (typePart || `Unnamed Product (${p.product_id || 'N/A'})`));
+                if (!productName.includes(p.product_id) && !productName.includes(p.mpn)) {
+                  productName = `${productName} (${p.mpn || p.product_id || 'N/A'})`;
+                }
 
                 // Relative Date mock based on index to represent realistic updates
                 const lastUpdatedText = index < 2 ? 'Today' : index < 4 ? 'Yesterday' : '2 days ago';
@@ -280,7 +287,7 @@ export const UserDashboard = () => {
                       </span>
                     </td>
                     <td className="py-3 px-3">
-                      <span className="text-[#F1F5F9] font-bold">{confPct}%</span>
+                      <span className="text-[#F1F5F9] font-bold font-mono-tech">{confPct}%</span>
                     </td>
                     <td className="py-3 px-3 text-[#64748B]">{lastUpdatedText}</td>
                     <td className="py-3 px-3 text-right">

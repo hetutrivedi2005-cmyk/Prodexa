@@ -712,20 +712,20 @@
 {"product_id": "PROD-0102", "field_name": "size", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.994}
 {"product_id": "PROD-0102", "field_name": "quantity", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.994}
 {"product_id": "PROD-0102", "field_name": "material", "prodexa_value": "PVC", "expected_value": "nan", "comparison_status": "EXTRA", "mismatch_reason": "Prodexa populated extra attribute value", "confidence_score": 0.994}
-{"product_id": "PROD-0103", "field_name": "brand", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "mpn", "prodexa_value": "73019652", "expected_value": "73019652", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "manufacturer", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "product_type", "prodexa_value": "Railing & Fence Kits", "expected_value": "Railing & Fence Kits", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "size", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "quantity", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0103", "field_name": "material", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "brand", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "mpn", "prodexa_value": "73019517", "expected_value": "73019517", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "manufacturer", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "product_type", "prodexa_value": "Railing & Fence Kits", "expected_value": "Railing & Fence Kits", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "size", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "quantity", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
-{"product_id": "PROD-0104", "field_name": "material", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
+{"product_id": "PROD-0103", "field_name": "brand", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "mpn", "prodexa_value": "73019652", "expected_value": "73019652", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "manufacturer", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "product_type", "prodexa_value": "Railing & Fence Kits", "expected_value": "Railing & Fence Kits", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "size", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "quantity", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0103", "field_name": "material", "prodexa_value": "PVC", "expected_value": "nan", "comparison_status": "EXTRA", "mismatch_reason": "Prodexa populated extra attribute value", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "brand", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "mpn", "prodexa_value": "73019517", "expected_value": "73019517", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "manufacturer", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "product_type", "prodexa_value": "Railing & Fence Kits", "expected_value": "Railing & Fence Kits", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "size", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "quantity", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 1.0}
+{"product_id": "PROD-0104", "field_name": "material", "prodexa_value": "pvc", "expected_value": "nan", "comparison_status": "EXTRA", "mismatch_reason": "Prodexa populated extra attribute value", "confidence_score": 1.0}
 {"product_id": "PROD-0105", "field_name": "brand", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}
 {"product_id": "PROD-0105", "field_name": "mpn", "prodexa_value": "73019602", "expected_value": "73019602", "comparison_status": "MATCH", "mismatch_reason": "", "confidence_score": 0.605}
 {"product_id": "PROD-0105", "field_name": "manufacturer", "prodexa_value": "nan", "expected_value": "nan", "comparison_status": "NOT_APPLICABLE", "mismatch_reason": "", "confidence_score": 0.605}

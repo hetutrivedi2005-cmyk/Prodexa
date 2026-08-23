@@ -7,19 +7,19 @@ DATASET
 Source products:                    1000
 Products evaluated:                 998
 Products excluded:                   2
-Fields evaluated:                   3997
+Fields evaluated:                   3999
 
 FIELD ACCURACY
 ------------------------------------------------------------
 Correct fields:                     3843
-Incorrect fields:                   134
-Field Accuracy:                     96.63%
+Incorrect fields:                   136
+Field Accuracy:                     96.58%
 Note: Field Accuracy measures correctness among fields that received a prediction;
 missing fields are separately reported through Data Completeness.
 
 DATA COMPLETENESS
 ------------------------------------------------------------
-Expected fields:                    3997
+Expected fields:                    3999
 Missing fields:                     20
 Data Completeness:                  99.50%
 Missing Data Rate:                  0.50%
@@ -56,10 +56,10 @@ Enrichment Recovery Rate:           0.00%
 
 CONFIDENCE QUALITY
 ------------------------------------------------------------
-Average Prodexa Confidence:         73.25%
-MATCH Confidence:                   74.03%
+Average Prodexa Confidence:         73.23%
+MATCH Confidence:                   74.07%
 MISMATCH Confidence:                78.07%
-High-Confidence Error Rate:         0.98%
+High-Confidence Error Rate:         0.97%
 Note: Prodexa Confidence Score measures evidence and validation quality;
 it is not a prediction probability and therefore does not guarantee ground-truth correctness.
 

@@ -111,18 +111,21 @@ class ReviewService:
 
         return True, "PASS"
 
-    def approve_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None) -> ReviewItem:
+    def approve_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
         item = self._items.get(review_id)
         if not item:
             raise KeyError(f"Review item '{review_id}' not found.")
-        if item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
+        if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
 
-        old_val = item.proposed_value
+        reason_text = (comment or "").strip() or "Verified and approved by reviewer based on manufacturer evidence."
+        old_val = item.current_value or item.proposed_value
+        item.previous_value = item.previous_value or old_val
+        item.current_value = item.proposed_value or old_val
         item.review_status = "APPROVED"
         item.review_action = "ACCEPT"
         item.reviewer_id = reviewer_id
-        item.review_comment = comment or "Evidence reviewed and accepted."
+        item.review_comment = reason_text
         item.updated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
         item.resolved_at = item.updated_at
 
@@ -136,9 +139,9 @@ class ReviewService:
             attribute_name=item.attribute_name,
             action="ACCEPT",
             old_value=old_val,
-            new_value=old_val,
+            new_value=item.current_value,
             reviewer_id=reviewer_id,
-            reason=item.review_comment,
+            reason=reason_text,
             validation_result="PASS",
             confidence_before=item.confidence_score,
             confidence_after=1.00,
@@ -148,24 +151,30 @@ class ReviewService:
         self.audit_logger.log_action(rec)
         return item
 
-    def edit_review(self, review_id: str, new_value: Any, reviewer_id: str = "reviewer_default", comment: Optional[str] = None) -> ReviewItem:
+    def edit_review(self, review_id: str, new_value: Any, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
         item = self._items.get(review_id)
         if not item:
             raise KeyError(f"Review item '{review_id}' not found.")
-        if item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
+        if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
+
+        reason_text = (comment or "").strip()
+        if not reason_text:
+            reason_text = f"Manual override: updated {item.attribute_name} to '{str(new_value).strip()}'."
 
         # Strict Validation Gate
         is_valid, err_msg = self.validate_human_edit(item.attribute_name, new_value)
         if not is_valid:
             raise ValueError(f"Edit rejected: {err_msg}")
 
-        old_val = item.proposed_value
+        old_val = item.current_value or item.proposed_value
+        item.previous_value = old_val
+        item.current_value = str(new_value).strip()
         item.proposed_value = str(new_value).strip()
         item.review_status = "EDITED"
         item.review_action = "EDIT"
         item.reviewer_id = reviewer_id
-        item.review_comment = comment or f"Value edited to '{item.proposed_value}' by human reviewer."
+        item.review_comment = reason_text
         item.updated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
         item.resolved_at = item.updated_at
 
@@ -181,7 +190,7 @@ class ReviewService:
             old_value=old_val,
             new_value=item.proposed_value,
             reviewer_id=reviewer_id,
-            reason=item.review_comment,
+            reason=reason_text,
             validation_result="PASS",
             confidence_before=item.confidence_score,
             confidence_after=1.00,
@@ -191,20 +200,25 @@ class ReviewService:
         self.audit_logger.log_action(rec)
         return item
 
-    def reject_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None) -> ReviewItem:
+    def reject_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
         item = self._items.get(review_id)
         if not item:
             raise KeyError(f"Review item '{review_id}' not found.")
-        if item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
+        if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
         if not comment or not comment.strip():
             raise ValueError("Rejection reason comment is required.")
+        
+        reason_text = comment.strip()
 
-        old_val = item.proposed_value
+        old_val = item.current_value or item.proposed_value
+        item.previous_value = old_val
+        item.current_value = ""
+        item.proposed_value = ""
         item.review_status = "REJECTED"
         item.review_action = "REJECT"
         item.reviewer_id = reviewer_id
-        item.review_comment = comment.strip()
+        item.review_comment = reason_text
         item.updated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
         item.resolved_at = item.updated_at
 
@@ -218,9 +232,9 @@ class ReviewService:
             attribute_name=item.attribute_name,
             action="REJECT",
             old_value=old_val,
-            new_value=old_val,
+            new_value="",
             reviewer_id=reviewer_id,
-            reason=item.review_comment,
+            reason=reason_text,
             validation_result="REJECTED",
             confidence_before=item.confidence_score,
             confidence_after=0.00,
@@ -230,20 +244,23 @@ class ReviewService:
         self.audit_logger.log_action(rec)
         return item
 
-    def escalate_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None) -> ReviewItem:
+    def escalate_review(self, review_id: str, reviewer_id: str = "reviewer_default", comment: Optional[str] = None, force: bool = False) -> ReviewItem:
         item = self._items.get(review_id)
         if not item:
             raise KeyError(f"Review item '{review_id}' not found.")
-        if item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
+        if not force and item.review_status in ["APPROVED", "EDITED", "REJECTED"]:
             raise ValueError(f"Review item '{review_id}' has already been resolved ({item.review_status}).")
         if not comment or not comment.strip():
             raise ValueError("Escalation reason comment is required.")
+        
+        reason_text = comment.strip()
 
-        old_val = item.proposed_value
+        old_val = item.current_value or item.proposed_value
+        item.previous_value = item.previous_value or old_val
         item.review_status = "ESCALATED"
         item.review_action = "ESCALATE"
         item.reviewer_id = reviewer_id
-        item.review_comment = comment.strip()
+        item.review_comment = reason_text
         item.updated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
         # Log Audit Record
@@ -258,7 +275,7 @@ class ReviewService:
             old_value=old_val,
             new_value=old_val,
             reviewer_id=reviewer_id,
-            reason=item.review_comment,
+            reason=reason_text,
             validation_result="ESCALATED",
             confidence_before=item.confidence_score,
             confidence_after=item.confidence_score,
@@ -267,6 +284,7 @@ class ReviewService:
         )
         self.audit_logger.log_action(rec)
         return item
+
 
     def get_review_history(self, product_id: Optional[str] = None) -> List[ReviewAuditRecord]:
         return self.audit_logger.get_audit_history(product_id)

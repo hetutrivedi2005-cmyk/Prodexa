@@ -6,7 +6,7 @@ import glob
 import datetime
 import threading
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Union
+from typing import Dict, List, Optional, Any, Union, Tuple
 
 from fastapi import FastAPI, HTTPException, Depends, Query, File, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -122,7 +122,7 @@ def require_admin(user: dict = Depends(get_current_user)):
 
 
 # -------------------------------------------------------------------
-# REVIEW SERVICE INSTANCE
+# REVIEW SERVICE INSTANCE & CANONICAL QUEUE LOADER
 # -------------------------------------------------------------------
 review_service = ReviewService(
     audit_filepath="data/review/review_audit.jsonl",
@@ -130,21 +130,166 @@ review_service = ReviewService(
     uom_csv_path="data/master/uom_master.csv"
 )
 
-def init_review_service():
+def load_all_field_confidences() -> Dict[Tuple[str, str], dict]:
+    """Loads all attribute confidence entries indexed by (product_id, attribute_name)."""
+    conf_file = BASE_DIR / "data" / "confidence" / "attribute_confidence.jsonl"
+    results = {}
+    if conf_file.exists():
+        with open(conf_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        d = json.loads(line)
+                        key = (d["product_id"], d["attribute_name"])
+                        results[key] = d
+                    except Exception:
+                        pass
+    return results
+
+def build_clean_review_queue():
+    """
+    Build the review queue from the CANONICAL source of truth:
+    attribute_confidence.jsonl (which attributes truly need review).
+
+    1. Load attribute_confidence.jsonl → find REVIEW_RECOMMENDED/HUMAN_REVIEW attributes.
+    2. Cross-reference review_queue.jsonl for saved human decisions (APPROVED/EDITED/REJECTED).
+    3. Deduplicate on review_key = (product_id, attribute_name) — keep newest/highest-priority human decision.
+    4. Build clean ReviewItem objects strictly per (product_id, attribute_name).
+    """
+    conf_decisions = {}
+    conf_file = BASE_DIR / "data" / "confidence" / "attribute_confidence.jsonl"
+    if conf_file.exists():
+        with open(conf_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        d = json.loads(line)
+                        if d.get("decision") in ("REVIEW_RECOMMENDED", "HUMAN_REVIEW"):
+                            key = (d["product_id"], d["attribute_name"])
+                            if key not in conf_decisions:
+                                conf_decisions[key] = d
+                    except Exception:
+                        pass
+
+    # Load existing saved human decisions from review_queue.jsonl
+    human_decisions = {}
     q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
     if q_file.exists():
-        items = []
         with open(q_file, "r", encoding="utf-8") as f:
             for line in f:
                 if line.strip():
                     try:
                         d = json.loads(line)
-                        items.append(ReviewItem.from_dict(d))
+                        key = (d["product_id"], d["attribute_name"])
+                        existing = human_decisions.get(key)
+                        # Prefer resolved decisions over PENDING ones
+                        if existing is None:
+                            human_decisions[key] = d
+                        elif d.get("review_status", "PENDING") != "PENDING" and existing.get("review_status") == "PENDING":
+                            human_decisions[key] = d
                     except Exception:
                         pass
-        review_service.load_queue(items)
+
+    items = []
+    seen_keys = set()
+
+    for key, conf_rec in conf_decisions.items():
+        pid, attr = key
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+
+        saved = human_decisions.get(key, {})
+        review_status = saved.get("review_status", "PENDING")
+        review_action = saved.get("review_action")
+        review_id = saved.get("review_id") or f"REV-{abs(hash(key)) % 1000000:06d}"
+
+        # Field confidence from attribute_confidence (canonical)
+        conf_score = float(conf_rec.get("confidence_score", 0.0))
+        conf_decision = conf_rec.get("decision", "REVIEW_RECOMMENDED")
+        val_status = conf_rec.get("status", "WARNING")
+        
+        # Determine current, proposed, and previous values preserving human overrides
+        pipeline_val = str(conf_rec.get("value", "")).strip()
+        if review_status in ("EDITED", "APPROVED"):
+            current_value = saved.get("current_value") if saved.get("current_value") is not None else saved.get("proposed_value", pipeline_val)
+            proposed_value = saved.get("proposed_value") if saved.get("proposed_value") is not None else current_value
+            previous_value = saved.get("previous_value") or pipeline_val
+        elif review_status == "REJECTED":
+            current_value = ""
+            proposed_value = ""
+            previous_value = saved.get("previous_value") or pipeline_val
+        else:
+            current_value = pipeline_val
+            proposed_value = saved.get("proposed_value", pipeline_val)
+            previous_value = saved.get("previous_value")
+
+        # Priority calculation
+        if conf_score < 0.65:
+            priority = "HIGH"
+        elif conf_score < 0.80:
+            priority = "MEDIUM"
+        else:
+            priority = "LOW"
+
+        if priority not in ("HIGH", "MEDIUM", "LOW"):
+            priority = "MEDIUM"
+
+        if review_status not in ("PENDING", "IN_REVIEW", "APPROVED", "EDITED", "REJECTED", "ESCALATED"):
+            review_status = "PENDING"
+
+        try:
+            item = ReviewItem(
+                review_id=review_id,
+                product_id=pid,
+                attribute_name=attr,
+                current_value=current_value,
+                proposed_value=proposed_value,
+                confidence_score=conf_score,
+                confidence_decision=conf_decision,
+                validation_status=val_status if val_status in ("PASS", "FAIL", "WARNING", "UNKNOWN") else "WARNING",
+                review_status=review_status,
+                priority=priority,
+                previous_value=previous_value,
+                reviewer_id=saved.get("reviewer_id"),
+                reviewer_name=saved.get("reviewer_name"),
+                review_action=review_action,
+                review_comment=saved.get("review_comment"),
+                evidence_id=conf_rec.get("evidence_id"),
+                source_id=conf_rec.get("source_id"),
+                source_url=saved.get("source_url"),
+                evidence_text=saved.get("evidence_text"),
+                reason_codes=conf_rec.get("reason_codes") or [],
+                created_at=saved.get("created_at") or conf_rec.get("created_at", ""),
+                updated_at=saved.get("updated_at", ""),
+                resolved_at=saved.get("resolved_at"),
+            )
+            items.append(item)
+        except Exception as e:
+            print(f"[REVIEW] Skipped item {pid}:{attr} -> {e}")
+
+    # Load into review service
+    review_service._items.clear()
+    review_service._by_key.clear()
+    review_service.load_queue(items)
+
+    pending_count = sum(1 for i in items if i.review_status == "PENDING")
+    resolved_count = sum(1 for i in items if i.review_status != "PENDING")
+    print(f"[REVIEW] Initialized canonical review queue: {len(items)} total unique keys, {pending_count} pending, {resolved_count} resolved")
+
+    # Persist clean queue back to review_queue.jsonl
+    q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
+    q_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(q_file, "w", encoding="utf-8") as f:
+        for item in items:
+            f.write(json.dumps(item.to_dict()) + "\n")
+
+def init_review_service():
+    """Entry point to initialize or refresh the review service state."""
+    build_clean_review_queue()
 
 init_review_service()
+
 
 
 # -------------------------------------------------------------------
@@ -275,8 +420,8 @@ def get_dashboard_summary():
             pass
 
     review_queue = review_service.get_review_queue()
-    pending_reviews = len([i for i in review_queue if i.review_status == "pending"])
-    resolved_reviews = len([i for i in review_queue if i.review_status != "pending"])
+    pending_reviews = len([i for i in review_queue if str(i.review_status).upper() == "PENDING"])
+    resolved_reviews = len([i for i in review_queue if str(i.review_status).upper() != "PENDING"])
 
     return {
         "products_processed": products_count or eval_data.get("products_evaluated", 1000),
@@ -300,14 +445,135 @@ def get_dashboard_summary():
 # -------------------------------------------------------------------
 # PRODUCT EXPLORER & DETAIL ENDPOINTS
 # -------------------------------------------------------------------
+def _sanitize_str(v: Any, fallback: str = "") -> str:
+    """Replace literal 'nan' string values (from pandas CSV export) with fallback."""
+    if v is None:
+        return fallback
+    s = str(v).strip()
+    if s.lower() in ("nan", "none", "null", ""):
+        return fallback
+    return s
+
+def _sanitize_product_record(item: dict) -> dict:
+    """Clean a product record, replacing 'nan' string values with appropriate fallbacks."""
+    p = item.get("product", {})
+    brand = _sanitize_str(p.get("brand", ""), "")
+    manufacturer = _sanitize_str(p.get("manufacturer", ""), "Unknown Manufacturer")
+    product_type = _sanitize_str(p.get("product_type", ""), "Uncategorized")
+    mpn = _sanitize_str(p.get("mpn", ""), "N/A")
+    pid = _sanitize_str(p.get("product_id", ""), "N/A")
+
+    p["brand"] = brand
+    p["manufacturer"] = manufacturer
+    p["product_type"] = product_type
+    p["mpn"] = mpn
+    p["product_id"] = pid
+
+    # Clean descriptions that contain 'nan'
+    desc = item.get("descriptions", {})
+    for field in ("title", "short_description", "long_description"):
+        v = desc.get(field, "")
+        if v and "nan" in str(v).lower():
+            import re
+            desc[field] = re.sub(r'\bnan\b', '', str(v), flags=re.IGNORECASE).strip()
+
+    title = desc.get("title", "").strip()
+    if not title or title.lower() in ("nan", "nan nan", "none"):
+        if brand and product_type and product_type != "Uncategorized":
+            title = f"{brand} {product_type}"
+        elif product_type and product_type != "Uncategorized":
+            title = product_type
+        else:
+            title = f"Unnamed Product ({pid})"
+    desc["title"] = title
+    p["product_name"] = title
+
+    item["product"] = p
+    item["descriptions"] = desc
+    return item
+
 def load_all_products() -> List[dict]:
     p_file = BASE_DIR / "data" / "final" / "product.json"
     if not p_file.exists():
         return []
     try:
         with open(p_file, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
+            raw = json.load(f)
+
+        field_conf_map = load_all_field_confidences()
+        products = []
+
+        # Get set of all pending product IDs
+        pending_product_ids = set(
+            item.product_id
+            for item in review_service.get_review_queue()
+            if item.review_status == "PENDING"
+        )
+
+        for item in raw:
+            clean_item = _sanitize_product_record(item)
+            pid = clean_item.get("product", {}).get("product_id", "")
+            val_info = clean_item.get("validation", {})
+            overall_conf = float(val_info.get("confidence", 0.605))
+
+            has_pending = pid in pending_product_ids
+            overall_status = "NEEDS_REVIEW" if has_pending else "VALIDATED"
+            effective_status = "needs_review" if has_pending else val_info.get("status", "approved")
+
+            val_info["status"] = effective_status
+            val_info["confidence"] = overall_conf
+            clean_item["validation"] = val_info
+            # Build unified attribute dictionary merging product.json, confidence map, and review queue
+            all_attr_names = set(clean_item.get("attributes", {}).keys())
+            for (p_id, a_name) in field_conf_map.keys():
+                if p_id == pid:
+                    all_attr_names.add(a_name)
+            for r_item in review_service.get_product_review(pid):
+                all_attr_names.add(r_item.attribute_name)
+
+            fields = {}
+            merged_attrs = dict(clean_item.get("attributes", {}))
+
+            for attr_name in sorted(list(all_attr_names)):
+                conf_rec = field_conf_map.get((pid, attr_name))
+                f_conf = float(conf_rec.get("confidence_score", 1.0)) if conf_rec else 1.0
+                raw_val = merged_attrs.get(attr_name) or (conf_rec.get("value", "") if conf_rec else "")
+                review_item = review_service.get_attribute_review(pid, attr_name)
+
+                if review_item:
+                    f_status = review_item.review_status
+                    if f_status in ("EDITED", "APPROVED") or review_item.review_action in ("EDIT", "ACCEPT"):
+                        effective_val = review_item.proposed_value if review_item.proposed_value is not None else review_item.current_value
+                        f_conf = 1.0
+                    elif f_status == "REJECTED" or review_item.review_action == "REJECT":
+                        effective_val = ""
+                        f_conf = 0.0
+                    else: # PENDING, IN_REVIEW, ESCALATED
+                        effective_val = review_item.current_value if review_item.current_value is not None else raw_val
+                elif conf_rec and conf_rec.get("decision") in ("REVIEW_RECOMMENDED", "HUMAN_REVIEW"):
+                    f_status = "PENDING"
+                    effective_val = raw_val
+                else:
+                    f_status = "VALIDATED"
+                    effective_val = raw_val
+
+                merged_attrs[attr_name] = effective_val
+                fields[attr_name] = {
+                    "field_name": attr_name,
+                    "value": effective_val,
+                    "field_confidence": f_conf,
+                    "confidence_percentage": round(f_conf * 100, 1),
+                    "review_status": f_status,
+                    "reason_codes": conf_rec.get("reason_codes", []) if conf_rec else []
+                }
+
+            clean_item["attributes"] = merged_attrs
+            clean_item["fields"] = fields
+            products.append(clean_item)
+
+        return products
+    except Exception as e:
+        print(f"[ERROR] Failed to load products: {e}")
         return []
 
 @app.get("/api/products")
@@ -323,35 +589,47 @@ def get_products(
     limit: int = Query(20, ge=1, le=100)
 ):
     products = load_all_products()
-    
+
     # Filtering
     filtered = []
     for item in products:
         p_info = item.get("product", {})
         val_info = item.get("validation", {})
-        
+        overall_status = item.get("overall_status", "VALIDATED")
+
         # Search
         if search:
             q = search.lower()
-            text_space = f"{p_info.get('product_id','')} {p_info.get('mpn','')} {p_info.get('brand','')} {p_info.get('manufacturer','')} {p_info.get('product_type','')}".lower()
+            text_space = " ".join([
+                p_info.get("product_id", ""),
+                p_info.get("mpn", ""),
+                p_info.get("brand", ""),
+                p_info.get("manufacturer", ""),
+                p_info.get("product_type", ""),
+                p_info.get("product_name", "")
+            ]).lower()
             if q not in text_space:
                 continue
-                
+
         if brand and p_info.get("brand", "").lower() != brand.lower():
             continue
         if manufacturer and p_info.get("manufacturer", "").lower() != manufacturer.lower():
             continue
         if product_type and p_info.get("product_type", "").lower() != product_type.lower():
             continue
-        if validation_status and val_info.get("status", "").lower() != validation_status.lower():
-            continue
-        
-        conf = float(val_info.get("confidence", 0.0))
+        if validation_status:
+            v_match = validation_status.lower()
+            if v_match in ("needs_review", "pending") and overall_status != "NEEDS_REVIEW":
+                continue
+            if v_match in ("approved", "validated", "pass") and overall_status != "VALIDATED":
+                continue
+
+        conf = float(item.get("overall_confidence", val_info.get("confidence", 0.0)))
         if min_confidence is not None and conf < min_confidence:
             continue
         if max_confidence is not None and conf > max_confidence:
             continue
-            
+
         filtered.append(item)
 
     total = len(filtered)
@@ -361,7 +639,7 @@ def get_products(
 
     # Dynamic brands and types for filter dropdowns
     all_brands = sorted(list(set(p.get("product", {}).get("brand") for p in products if p.get("product", {}).get("brand"))))
-    all_types = sorted(list(set(p.get("product", {}).get("product_type") for p in products if p.get("product", {}).get("product_type"))))
+    all_types = sorted(list(set(p.get("product", {}).get("product_type") for p in products if p.get("product", {}).get("product_type") and p.get("product", {}).get("product_type") != "Uncategorized")))
 
     return {
         "total": total,
@@ -383,10 +661,12 @@ def get_product_detail(product_id: str):
         if p.get("product", {}).get("product_id") == product_id or p.get("product", {}).get("mpn") == product_id:
             found = p
             break
-            
+
     if not found:
         raise HTTPException(status_code=404, detail=f"Product '{product_id}' not found")
-        
+
+    pid = found.get("product", {}).get("product_id", "")
+
     # Enrich with evidence references if available
     ev_file = BASE_DIR / "data" / "final" / "evidence.json"
     evidence_records = []
@@ -395,20 +675,63 @@ def get_product_detail(product_id: str):
             with open(ev_file, "r", encoding="utf-8") as f:
                 all_ev = json.load(f)
                 if isinstance(all_ev, list):
-                    evidence_records = [e for e in all_ev if e.get("product_id") == found["product"]["product_id"]]
+                    evidence_records = [e for e in all_ev if e.get("product_id") == pid]
         except Exception:
             pass
 
-    # Review status
-    rev_items = review_service.get_product_review(found["product"]["product_id"])
+    # Review status records for this product
+    rev_items = review_service.get_product_review(pid)
+
+    # Load all immutable audit history records for this product
+    audit_records = []
+    audit_file = BASE_DIR / "data" / "review" / "review_audit.jsonl"
+    if audit_file.exists():
+        with open(audit_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    try:
+                        rec = json.loads(line)
+                        if rec.get("product_id") == pid:
+                            audit_records.append(rec)
+                    except Exception:
+                        pass
+
+    # Ensure resolved review items with comments are included in history
+    seen_audit_keys = set(f"{r.get('review_id')}:{r.get('action')}" for r in audit_records)
+    for r in rev_items:
+        key = f"{r.review_id}:{r.review_action or r.review_status}"
+        if r.review_status != "PENDING" and key not in seen_audit_keys:
+            audit_records.append({
+                "audit_id": f"AUD-{abs(hash(r.review_key)) % 1000000:06d}",
+                "review_id": r.review_id,
+                "product_id": r.product_id,
+                "attribute_name": r.attribute_name,
+                "action": r.review_action or r.review_status,
+                "old_value": r.previous_value if r.previous_value is not None else r.current_value,
+                "new_value": r.proposed_value if r.proposed_value is not None else r.current_value,
+                "reviewer_id": r.reviewer_name or r.reviewer_id or "Product Specialist",
+                "reason": r.review_comment or "Verified by human reviewer based on manufacturer evidence.",
+                "validation_result": "PASS" if r.review_status != "REJECTED" else "REJECTED",
+                "confidence_before": r.confidence_score,
+                "confidence_after": 1.0 if r.review_status != "REJECTED" else 0.0,
+                "timestamp": r.resolved_at or r.updated_at or r.created_at
+            })
+
+    # Sort reverse chronologically
+    audit_records.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
 
     return {
         "product": found["product"],
+        "product_name": found["product"].get("product_name", "Unnamed Product"),
+        "overall_confidence": found.get("overall_confidence", float(found.get("validation", {}).get("confidence", 0.605))),
+        "overall_status": found.get("overall_status", "VALIDATED"),
         "attributes": found.get("attributes", {}),
+        "fields": found.get("fields", {}),
         "descriptions": found.get("descriptions", {}),
         "validation": found.get("validation", {}),
         "evidence": evidence_records or found.get("evidence", []),
-        "review_items": [r.to_dict() for r in rev_items]
+        "review_items": [r.to_dict() for r in rev_items],
+        "review_history": audit_records
     }
 
 
@@ -534,17 +857,107 @@ def get_confidence_metrics():
 
 
 # -------------------------------------------------------------------
+# HUMAN REVIEW PERSISTENCE & DATA INTEGRATION
+# -------------------------------------------------------------------
+def save_review_queue_to_disk():
+    q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
+    q_file.parent.mkdir(parents=True, exist_ok=True)
+    items = review_service.get_review_queue()
+    with open(q_file, "w", encoding="utf-8") as f:
+        for item in items:
+            f.write(json.dumps(item.to_dict()) + "\n")
+
+def update_product_and_regenerate_outputs(product_id: str, attribute_name: str, new_value: Any, action: str):
+    # Check if other pending review items remain for this product
+    other_pending = [
+        item for item in review_service.get_review_queue()
+        if item.product_id == product_id and item.attribute_name != attribute_name and item.review_status == "PENDING"
+    ]
+    has_remaining_pending = len(other_pending) > 0
+
+    # 1. Update in data/final/product.json
+    p_file = BASE_DIR / "data" / "final" / "product.json"
+    if p_file.exists():
+        try:
+            with open(p_file, "r", encoding="utf-8") as f:
+                products = json.load(f)
+            updated = False
+            for p in products:
+                p_info = p.get("product", {})
+                if p_info.get("product_id") == product_id or p_info.get("mpn") == product_id:
+                    if "attributes" not in p:
+                        p["attributes"] = {}
+                    if action == "REJECT":
+                        p["attributes"][attribute_name] = ""
+                    else:
+                        p["attributes"][attribute_name] = new_value
+
+                    if "validation" not in p:
+                        p["validation"] = {}
+
+                    if has_remaining_pending:
+                        p["validation"]["status"] = "needs_review"
+                    else:
+                        p["validation"]["status"] = "approved" if action != "REJECT" else "rejected"
+                        p["validation"]["confidence"] = 1.0 if action != "REJECT" else 0.0
+                    updated = True
+                    break
+            if updated:
+                with open(p_file, "w", encoding="utf-8") as f:
+                    json.dump(products, f, indent=2)
+        except Exception as e:
+            print(f"[ERROR] Failed to update product.json: {e}")
+
+    # 2. Update in data/final/enriched.csv
+    csv_file = BASE_DIR / "data" / "final" / "enriched.csv"
+    if csv_file.exists():
+        try:
+            import pandas as pd
+            df = pd.read_csv(csv_file)
+            if attribute_name not in df.columns:
+                df[attribute_name] = ""
+            df[attribute_name] = df[attribute_name].astype(object)
+            
+            mask = (df["product_id"] == product_id) | (df["mpn"] == product_id)
+            if mask.any():
+                if action == "REJECT":
+                    df.loc[mask, attribute_name] = ""
+                else:
+                    df.loc[mask, attribute_name] = str(new_value)
+
+                if has_remaining_pending:
+                    df.loc[mask, "human_review_status"] = "NEEDS_REVIEW"
+                    df.loc[mask, "validation_status"] = "WARNING"
+                else:
+                    df.loc[mask, "confidence_score"] = 1.0 if action != "REJECT" else 0.0
+                    df.loc[mask, "validation_status"] = "PASS" if action != "REJECT" else "FAIL"
+                    df.loc[mask, "human_review_status"] = "APPROVED" if action != "REJECT" else "REJECTED"
+                df.to_csv(csv_file, index=False)
+        except Exception as e:
+            print(f"[ERROR] Failed to update enriched.csv: {e}")
+
+    # 3. Regenerate downstream outputs via audit script in background
+    try:
+        import subprocess
+        subprocess.Popen([sys.executable, str(BASE_DIR / "scripts" / "audit_and_generate_expected_output.py")])
+    except Exception as e:
+        print(f"[ERROR] Failed to launch expected output generation: {e}")
+
+
+# -------------------------------------------------------------------
 # HUMAN REVIEW API (HITL)
 # -------------------------------------------------------------------
 class ActionRequest(BaseModel):
-    reviewer_id: Optional[str] = "ADMIN-01"
+    reviewer_id: Optional[str] = "Product Specialist"
     reason: Optional[str] = None
     edited_value: Optional[Any] = None
 
 @app.get("/api/review/queue")
 def get_review_queue(status_filter: Optional[str] = None):
+    build_clean_review_queue()
     items = review_service.get_review_queue(status_filter=status_filter)
     return [i.to_dict() for i in items]
+
 
 @app.get("/api/review/{review_id}")
 def get_review_item(review_id: str):
@@ -555,102 +968,83 @@ def get_review_item(review_id: str):
 
 @app.post("/api/review/{review_id}/accept")
 def accept_review_item(review_id: str, req: ActionRequest):
-    item = review_service.get_review_item(review_id)
-    if not item:
+    reason = (req.reason or "").strip() or "Verified and approved based on manufacturer evidence."
+    try:
+        item = review_service.approve_review(
+            review_id=review_id,
+            reviewer_id=req.reviewer_id or "Product Specialist",
+            comment=reason,
+            force=True
+        )
+    except KeyError:
         raise HTTPException(status_code=404, detail="Review item not found")
-    item.review_status = "approved"
-    item.human_override_value = item.extracted_value
-    
-    # Audit log
-    review_service.audit_logger.log_action(
-        audit_id=f"AUD-{review_service.audit_counter:04d}",
-        review_id=review_id,
-        product_id=item.product_id,
-        attribute_name=item.attribute_name,
-        action="ACCEPTED",
-        actor_id=req.reviewer_id or "HUMAN",
-        previous_val=str(item.extracted_value),
-        new_val=str(item.extracted_value),
-        reason=req.reason or "Approved by reviewer"
-    )
-    review_service.audit_counter += 1
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    save_review_queue_to_disk()
+    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.current_value, "ACCEPT")
     return {"status": "success", "message": f"Review item {review_id} accepted", "item": item.to_dict()}
 
 @app.post("/api/review/{review_id}/edit")
 def edit_review_item(review_id: str, req: ActionRequest):
-    item = review_service.get_review_item(review_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Review item not found")
-    
     if req.edited_value is None or str(req.edited_value).strip() == "":
         raise HTTPException(status_code=400, detail="Edit value cannot be empty")
-
-    valid, err_msg = review_service.validate_human_edit(item.attribute_name, req.edited_value)
-    if not valid:
-        raise HTTPException(status_code=422, detail=f"Backend Validation Failed: {err_msg}")
-
-    prev_val = item.extracted_value
-    item.review_status = "approved"
-    item.human_override_value = str(req.edited_value).strip()
-
-    review_service.audit_logger.log_action(
-        audit_id=f"AUD-{review_service.audit_counter:04d}",
-        review_id=review_id,
-        product_id=item.product_id,
-        attribute_name=item.attribute_name,
-        action="EDITED",
-        actor_id=req.reviewer_id or "HUMAN",
-        previous_val=str(prev_val),
-        new_val=str(req.edited_value).strip(),
-        reason=req.reason or "Corrected by reviewer"
-    )
-    review_service.audit_counter += 1
+    new_val = str(req.edited_value).strip()
+    reason = (req.reason or "").strip() or f"Manual override: updated value to '{new_val}'."
+    try:
+        item = review_service.edit_review(
+            review_id=review_id,
+            new_value=new_val,
+            reviewer_id=req.reviewer_id or "Product Specialist",
+            comment=reason,
+            force=True
+        )
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Review item not found")
+    except ValueError as e:
+        detail = str(e)
+        if "Edit rejected" in detail:
+            raise HTTPException(status_code=422, detail=detail)
+        raise HTTPException(status_code=409, detail=detail)
+    save_review_queue_to_disk()
+    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.proposed_value, "EDIT")
     return {"status": "success", "message": f"Review item {review_id} updated and approved", "item": item.to_dict()}
 
 @app.post("/api/review/{review_id}/reject")
 def reject_review_item(review_id: str, req: ActionRequest):
-    item = review_service.get_review_item(review_id)
-    if not item:
+    reason = (req.reason or "").strip() or "Rejected invalid attribute value based on review."
+    try:
+        item = review_service.reject_review(
+            review_id=review_id,
+            reviewer_id=req.reviewer_id or "Product Specialist",
+            comment=reason,
+            force=True
+        )
+    except KeyError:
         raise HTTPException(status_code=404, detail="Review item not found")
-    
-    if not req.reason:
-        raise HTTPException(status_code=400, detail="Rejection reason is required")
-
-    item.review_status = "rejected"
-    review_service.audit_logger.log_action(
-        audit_id=f"AUD-{review_service.audit_counter:04d}",
-        review_id=review_id,
-        product_id=item.product_id,
-        attribute_name=item.attribute_name,
-        action="REJECTED",
-        actor_id=req.reviewer_id or "HUMAN",
-        previous_val=str(item.extracted_value),
-        new_val=None,
-        reason=req.reason
-    )
-    review_service.audit_counter += 1
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    save_review_queue_to_disk()
+    update_product_and_regenerate_outputs(item.product_id, item.attribute_name, "", "REJECT")
     return {"status": "success", "message": f"Review item {review_id} rejected", "item": item.to_dict()}
 
 @app.post("/api/review/{review_id}/escalate")
 def escalate_review_item(review_id: str, req: ActionRequest):
-    item = review_service.get_review_item(review_id)
-    if not item:
+    reason = (req.reason or "").strip() or "Escalated for senior steward review."
+    try:
+        item = review_service.escalate_review(
+            review_id=review_id,
+            reviewer_id=req.reviewer_id or "Product Specialist",
+            comment=reason,
+            force=True
+        )
+    except KeyError:
         raise HTTPException(status_code=404, detail="Review item not found")
-
-    item.review_status = "escalated"
-    review_service.audit_logger.log_action(
-        audit_id=f"AUD-{review_service.audit_counter:04d}",
-        review_id=review_id,
-        product_id=item.product_id,
-        attribute_name=item.attribute_name,
-        action="ESCALATED",
-        actor_id=req.reviewer_id or "HUMAN",
-        previous_val=str(item.extracted_value),
-        new_val=None,
-        reason=req.reason or "Escalated for senior data steward review"
-    )
-    review_service.audit_counter += 1
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    save_review_queue_to_disk()
     return {"status": "success", "message": f"Review item {review_id} escalated", "item": item.to_dict()}
+
+
 
 
 # -------------------------------------------------------------------

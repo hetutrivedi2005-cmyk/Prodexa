@@ -34,14 +34,15 @@ export const ReviewQueuePage = () => {
 
   // Filter items based on selected tab
   const getFilteredItems = () => {
-    if (activeTab === 'pending') {
-      return items.filter(i => i.review_status === 'pending');
+    const status = activeTab.toLowerCase();
+    if (status === 'pending') {
+      return items.filter(i => String(i.review_status).toUpperCase() === 'PENDING');
     }
-    if (activeTab === 'high-priority') {
-      return items.filter(i => i.review_status === 'pending' && i.confidence < 0.70);
+    if (status === 'high-priority') {
+      return items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && i.confidence_score < 0.70);
     }
-    if (activeTab === 'resolved') {
-      return items.filter(i => i.review_status !== 'pending');
+    if (status === 'resolved') {
+      return items.filter(i => String(i.review_status).toUpperCase() !== 'PENDING');
     }
     return items; // All
   };
@@ -49,9 +50,9 @@ export const ReviewQueuePage = () => {
   const filteredItems = getFilteredItems();
 
   const tabOptions = [
-    { id: 'pending', label: 'Pending Reviews', count: items.filter(i => i.review_status === 'pending').length },
-    { id: 'high-priority', label: 'High Priority', count: items.filter(i => i.review_status === 'pending' && i.confidence < 0.70).length },
-    { id: 'resolved', label: 'Recently Reviewed', count: items.filter(i => i.review_status !== 'pending').length },
+    { id: 'pending', label: 'Pending Reviews', count: items.filter(i => String(i.review_status).toUpperCase() === 'PENDING').length },
+    { id: 'high-priority', label: 'High Priority', count: items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && i.confidence_score < 0.70).length },
+    { id: 'resolved', label: 'Recently Reviewed', count: items.filter(i => String(i.review_status).toUpperCase() !== 'PENDING').length },
     { id: 'all', label: 'All Items', count: items.length }
   ];
 
@@ -121,10 +122,10 @@ export const ReviewQueuePage = () => {
               <thead>
                 <tr className="border-b border-[#202B3B] text-[#64748B]">
                   <th className="py-3 px-3">PRODUCT</th>
-                  <th className="py-3 px-3">QUESTION/ISSUE</th>
+                  <th className="py-3 px-3">FIELD / ISSUE</th>
                   <th className="py-3 px-3">CURRENT VALUE</th>
                   <th className="py-3 px-3">SUGGESTED VALUE</th>
-                  <th className="py-3 px-3">CONFIDENCE</th>
+                  <th className="py-3 px-3">FIELD CONFIDENCE</th>
                   <th className="py-3 px-3">STATUS</th>
                   <th className="py-3 px-3 text-right">ACTION</th>
                 </tr>
@@ -138,19 +139,22 @@ export const ReviewQueuePage = () => {
                   </tr>
                 ) : (
                   filteredItems.map((item) => {
-                    const confPercent = (item.confidence * 100).toFixed(1);
+                    const fieldConf = item.field_confidence ?? item.confidence_score ?? 0.0;
+                    const confPercent = (fieldConf * 100).toFixed(1);
+                    const fieldName = item.field_name || item.attribute_name;
                     
+                    const statusVal = String(item.review_status).toUpperCase();
                     let statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
-                    if (item.review_status === 'approved') {
+                    if (statusVal === 'APPROVED' || statusVal === 'EDITED') {
                       statusColorClass = 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400';
-                    } else if (item.review_status === 'rejected') {
+                    } else if (statusVal === 'REJECTED') {
                       statusColorClass = 'bg-rose-950/80 border-rose-500/40 text-rose-400';
-                    } else if (item.review_status === 'escalated') {
+                    } else if (statusVal === 'ESCALATED') {
                       statusColorClass = 'bg-purple-950/80 border-purple-500/40 text-purple-400';
                     }
 
                     return (
-                      <tr key={item.review_id} className="table-row-interactive hover:bg-[#0E131B]/40">
+                      <tr key={item.review_key || item.review_id} className="table-row-interactive hover:bg-[#0E131B]/40">
                         <td className="py-3.5 px-3">
                           <Link
                             to={`/user/products/${item.product_id}`}
@@ -159,18 +163,25 @@ export const ReviewQueuePage = () => {
                             {item.product_id}
                             <ArrowUpRight className="w-3.5 h-3.5" />
                           </Link>
+                          <span className="text-[10px] text-[#64748B] block mt-0.5 font-mono">{item.mpn || 'Product ID'}</span>
                         </td>
-                        <td className="py-3.5 px-3 text-slate-300 max-w-[200px] truncate" title={item.review_reason}>
-                          {item.review_reason}
+                        <td className="py-3.5 px-3 text-slate-300 max-w-[200px]" title={(item.reason_codes || []).join(', ')}>
+                          <span className="px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 font-bold">
+                            {fieldName}
+                          </span>
+                          <span className="text-[#64748B] text-[10px] block mt-1 truncate">{(item.reason_codes || []).slice(0, 1).join(', ')}</span>
                         </td>
                         <td className="py-3.5 px-3 text-[#94A3B8] font-bold uppercase">
-                          {item.extracted_value}
+                          {String(item.current_value ?? '—')}
                         </td>
                         <td className="py-3.5 px-3 text-cyan-300 font-bold uppercase">
-                          {item.human_override_value || 'None'}
+                          {String(item.proposed_value ?? '—')}
                         </td>
-                        <td className="py-3.5 px-3 font-bold text-slate-200">
-                          {confPercent}%
+                        <td className="py-3.5 px-3">
+                          <span className={`font-bold font-mono-tech ${fieldConf < 0.80 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                            {confPercent}%
+                          </span>
+                          <span className="text-[10px] text-[#64748B] block font-mono">Field Score</span>
                         </td>
                         <td className="py-3.5 px-3">
                           <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${statusColorClass}`}>
@@ -182,7 +193,7 @@ export const ReviewQueuePage = () => {
                             onClick={() => setSelectedItem(item)}
                             className="px-3.5 py-1.5 rounded-xl bg-[#0E131B] border border-[#202B3B] text-cyan-300 hover:border-cyan-400 hover:bg-[#1A2433] text-[11px] font-bold transition-all cursor-pointer"
                           >
-                            {item.review_status === 'pending' ? 'Process Review' : 'View Action'}
+                            {statusVal === 'PENDING' ? 'Process Review' : 'View Action'}
                           </button>
                         </td>
                       </tr>

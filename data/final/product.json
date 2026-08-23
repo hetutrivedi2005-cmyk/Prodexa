@@ -11,7 +11,8 @@
       "size": "1/2 in x 18 in",
       "quantity": 6.0,
       "dimensions": "1/2 in x 18 in",
-      "pack_quantity": "6"
+      "pack_quantity": "6",
+      "grit": "P120"
     },
     "descriptions": {
       "title": "Diablo Sanding Belt",
@@ -20,7 +21,7 @@
     },
     "validation": {
       "status": "approved",
-      "confidence": 0.605,
+      "confidence": 1.0,
       "description_status": "validated"
     },
     "evidence": []
@@ -2324,7 +2325,13 @@
       "manufacturer": "nan",
       "product_type": "Railing & Fence Kits"
     },
-    "attributes": {},
+    "attributes": {
+      "color": "Slate Gray",
+      "edge_profile": "Grooved",
+      "length": "12 ft",
+      "material": "PVC",
+      "width_profile": "1x6"
+    },
     "descriptions": {
       "title": "nan Railing Kit",
       "short_description": "The nan Railing Kit is a verified Railing Kit.",
@@ -2332,7 +2339,7 @@
     },
     "validation": {
       "status": "approved",
-      "confidence": 0.605,
+      "confidence": 1.0,
       "description_status": "validated"
     },
     "evidence": []
@@ -2345,15 +2352,21 @@
       "manufacturer": "nan",
       "product_type": "Railing & Fence Kits"
     },
-    "attributes": {},
+    "attributes": {
+      "color": "Slate Gray",
+      "edge_profile": "",
+      "length": "12 ft",
+      "material": "pvc",
+      "width_profile": ""
+    },
     "descriptions": {
       "title": "nan Railing Kit",
       "short_description": "The nan Railing Kit is a verified Railing Kit.",
       "long_description": "[Product Overview] Brand: nan | Product Type: Railing Kit [Verified Specifications] [Product Details] This product listing contains specifications verified by the Prodexa validation and evidence pipeline."
     },
     "validation": {
-      "status": "approved",
-      "confidence": 0.605,
+      "status": "rejected",
+      "confidence": 0.0,
       "description_status": "validated"
     },
     "evidence": []

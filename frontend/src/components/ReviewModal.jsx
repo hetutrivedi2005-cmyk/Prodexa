@@ -4,7 +4,7 @@ import { Check, Edit3, X, AlertTriangle, ShieldAlert, Loader2 } from 'lucide-rea
 
 export const ReviewModal = ({ item, onClose, onSuccess }) => {
   const [mode, setMode] = useState('view'); // 'view' | 'edit' | 'reject' | 'escalate'
-  const [editedValue, setEditedValue] = useState(item?.extracted_value || '');
+  const [editedValue, setEditedValue] = useState(item?.current_value || item?.proposed_value || '');
   const [reason, setReason] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -15,8 +15,8 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.acceptReviewItem(item.review_id, 'HUMAN_REVIEWER', reason || 'Verified by reviewer');
-      onSuccess?.('Item accepted successfully');
+      await api.acceptReviewItem(item.review_id, 'Product Specialist', reason.trim() || 'Verified and approved based on manufacturer evidence.');
+      onSuccess?.('Item accepted successfully and specifications updated');
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to accept review item');
@@ -27,11 +27,16 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+    if (!editedValue || !editedValue.trim()) {
+      setErrorMessage('A corrected value is required.');
+      return;
+    }
+    const editReason = reason.trim() || `Manual override: updated ${item.field_name || item.attribute_name} to '${editedValue.trim()}'.`;
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.editReviewItem(item.review_id, 'HUMAN_REVIEWER', editedValue, reason || 'Manually corrected value');
-      onSuccess?.('Edit submitted and item approved');
+      await api.editReviewItem(item.review_id, 'Product Specialist', editedValue.trim(), editReason);
+      onSuccess?.('Edit submitted and specifications updated');
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Validation failed for edit');
@@ -42,15 +47,12 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
 
   const handleRejectSubmit = async (e) => {
     e.preventDefault();
-    if (!reason.trim()) {
-      setErrorMessage('A rejection reason is required');
-      return;
-    }
+    const rejectReason = reason.trim() || `Rejected invalid value for attribute ${item.field_name || item.attribute_name}.`;
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.rejectReviewItem(item.review_id, 'HUMAN_REVIEWER', reason);
-      onSuccess?.('Item rejected');
+      await api.rejectReviewItem(item.review_id, 'Product Specialist', rejectReason);
+      onSuccess?.('Item rejected and removed from active specifications');
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to reject review item');
@@ -61,11 +63,12 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
 
   const handleEscalateSubmit = async (e) => {
     e.preventDefault();
+    const escalateReason = reason.trim() || 'Escalated for secondary engineering review.';
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.escalateReviewItem(item.review_id, 'HUMAN_REVIEWER', reason || 'Escalated to senior steward');
-      onSuccess?.('Item escalated');
+      await api.escalateReviewItem(item.review_id, 'Product Specialist', escalateReason);
+      onSuccess?.('Item escalated to data stewards');
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to escalate review item');
@@ -81,9 +84,9 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-cyan-400">REVIEW ID: {item.review_id}</span>
+              <span className="text-xs font-mono font-bold text-cyan-400">KEY: {item.review_key || `${item.product_id}:${item.attribute_name}`}</span>
               <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase ${
-                item.review_status === 'pending'
+                String(item.review_status).toUpperCase() === 'PENDING'
                   ? 'bg-amber-950/80 border border-amber-500/40 text-amber-400'
                   : 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400'
               }`}>
@@ -91,7 +94,7 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
               </span>
             </div>
             <h3 className="text-lg font-bold text-slate-100 font-mono-tech mt-1">
-              {item.attribute_name}: <span className="text-cyan-300">{item.extracted_value}</span>
+              Field: <span className="text-cyan-300 uppercase">{item.field_name || item.attribute_name}</span> = <span className="text-slate-100">{item.current_value}</span>
             </h3>
           </div>
           <button
@@ -116,22 +119,22 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
         {/* Product Details Grid */}
         <div className="grid grid-cols-2 gap-4 text-xs">
           <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-            <span className="text-[10px] text-slate-500 uppercase font-mono">Product ID & MPN</span>
+            <span className="text-[10px] text-slate-500 uppercase font-mono">Product ID & Key</span>
             <p className="font-semibold text-slate-200">{item.product_id}</p>
-            <p className="text-slate-400 font-mono">{item.mpn || 'N/A'}</p>
+            <p className="text-slate-400 font-mono text-[11px]">{item.review_key || `${item.product_id}:${item.attribute_name}`}</p>
           </div>
           <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-            <span className="text-[10px] text-slate-500 uppercase font-mono">Confidence & Reason</span>
-            <p className="font-mono font-bold text-amber-400">{(item.confidence * 100).toFixed(1)}%</p>
-            <p className="text-slate-400 text-[11px] truncate">{item.review_reason}</p>
+            <span className="text-[10px] text-slate-500 uppercase font-mono">Field Confidence (Attribute)</span>
+            <p className="font-mono font-bold text-amber-400 text-base">{(((item.field_confidence ?? item.confidence_score) || 0) * 100).toFixed(1)}%</p>
+            <p className="text-slate-400 text-[11px] truncate">{(item.reason_codes || []).join(' · ') || 'Validation Gate Flag'}</p>
           </div>
         </div>
 
         {/* Evidence context */}
         {item.evidence_text && (
           <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-1">
-            <span className="text-[10px] font-mono text-cyan-400 uppercase">Supporting Evidence Span</span>
-            <p className="text-slate-300 italic">"{item.evidence_text}"</p>
+            <span className="text-[10px] font-mono text-cyan-400 uppercase">Supporting Evidence & Reason Codes</span>
+            <p className="text-slate-300 italic">{item.evidence_text || (item.reason_codes || []).join(', ')}</p>
           </div>
         )}
 
