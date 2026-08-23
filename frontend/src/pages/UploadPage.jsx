@@ -219,17 +219,26 @@ export const UploadPage = () => {
 
     try {
       const res = await api.createJob(file);
-      if (res && res.status === 'success' && res.job_id) {
-        const newJobId = res.job_id;
+      const newJobId = res?.job_id || res?.jobId;
+      if (res && (res.status === 'success' || res.success) && newJobId) {
         setJobId(newJobId);
-        setJob(res.job || null);
+        setJob(res.job || {
+          job_id: newJobId,
+          filename: file.name,
+          total_rows: res.total_rows || 0,
+          processed_rows: 0,
+          status: 'QUEUED',
+          current_stage: 'Data Ingestion & Cleansing',
+          overall_progress: 0
+        });
         localStorage.setItem('prodexa_active_job', newJobId);
         setCurrentStep('PROCESSING');
         connectSSE(newJobId);
       } else {
-        setError(res?.detail || res?.message || 'Failed to create processing job');
+        setError(res?.detail || res?.error || res?.message || 'Failed to create processing job');
       }
     } catch (err) {
+      console.error('[UploadPage Error]:', err);
       setError(err.message || 'Error creating product data analysis job.');
     } finally {
       setUploading(false);

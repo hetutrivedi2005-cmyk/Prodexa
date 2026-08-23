@@ -26,7 +26,7 @@ from src.review.review_service import ReviewService
 from src.review.review_model import ReviewItem
 from src.database.connection import db_manager
 from src.database.repositories import repo
-from src.pipeline.job_manager import pipeline_job_manager
+from src.pipeline.job_manager import pipeline_job_manager, RAW_DIR, JOBS_DIR
 
 # Application Setup
 app = FastAPI(
@@ -1438,49 +1438,53 @@ async def create_processing_job(
     file: UploadFile = File(...),
     current_user: dict = Depends(get_current_user)
 ):
-    if not file.filename.endswith('.csv'):
-        raise HTTPException(status_code=400, detail="Invalid file type. Only .csv files are supported.")
-
-    content = await file.read()
-    if len(content) == 0:
-        raise HTTPException(status_code=400, detail="Uploaded file is empty. Please upload a valid CSV file.")
-
-    if len(content) > 50 * 1024 * 1024:
-        raise HTTPException(status_code=400, detail="File size exceeds maximum 50MB limit.")
-
-    # Validate CSV parsing using CSVAdapter and count actual rows
     try:
+        if not file.filename.lower().endswith('.csv'):
+            raise HTTPException(status_code=400, detail="Invalid file type. Only .csv files are supported.")
+
+        content = await file.read()
+        if len(content) == 0:
+            raise HTTPException(status_code=400, detail="Uploaded file is empty. Please upload a valid CSV file.")
+
+        if len(content) > 50 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="File size exceeds maximum 50MB limit.")
+
+        # Validate CSV parsing using CSVAdapter and count actual rows
         from src.pipeline.csv_adapter import CSVAdapter
         raw_headers, raw_data = CSVAdapter.parse_csv_bytes(content)
         if not raw_headers or not raw_data:
             raise HTTPException(status_code=400, detail="CSV file must contain a header row and at least 1 data row.")
         total_rows = len(raw_data)
+
+        # Write safely to writable directory
+        dest = RAW_DIR / f"job_input_{int(time.time())}_{file.filename}"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with open(dest, "wb") as f:
+            f.write(content)
+
+        user_id = current_user.get("id", current_user.get("email", "user@prodexa.com"))
+        job = pipeline_job_manager.create_job(
+            user_id=user_id,
+            filename=file.filename,
+            filepath=str(dest),
+            total_rows=total_rows
+        )
+
+        return {
+            "success": True,
+            "status": "success",
+            "jobId": job["job_id"],
+            "job_id": job["job_id"],
+            "filename": file.filename,
+            "total_rows": total_rows,
+            "job": job,
+            "message": "CSV validated successfully. Analysis job created and queued for processing."
+        }
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Malformed CSV file format: {str(e)}")
-
-    dest = BASE_DIR / "data" / "raw" / f"job_input_{int(time.time())}_{file.filename}"
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    with open(dest, "wb") as f:
-        f.write(content)
-
-    user_id = current_user.get("id", current_user.get("email", "user@prodexa.com"))
-    job = pipeline_job_manager.create_job(
-        user_id=user_id,
-        filename=file.filename,
-        filepath=str(dest),
-        total_rows=total_rows
-    )
-
-    return {
-        "status": "success",
-        "job_id": job["job_id"],
-        "filename": file.filename,
-        "total_rows": total_rows,
-        "job": job,
-        "message": "CSV validated successfully. Analysis job created and queued for processing."
-    }
+        print(f"[CREATE JOB ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create processing job: {str(e)}")
 
 @app.get("/api/jobs/{job_id}")
 def get_job_status(

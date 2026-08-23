@@ -85,12 +85,14 @@ export function App() {
           {/* User Protected Routes */}
           <Route path="/user" element={<AppLayout />}>
             <Route path="dashboard" element={<UserDashboard />} />
+            <Route path="overview" element={<UserDashboard />} />
             <Route path="products" element={<ProductExplorer />} />
             <Route path="products/:id" element={<ProductDetailPage />} />
             <Route path="evidence" element={<EvidencePage />} />
             <Route path="validation" element={<ValidationPage />} />
             <Route path="confidence" element={<ConfidencePage />} />
             <Route path="review" element={<ReviewQueuePage />} />
+            <Route path="review-queue" element={<ReviewQueuePage />} />
             <Route path="descriptions" element={<DescriptionsPage />} />
             <Route path="outputs" element={<FinalOutputsPage />} />
             <Route path="reports" element={<ReportsPage />} />

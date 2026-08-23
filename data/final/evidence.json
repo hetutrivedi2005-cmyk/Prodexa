@@ -6,7 +6,7 @@
     "manufacturer": "Freud Inc",
     "source_id": "SRC_CATALOG_PRIMARY",
     "evidence_url": "https://catalog.manufacturer-evidence.internal",
-    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "evidence_text": "Grounded specification from uploaded file job_1787493572_c1e5d9",
     "confidence_score": 0.98,
     "verified": true
   },
@@ -17,7 +17,7 @@
     "manufacturer": "Malco Products",
     "source_id": "SRC_CATALOG_PRIMARY",
     "evidence_url": "https://catalog.manufacturer-evidence.internal",
-    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "evidence_text": "Grounded specification from uploaded file job_1787493572_c1e5d9",
     "confidence_score": 0.67,
     "verified": false
   },
@@ -28,7 +28,7 @@
     "manufacturer": "Stanley Black & Decker",
     "source_id": "SRC_CATALOG_PRIMARY",
     "evidence_url": "https://catalog.manufacturer-evidence.internal",
-    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "evidence_text": "Grounded specification from uploaded file job_1787493572_c1e5d9",
     "confidence_score": 0.91,
     "verified": true
   }

@@ -131,9 +131,10 @@ export const api = {
       method: 'POST',
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: formData
-    }).then(res => {
+    }).then(async res => {
       if (!res.ok) {
-        return res.json().then(err => { throw new Error(err.detail || 'Failed to create processing job'); });
+        const errorData = await res.json().catch(() => ({ detail: `HTTP ${res.status}: ${res.statusText}` }));
+        throw new Error(errorData.detail || errorData.error || errorData.message || `Failed to create processing job (${res.status})`);
       }
       return res.json();
     });
