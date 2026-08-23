@@ -24,6 +24,7 @@ import { UploadPage } from './pages/UploadPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { HelpPage } from './pages/HelpPage';
 import { ReportPrintPage } from './pages/ReportPrintPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 // Protected App Layout Wrapper
 const AppLayout = () => {
@@ -48,7 +49,9 @@ const AppLayout = () => {
         <Sidebar />
         <main className="flex-1 md:ml-64 p-6 sm:p-8 min-w-0 w-full transition-all duration-300">
           <div className="w-full">
-            <Outlet />
+            <ErrorBoundary>
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </main>
       </div>

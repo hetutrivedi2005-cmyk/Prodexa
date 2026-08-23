@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { api, getAuthToken } from '../api';
 import {
   Upload,
@@ -26,6 +26,9 @@ import {
 } from 'lucide-react';
 
 export const UploadPage = () => {
+  const [searchParams] = useSearchParams();
+  const urlJobId = searchParams.get('job_id');
+
   // Step State: 'UPLOAD' | 'PROCESSING' | 'RESULTS'
   const [currentStep, setCurrentStep] = useState('UPLOAD');
 
@@ -53,27 +56,42 @@ export const UploadPage = () => {
   // Result Detail Modal State
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // On Mount: Check for active job in localStorage for seamless reconnection on refresh
+  // Safe Job Status Recovery on Navigation / Mount
   useEffect(() => {
-    const savedJobId = localStorage.getItem('prodexa_active_job');
-    if (savedJobId) {
-      setJobId(savedJobId);
-      api.getJobStatus(savedJobId)
+    const targetJobId = urlJobId || localStorage.getItem('prodexa_active_job');
+    if (targetJobId) {
+      setJobId(targetJobId);
+      api.getJobStatus(targetJobId)
         .then(data => {
+          if (!data || data.detail || data.error || !data.status) {
+            localStorage.removeItem('prodexa_active_job');
+            setJobId(null);
+            setJob(null);
+            setCurrentStep('UPLOAD');
+            return;
+          }
           setJob(data);
           if (data.status === 'COMPLETED') {
             setCurrentStep('RESULTS');
-            fetchResults(savedJobId, 1, '', 'ALL');
-          } else {
+            fetchResults(targetJobId, 1, '', 'ALL');
+          } else if (data.status === 'PROCESSING' || data.status === 'PENDING') {
             setCurrentStep('PROCESSING');
-            connectSSE(savedJobId);
+            connectSSE(targetJobId);
+          } else {
+            setCurrentStep('UPLOAD');
           }
         })
-        .catch(() => {
+        .catch(err => {
+          console.warn('Could not restore previous job state:', err);
           localStorage.removeItem('prodexa_active_job');
+          setJobId(null);
+          setJob(null);
+          setCurrentStep('UPLOAD');
         });
+    } else {
+      setCurrentStep('UPLOAD');
     }
-  }, []);
+  }, [urlJobId]);
 
   // Cleanup SSE connection on unmount
   useEffect(() => {
@@ -86,54 +104,67 @@ export const UploadPage = () => {
 
   // Connect SSE for Real-Time Progress Stream
   const connectSSE = (id) => {
+    if (!id) return;
     if (eventSourceRef.current) {
       eventSourceRef.current.close();
     }
 
-    const token = getAuthToken();
-    const url = `/api/jobs/${id}/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
-    const es = new EventSource(url);
-    eventSourceRef.current = es;
-    setSseConnected(true);
+    try {
+      const token = getAuthToken();
+      const url = `/api/jobs/${id}/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+      const es = new EventSource(url);
+      eventSourceRef.current = es;
+      setSseConnected(true);
 
-    es.onmessage = (e) => {
-      try {
-        const data = JSON.parse(e.data);
-        if (data.job) {
-          setJob(data.job);
+      es.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.job) {
+            setJob(data.job);
+          }
+          if (data.event === 'stage_progress' || data.event === 'stage_completed' || data.event === 'stage_started') {
+            api.getJobStatus(id).then(updated => {
+              if (updated && updated.status) setJob(updated);
+            }).catch(() => {});
+          }
+          if (data.event === 'job_completed' || data.status === 'COMPLETED') {
+            es.close();
+            setSseConnected(false);
+            api.getJobStatus(id).then(finalJob => {
+              if (finalJob) setJob(finalJob);
+              setCurrentStep('RESULTS');
+              fetchResults(id, 1, '', 'ALL');
+            }).catch(() => {
+              setCurrentStep('RESULTS');
+              fetchResults(id, 1, '', 'ALL');
+            });
+          } else if (data.event === 'job_failed' || data.status === 'FAILED') {
+            es.close();
+            setSseConnected(false);
+            setError(data.error || 'Job processing encountered an error.');
+          }
+        } catch (err) {
+          console.warn('SSE Parse error:', err);
         }
-        if (data.event === 'stage_progress' || data.event === 'stage_completed' || data.event === 'stage_started') {
-          api.getJobStatus(id).then(updated => setJob(updated)).catch(() => {});
-        }
-        if (data.event === 'job_completed' || data.status === 'COMPLETED') {
-          es.close();
-          setSseConnected(false);
-          api.getJobStatus(id).then(finalJob => {
-            setJob(finalJob);
-            setCurrentStep('RESULTS');
-            fetchResults(id, 1, '', 'ALL');
-          });
-        } else if (data.event === 'job_failed' || data.status === 'FAILED') {
-          es.close();
-          setSseConnected(false);
-          setError(data.error || 'Job processing encountered an error.');
-        }
-      } catch (err) {
-        console.warn('SSE Parse warning:', err);
-      }
-    };
+      };
 
-    es.onerror = () => {
+      es.onerror = () => {
+        setSseConnected(false);
+        api.getJobStatus(id).then(updated => {
+          if (updated && updated.status) {
+            setJob(updated);
+            if (updated.status === 'COMPLETED') {
+              es.close();
+              setCurrentStep('RESULTS');
+              fetchResults(id, 1, '', 'ALL');
+            }
+          }
+        }).catch(() => {});
+      };
+    } catch (err) {
+      console.warn('SSE setup error:', err);
       setSseConnected(false);
-      api.getJobStatus(id).then(updated => {
-        setJob(updated);
-        if (updated.status === 'COMPLETED') {
-          es.close();
-          setCurrentStep('RESULTS');
-          fetchResults(id, 1, '', 'ALL');
-        }
-      }).catch(() => {});
-    };
+    }
   };
 
   // Drag & Drop Handlers
@@ -163,7 +194,8 @@ export const UploadPage = () => {
   };
 
   const validateAndSetFile = (f) => {
-    if (!f.name.endsWith('.csv')) {
+    if (!f) return;
+    if (!f.name.toLowerCase().endsWith('.csv')) {
       setError('Invalid file format. Only .csv files are supported.');
       setFile(null);
       return;
@@ -187,15 +219,15 @@ export const UploadPage = () => {
 
     try {
       const res = await api.createJob(file);
-      if (res.status === 'success' && res.job_id) {
+      if (res && res.status === 'success' && res.job_id) {
         const newJobId = res.job_id;
         setJobId(newJobId);
-        setJob(res.job);
+        setJob(res.job || null);
         localStorage.setItem('prodexa_active_job', newJobId);
         setCurrentStep('PROCESSING');
         connectSSE(newJobId);
       } else {
-        setError(res.detail || 'Failed to create processing job');
+        setError(res?.detail || res?.message || 'Failed to create processing job');
       }
     } catch (err) {
       setError(err.message || 'Error creating product data analysis job.');
@@ -206,14 +238,23 @@ export const UploadPage = () => {
 
   // Fetch Results List
   const fetchResults = (id, pageNum = 1, searchTerm = '', filter = 'ALL') => {
+    if (!id) return;
     setLoadingResults(true);
     api.getJobResults(id, { page: pageNum, page_size: 15, search: searchTerm, status_filter: filter })
       .then(res => {
-        setResults(res.items || []);
-        setTotalResults(res.total || 0);
-        setPage(pageNum);
+        if (res && res.items) {
+          setResults(res.items || []);
+          setTotalResults(res.total || 0);
+          setPage(pageNum);
+        } else {
+          setResults([]);
+          setTotalResults(0);
+        }
       })
-      .catch(err => console.error('Error fetching job results:', err))
+      .catch(err => {
+        console.error('Error fetching job results:', err);
+        setResults([]);
+      })
       .finally(() => setLoadingResults(false));
   };
 
@@ -237,7 +278,7 @@ export const UploadPage = () => {
     }
   };
 
-  // Upload Another File Reset
+  // Upload Another File Reset / Cancel
   const handleUploadAnother = () => {
     localStorage.removeItem('prodexa_active_job');
     if (eventSourceRef.current) {
@@ -251,8 +292,10 @@ export const UploadPage = () => {
     setCurrentStep('UPLOAD');
   };
 
+  const handleResetUpload = handleUploadAnother;
+
   return (
-    <div className="space-y-8 max-w-5xl mx-auto pb-16">
+    <div className="space-y-8 max-w-5xl mx-auto pb-16 font-sans">
       {/* Header Banner */}
       <div className="border-b border-[#202B3B] pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -282,12 +325,12 @@ export const UploadPage = () => {
 
       {/* User-Friendly Error Alert Banner */}
       {error && (
-        <div className="p-4 rounded-xl bg-[#F43F5E]/10 border border-[#F43F5E]/40 text-[#F43F5E] text-xs flex items-center justify-between gap-3">
+        <div className="p-4 rounded-xl bg-[#F43F5E]/10 border border-[#F43F5E]/40 text-[#F43F5E] text-xs flex items-center justify-between gap-3 font-mono">
           <div className="flex items-center gap-3">
             <AlertTriangle className="w-5 h-5 shrink-0" />
             <span className="font-semibold">{error}</span>
           </div>
-          <button onClick={() => setError('')} className="hover:opacity-80 text-xs uppercase font-mono font-bold">Dismiss</button>
+          <button onClick={() => setError('')} className="hover:opacity-80 text-xs uppercase font-mono font-bold cursor-pointer">Dismiss</button>
         </div>
       )}
 
@@ -350,7 +393,7 @@ export const UploadPage = () => {
                 <button
                   type="button"
                   onClick={() => setFile(null)}
-                  className="p-1.5 rounded-lg hover:bg-[#141B26] text-[#64748B] hover:text-[#F43F5E] transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-[#141B26] text-[#64748B] hover:text-[#F43F5E] transition-colors cursor-pointer"
                 >
                   <XCircle className="w-4 h-4" />
                 </button>
@@ -381,7 +424,7 @@ export const UploadPage = () => {
       )}
 
       {/* STEP 2: REAL-TIME PROCESSING SCREEN */}
-      {currentStep === 'PROCESSING' && job && (
+      {currentStep === 'PROCESSING' && (
         <div className="space-y-8">
           {/* Job Overview Card */}
           <div className="glass-panel p-6 rounded-2xl space-y-6">
@@ -391,7 +434,7 @@ export const UploadPage = () => {
                   Analyzing Product Data Feed
                 </span>
                 <h2 className="text-xl font-bold text-[#F1F5F9] font-display mt-0.5">
-                  {job.filename}
+                  {job?.filename || 'Uploaded Dataset'}
                 </h2>
               </div>
 
@@ -416,17 +459,17 @@ export const UploadPage = () => {
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-[#94A3B8]">Overall Progress</span>
-                <span className="text-[#F59E0B] font-bold text-sm">{job.overall_progress}%</span>
+                <span className="text-[#F59E0B] font-bold text-sm">{job?.overall_progress || 0}%</span>
               </div>
               <div className="w-full h-3 rounded-full bg-[#070A0F] border border-[#202B3B] overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-[#F59E0B] via-[#38BDF8] to-[#10B981] transition-all duration-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]"
-                  style={{ width: `${job.overall_progress}%` }}
+                  style={{ width: `${job?.overall_progress || 0}%` }}
                 ></div>
               </div>
               <div className="flex items-center justify-between text-[11px] font-mono text-[#64748B] pt-1">
-                <span>{job.processed_rows.toLocaleString()} / {job.total_rows.toLocaleString()} products processed</span>
-                <span>Current Stage: <strong className="text-[#38BDF8]">{job.current_stage}</strong></span>
+                <span>{(job?.processed_rows || 0).toLocaleString()} / {(job?.total_rows || 0).toLocaleString()} products processed</span>
+                <span>Current Stage: <strong className="text-[#38BDF8]">{job?.current_stage || 'Initializing Pipeline'}</strong></span>
               </div>
             </div>
 
@@ -434,35 +477,35 @@ export const UploadPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
               <div className="p-3.5 rounded-xl bg-[#070A0F] border border-[#202B3B] space-y-1">
                 <span className="text-[#94A3B8] text-[10px] uppercase">Processed</span>
-                <p className="text-xl font-bold text-[#F1F5F9]">{job.processed_rows.toLocaleString()}</p>
-                <span className="text-[10px] text-[#64748B]">of {job.total_rows.toLocaleString()} products</span>
+                <p className="text-xl font-bold text-[#F1F5F9]">{(job?.processed_rows || 0).toLocaleString()}</p>
+                <span className="text-[10px] text-[#64748B]">of {(job?.total_rows || 0).toLocaleString()} products</span>
               </div>
               <div className="p-3.5 rounded-xl bg-[#070A0F] border border-[#10B981]/30 space-y-1">
                 <span className="text-[#10B981] text-[10px] uppercase">Successful</span>
-                <p className="text-xl font-bold text-[#10B981]">{job.successful_rows.toLocaleString()}</p>
+                <p className="text-xl font-bold text-[#10B981]">{(job?.successful_rows || 0).toLocaleString()}</p>
                 <span className="text-[10px] text-[#10B981]">Verified Grounding</span>
               </div>
               <div className="p-3.5 rounded-xl bg-[#070A0F] border border-[#F59E0B]/30 space-y-1">
                 <span className="text-[#F59E0B] text-[10px] uppercase">Needs Review</span>
-                <p className="text-xl font-bold text-[#F59E0B]">{job.needs_review_rows.toLocaleString()}</p>
+                <p className="text-xl font-bold text-[#F59E0B]">{(job?.needs_review_rows || 0).toLocaleString()}</p>
                 <span className="text-[10px] text-[#F59E0B]">Review Flagged</span>
               </div>
               <div className="p-3.5 rounded-xl bg-[#070A0F] border border-[#F43F5E]/30 space-y-1">
                 <span className="text-[#F43F5E] text-[10px] uppercase">Failed</span>
-                <p className="text-xl font-bold text-[#F43F5E]">{job.failed_rows.toLocaleString()}</p>
+                <p className="text-xl font-bold text-[#F43F5E]">{(job?.failed_rows || 0).toLocaleString()}</p>
                 <span className="text-[10px] text-[#F43F5E]">Missing Data</span>
               </div>
             </div>
           </div>
 
-          {/* 11 User-Facing Pipeline Stage Status Cards */}
+          {/* User-Facing Pipeline Stage Status Cards */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold font-mono text-[#94A3B8] uppercase tracking-wider">
-              11 User-Facing Processing Stages
+              15-Phase Intelligence Processing Pipeline
             </h3>
 
             <div className="space-y-3 font-mono text-xs">
-              {job.stages && job.stages.map((stg) => {
+              {(job?.stages || []).map((stg) => {
                 const isPending = stg.status === 'PENDING';
                 const isProcessing = stg.status === 'PROCESSING';
                 const isCompleted = stg.status === 'COMPLETED';
@@ -470,7 +513,7 @@ export const UploadPage = () => {
 
                 return (
                   <div
-                    key={stg.id}
+                    key={stg.id || stg.name}
                     className={`p-4 rounded-xl border transition-all ${
                       isProcessing
                         ? 'bg-[#141B26] border-[#38BDF8] shadow-[0_0_20px_rgba(56,189,248,0.2)]'
@@ -511,7 +554,7 @@ export const UploadPage = () => {
                             ? 'bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/30'
                             : 'bg-[#141B26] text-[#64748B] border border-[#202B3B]'
                         }`}>
-                          {isCompleted ? '✓ Completed' : isProcessing ? `${stg.progress}% Processing` : 'Waiting'}
+                          {isCompleted ? '✓ Completed' : isProcessing ? `${stg.progress || 0}% Processing` : 'Waiting'}
                         </span>
                       </div>
                     </div>
@@ -520,7 +563,7 @@ export const UploadPage = () => {
                       <div className="mt-3 w-full h-1.5 rounded-full bg-[#070A0F] overflow-hidden">
                         <div
                           className="h-full bg-[#38BDF8] transition-all duration-200"
-                          style={{ width: `${stg.progress}%` }}
+                          style={{ width: `${stg.progress || 0}%` }}
                         ></div>
                       </div>
                     )}
@@ -730,7 +773,7 @@ export const UploadPage = () => {
                         <td className="p-3.5 text-[#94A3B8] max-w-[160px] truncate">{r.category}</td>
                         <td className="p-3.5">
                           <span className={`font-bold ${r.confidence >= 0.8 ? 'text-[#10B981]' : 'text-[#F59E0B]'}`}>
-                            {(r.confidence * 100).toFixed(0)}%
+                            {((r.confidence || 0) * 100).toFixed(0)}%
                           </span>
                         </td>
                         <td className="p-3.5">
@@ -810,7 +853,7 @@ export const UploadPage = () => {
 
               <button
                 onClick={() => setSelectedItem(null)}
-                className="p-1.5 rounded-lg hover:bg-[#141B26] text-[#64748B] hover:text-[#F1F5F9] transition-colors"
+                className="p-1.5 rounded-lg hover:bg-[#141B26] text-[#64748B] hover:text-[#F1F5F9] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -842,7 +885,7 @@ export const UploadPage = () => {
               <div>
                 <span className="text-[10px] text-[#94A3B8] uppercase">Pipeline Quality Confidence</span>
                 <p className="text-base font-extrabold text-[#10B981]">
-                  {(selectedItem.confidence * 100).toFixed(0)}% Match Confidence
+                  {((selectedItem.confidence || 0) * 100).toFixed(0)}% Match Confidence
                 </p>
                 {selectedItem.review_reason && (
                   <p className="text-[11px] text-[#F59E0B] mt-0.5">Note: {selectedItem.review_reason}</p>
@@ -895,3 +938,5 @@ export const UploadPage = () => {
     </div>
   );
 };
+
+export default UploadPage;
