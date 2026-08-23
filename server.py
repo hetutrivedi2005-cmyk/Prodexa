@@ -616,9 +616,28 @@ def load_all_products() -> List[dict]:
                     "reason_codes": conf_rec.get("reason_codes", []) if conf_rec else []
                 }
 
+            # Determine actual UTC timestamps from product or review history
+            rev_items = review_service.get_product_review(pid)
+            latest_action_time = None
+            for r_item in rev_items:
+                ts = r_item.resolved_at or r_item.updated_at or r_item.created_at
+                if ts and (latest_action_time is None or str(ts) > str(latest_action_time)):
+                    latest_action_time = str(ts)
+
+            base_created_at = clean_item.get("created_at") or clean_item.get("metadata", {}).get("created_at") or "2026-08-23T12:00:00.000Z"
+            base_updated_at = latest_action_time or clean_item.get("updated_at") or base_created_at
+
+            clean_item["created_at"] = base_created_at
+            clean_item["updated_at"] = base_updated_at
+            clean_item["product"]["created_at"] = base_created_at
+            clean_item["product"]["updated_at"] = base_updated_at
+
             clean_item["attributes"] = merged_attrs
             clean_item["fields"] = fields
             products.append(clean_item)
+
+        # Sort products by latest update timestamp descending (newest activity first)
+        products.sort(key=lambda x: str(x.get("updated_at", "")), reverse=True)
 
         return products
     except Exception as e:

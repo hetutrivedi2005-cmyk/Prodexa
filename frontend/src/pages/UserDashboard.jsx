@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api';
+import { formatRelativeTime, formatDateTime } from '../utils/dateTime';
 import {
   Package,
   CheckCircle2,
@@ -276,8 +277,10 @@ export const UserDashboard = () => {
                   productName = `${productName} (${p.mpn || p.product_id || 'N/A'})`;
                 }
 
-                // Relative Date mock based on index to represent realistic updates
-                const lastUpdatedText = index < 2 ? 'Today' : index < 4 ? 'Yesterday' : '2 days ago';
+                // Authoritative timestamp converted to user's local timezone
+                const timestamp = item.updated_at || p.updated_at || item.created_at || p.created_at;
+                const lastUpdatedText = formatRelativeTime(timestamp);
+                const exactDateTimeText = formatDateTime(timestamp);
 
                 return (
                   <tr key={p.product_id || index} className="table-row-interactive hover:bg-[#0E131B]/40">
@@ -292,7 +295,9 @@ export const UserDashboard = () => {
                     <td className="py-3 px-3">
                       <span className="text-[#F1F5F9] font-bold font-mono-tech">{confPct}%</span>
                     </td>
-                    <td className="py-3 px-3 text-[#64748B]">{lastUpdatedText}</td>
+                    <td className="py-3 px-3 text-[#64748B] cursor-help" title={exactDateTimeText}>
+                      {lastUpdatedText}
+                    </td>
                     <td className="py-3 px-3 text-right">
                       <Link
                         to={actionPath}

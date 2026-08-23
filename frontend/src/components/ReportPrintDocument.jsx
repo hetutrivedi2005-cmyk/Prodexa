@@ -1,24 +1,9 @@
 import React from 'react';
 import { ShieldCheck, CheckCircle2, AlertTriangle, Layers, Database, Sparkles, Building2 } from 'lucide-react';
+import { formatDateTime, formatDate } from '../utils/dateTime';
 
 export const ReportPrintDocument = ({ reportData }) => {
   if (!reportData) return null;
-
-  const formatDate = (isoStr) => {
-    if (!isoStr) return 'N/A';
-    try {
-      return new Date(isoStr).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-    } catch {
-      return isoStr;
-    }
-  };
 
   const exec = reportData.executive_summary || {};
   const totalProds = exec.total_products_processed || reportData.total_rows || 0;
@@ -102,7 +87,7 @@ export const ReportPrintDocument = ({ reportData }) => {
           </div>
           <div>
             <span className="text-slate-500 text-[8pt] uppercase block font-sans">Upload Timestamp:</span>
-            <span className="text-slate-800 block">{formatDate(reportData.created_at)}</span>
+            <span className="text-slate-800 block">{formatDateTime(reportData.created_at)}</span>
           </div>
           <div>
             <span className="text-slate-500 text-[8pt] uppercase block font-sans">Pipeline Status:</span>
@@ -338,7 +323,7 @@ export const ReportPrintDocument = ({ reportData }) => {
           <span className="font-bold text-slate-800">PRODEXA Product Intelligence</span> • Job ID: {reportData.job_id}
         </div>
         <div>
-          Generated: {formatDate(reportData.generated_at || reportData.created_at)}
+          Generated: {formatDateTime(reportData.generated_at || reportData.created_at)}
         </div>
         <div>
           Page 1 of 1 • System Verified Audit

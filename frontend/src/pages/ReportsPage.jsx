@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '../api';
 import { ReportPrintDocument } from '../components/ReportPrintDocument';
+import { formatDateTime, formatDate, formatRelativeTime } from '../utils/dateTime';
 import {
   FileText,
   Download,
@@ -184,20 +185,7 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
     window.open(`/print/reports/${targetJobId}?auto_print=true`, '_blank');
   };
 
-  const formatDate = (isoStr) => {
-    if (!isoStr) return 'N/A';
-    try {
-      return new Date(isoStr).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch {
-      return isoStr;
-    }
-  };
+  const formatReportDate = (isoStr) => formatDateTime(isoStr);
 
   // Aggregate Stats across all reports
   const totalUploads = reports.length;

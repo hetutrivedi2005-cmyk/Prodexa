@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
+import { formatDateTime, formatRelativeTime } from '../utils/dateTime';
 import { ExplodedBlueprintVisualizer } from '../components/ExplodedBlueprintVisualizer';
 import { ReviewModal } from '../components/ReviewModal';
 import {
@@ -407,7 +408,8 @@ export const ProductDetailPage = () => {
                 const newVal = r.new_value ?? r.proposed_value ?? r.current_value ?? '—';
                 const reasonText = r.reason || r.review_comment || r.comment || 'Verified based on manufacturer evidence.';
                 const reviewerText = r.reviewer_name || r.reviewer_id || 'Product Specialist';
-                const timestampText = r.timestamp || r.resolved_at || r.updated_at || 'Recently';
+                const rawTimestamp = r.timestamp || r.resolved_at || r.updated_at || r.created_at;
+                const timestampText = formatDateTime(rawTimestamp);
 
                 return (
                   <div key={idx} className="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-2.5">
