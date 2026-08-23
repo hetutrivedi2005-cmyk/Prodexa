@@ -107,15 +107,42 @@ export const api = {
   getAdminUsers: () => fetchApi('/admin/users'),
   getAdminAuditLogs: () => fetchApi('/admin/audit'),
 
-  // Upload
+  // Upload & Real-Time Job Processing
   uploadFile: (file) => {
     const formData = new FormData();
     formData.append('file', file);
     const token = getAuthToken();
-    return fetch('/api/upload', {
+    return fetch('/api/jobs', {
       method: 'POST',
       headers: token ? { Authorization: `Bearer ${token}` } : {},
       body: formData
-    }).then(res => res.json());
-  }
+    }).then(res => {
+      if (!res.ok) {
+        return res.json().then(err => { throw new Error(err.detail || 'Upload failed'); });
+      }
+      return res.json();
+    });
+  },
+  createJob: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const token = getAuthToken();
+    return fetch('/api/jobs', {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: formData
+    }).then(res => {
+      if (!res.ok) {
+        return res.json().then(err => { throw new Error(err.detail || 'Failed to create processing job'); });
+      }
+      return res.json();
+    });
+  },
+  getJobStatus: (jobId) => fetchApi(`/jobs/${jobId}`),
+  getJobResults: (jobId, params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchApi(`/jobs/${jobId}/results?${query}`);
+  },
+  exportJobResults: (jobId) => fetchApi(`/jobs/${jobId}/export`),
+  retryJob: (jobId) => fetchApi(`/jobs/${jobId}/retry`, { method: 'POST' })
 };

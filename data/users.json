@@ -22,5 +22,21 @@
     "password_hash": "34812df244b0a85bd9365525796472478a6e7f9b53faeb7d28ce78ab6be94597",
     "role": "USER",
     "created_at": "2026-08-20T13:08:24.835578Z"
+  },
+  "hets@prodexa.com": {
+    "id": "USR-004",
+    "email": "hets@prodexa.com",
+    "name": "hets",
+    "password_hash": "a414f9e14662a7efc75298f6e6485ae93ee5eb419399d0ab72a25642e8ffdc16",
+    "role": "USER",
+    "created_at": "2026-08-23T06:46:12.488184Z"
+  },
+  "heys@gmail.com": {
+    "id": "USR-005",
+    "email": "heys@gmail.com",
+    "name": "heys",
+    "password_hash": "34812df244b0a85bd9365525796472478a6e7f9b53faeb7d28ce78ab6be94597",
+    "role": "USER",
+    "created_at": "2026-08-23T06:47:09.597387Z"
   }
 }

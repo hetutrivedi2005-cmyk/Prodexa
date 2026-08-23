@@ -18,5 +18,8 @@ venv/
 frontend/node_modules/
 frontend/dist/
 
-# Output datasets
+# Output datasets & runtime job storage
 data/processed/understood_products.csv
+data/jobs/
+data/raw/job_input_*
+data/raw/upload_*

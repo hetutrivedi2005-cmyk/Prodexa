@@ -4,12 +4,13 @@ import json
 import time
 import glob
 import datetime
+import threading
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Union
 
 from fastapi import FastAPI, HTTPException, Depends, Query, File, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, StreamingResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, Field
 import jwt
@@ -25,6 +26,7 @@ from src.review.review_service import ReviewService
 from src.review.review_model import ReviewItem
 from src.database.connection import db_manager
 from src.database.repositories import repo
+from src.pipeline.job_manager import pipeline_job_manager
 
 # Application Setup
 app = FastAPI(
@@ -95,12 +97,16 @@ def create_access_token(data: dict) -> str:
     to_encode.update({"exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24)})
     return jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
-def get_current_user(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme)) -> dict:
-    if not credentials:
+def get_current_user(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme),
+    token: Optional[str] = Query(None)
+) -> dict:
+    raw_token = credentials.credentials if credentials else token
+    if not raw_token:
         # Default guest/fallback for open endpoints if unauthenticated
-        return {"email": "user@prodexa.com", "role": "USER", "name": "Product Specialist"}
+        return {"email": "user@prodexa.com", "role": "USER", "name": "Product Specialist", "id": "USR-001"}
     try:
-        payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(raw_token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         email = payload.get("sub")
         users = load_users()
         if email in users:
@@ -845,24 +851,165 @@ def admin_audit_logs():
 # -------------------------------------------------------------------
 # UPLOAD INGESTION ENDPOINT
 # -------------------------------------------------------------------
+# -------------------------------------------------------------------
+# REAL-TIME CSV UPLOAD & JOB PROCESSING ENDPOINTS
+# -------------------------------------------------------------------
 @app.post("/api/upload")
-async def upload_file(file: UploadFile = File(...)):
-    if not file.filename.endswith(('.csv', '.json', '.jsonl')):
-        raise HTTPException(status_code=400, detail="Invalid file type. Only CSV, JSON, and JSONL files are supported.")
-        
+@app.post("/api/jobs")
+async def create_processing_job(
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user)
+):
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="Invalid file type. Only .csv files are supported.")
+
     content = await file.read()
-    dest = BASE_DIR / "data" / "raw" / f"upload_{int(time.time())}_{file.filename}"
+    if len(content) == 0:
+        raise HTTPException(status_code=400, detail="Uploaded file is empty. Please upload a valid CSV file.")
+
+    if len(content) > 50 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File size exceeds maximum 50MB limit.")
+
+    # Validate CSV parsing using CSVAdapter and count actual rows
+    try:
+        from src.pipeline.csv_adapter import CSVAdapter
+        raw_headers, raw_data = CSVAdapter.parse_csv_bytes(content)
+        if not raw_headers or not raw_data:
+            raise HTTPException(status_code=400, detail="CSV file must contain a header row and at least 1 data row.")
+        total_rows = len(raw_data)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Malformed CSV file format: {str(e)}")
+
+    dest = BASE_DIR / "data" / "raw" / f"job_input_{int(time.time())}_{file.filename}"
     dest.parent.mkdir(parents=True, exist_ok=True)
     with open(dest, "wb") as f:
         f.write(content)
-        
+
+    user_id = current_user.get("id", current_user.get("email", "user@prodexa.com"))
+    job = pipeline_job_manager.create_job(
+        user_id=user_id,
+        filename=file.filename,
+        filepath=str(dest),
+        total_rows=total_rows
+    )
+
     return {
         "status": "success",
+        "job_id": job["job_id"],
         "filename": file.filename,
-        "size_bytes": len(content),
-        "saved_path": str(dest),
-        "message": "File uploaded successfully to ingestion raw data folder. Web-triggered automatic pipeline re-run is ready for execution."
+        "total_rows": total_rows,
+        "job": job,
+        "message": "CSV validated successfully. Analysis job created and queued for processing."
     }
+
+@app.get("/api/jobs/{job_id}")
+def get_job_status(
+    job_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job '{job_id}' not found.")
+
+    # Security check: User ownership
+    user_id = current_user.get("id") or current_user.get("email")
+    job_user = job.get("user_id")
+    if current_user.get("role") != "ADMIN" and job_user != user_id and job_user != current_user.get("email") and job_user != current_user.get("id"):
+        raise HTTPException(status_code=403, detail="Access denied. You can only access your own processing jobs.")
+
+    return job
+
+@app.get("/api/jobs/{job_id}/stream")
+def stream_job_events(
+    job_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job '{job_id}' not found.")
+
+    user_id = current_user.get("id", current_user.get("email"))
+    if current_user.get("role") != "ADMIN" and job.get("user_id") != user_id and job.get("user_id") != current_user.get("email"):
+        raise HTTPException(status_code=403, detail="Access denied.")
+
+    return StreamingResponse(
+        pipeline_job_manager.event_stream(job_id),
+        media_type="text/event-stream"
+    )
+
+@app.get("/api/jobs/{job_id}/results")
+def get_job_results(
+    job_id: str,
+    search: Optional[str] = Query("", description="Search term for MPN, Brand, Category"),
+    status_filter: Optional[str] = Query("ALL", description="Filter by status: ALL, SUCCESSFUL, NEEDS_REVIEW, FAILED"),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(20, ge=1, le=200),
+    current_user: dict = Depends(get_current_user)
+):
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job '{job_id}' not found.")
+
+    user_id = current_user.get("id", current_user.get("email"))
+    if current_user.get("role") != "ADMIN" and job.get("user_id") != user_id and job.get("user_id") != current_user.get("email"):
+        raise HTTPException(status_code=403, detail="Access denied.")
+
+    return pipeline_job_manager.get_job_results(
+        job_id=job_id,
+        search=search,
+        status_filter=status_filter,
+        page=page,
+        page_size=page_size
+    )
+
+@app.get("/api/jobs/{job_id}/export")
+def export_job_results(
+    job_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job '{job_id}' not found.")
+
+    user_id = current_user.get("id", current_user.get("email"))
+    if current_user.get("role") != "ADMIN" and job.get("user_id") != user_id and job.get("user_id") != current_user.get("email"):
+        raise HTTPException(status_code=403, detail="Access denied.")
+
+    csv_path = pipeline_job_manager.generate_delivery_csv(job_id)
+    return FileResponse(
+        path=csv_path,
+        filename=f"PRODEXA_Job_{job_id}_Processed_Results.csv",
+        media_type="text/csv"
+    )
+
+@app.post("/api/jobs/{job_id}/retry")
+def retry_job(
+    job_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Processing job '{job_id}' not found.")
+
+    user_id = current_user.get("id", current_user.get("email"))
+    if current_user.get("role") != "ADMIN" and job.get("user_id") != user_id and job.get("user_id") != current_user.get("email"):
+        raise HTTPException(status_code=403, detail="Access denied.")
+
+    # Reset job for retry
+    job["status"] = "QUEUED"
+    job["overall_progress"] = 0
+    job["processed_rows"] = 0
+    for s in job["stages"]:
+        s["status"] = "PENDING"
+        s["progress"] = 0
+        s["processed_rows"] = 0
+
+    thread = threading.Thread(target=pipeline_job_manager._run_job_pipeline, args=(job_id,), daemon=True)
+    thread.start()
+
+    return {"status": "success", "message": f"Job {job_id} retry enqueued successfully."}
 
 
 # -------------------------------------------------------------------
