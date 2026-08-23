@@ -15,8 +15,8 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.acceptReviewItem(item.review_id, 'Product Specialist', reason.trim() || 'Verified and approved based on manufacturer evidence.');
-      onSuccess?.('Item accepted successfully and specifications updated');
+      const res = await api.acceptReviewItem(item.review_id || `${item.product_id}:${item.attribute_name}`, 'Product Specialist', reason.trim() || 'Verified and approved based on manufacturer evidence.');
+      onSuccess?.('Item accepted successfully and specifications updated', res?.item || { ...item, review_status: 'APPROVED', review_action: 'ACCEPT' });
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to accept review item');
@@ -35,8 +35,8 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.editReviewItem(item.review_id, 'Product Specialist', editedValue.trim(), editReason);
-      onSuccess?.('Edit submitted and specifications updated');
+      const res = await api.editReviewItem(item.review_id || `${item.product_id}:${item.attribute_name}`, 'Product Specialist', editedValue.trim(), editReason);
+      onSuccess?.('Edit submitted and specifications updated', res?.item || { ...item, review_status: 'EDITED', review_action: 'EDIT', current_value: editedValue.trim(), proposed_value: editedValue.trim() });
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Validation failed for edit');
@@ -51,8 +51,8 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.rejectReviewItem(item.review_id, 'Product Specialist', rejectReason);
-      onSuccess?.('Item rejected and removed from active specifications');
+      const res = await api.rejectReviewItem(item.review_id || `${item.product_id}:${item.attribute_name}`, 'Product Specialist', rejectReason);
+      onSuccess?.('Item rejected and removed from active specifications', res?.item || { ...item, review_status: 'REJECTED', review_action: 'REJECT', current_value: '' });
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to reject review item');
@@ -67,8 +67,8 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setLoading(true);
     setErrorMessage('');
     try {
-      await api.escalateReviewItem(item.review_id, 'Product Specialist', escalateReason);
-      onSuccess?.('Item escalated to data stewards');
+      const res = await api.escalateReviewItem(item.review_id || `${item.product_id}:${item.attribute_name}`, 'Product Specialist', escalateReason);
+      onSuccess?.('Item escalated to data stewards', res?.item || { ...item, review_status: 'ESCALATED', review_action: 'ESCALATE' });
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to escalate review item');

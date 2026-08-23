@@ -30,10 +30,39 @@ export const ReviewQueuePage = () => {
     loadQueue();
   }, []);
 
-  const handleActionSuccess = (msg) => {
+  const handleActionSuccess = (msg, updatedItem) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 4000);
-    loadQueue();
+
+    if (updatedItem) {
+      setItems(prevItems => {
+        return prevItems.map(it => {
+          const matchById = updatedItem.review_id && it.review_id === updatedItem.review_id;
+          const matchByKey = updatedItem.product_id && updatedItem.attribute_name &&
+            it.product_id === updatedItem.product_id &&
+            (it.attribute_name === updatedItem.attribute_name || it.field_name === updatedItem.attribute_name);
+          
+          if (matchById || matchByKey) {
+            return {
+              ...it,
+              ...updatedItem,
+              review_status: updatedItem.review_status || 'APPROVED',
+              review_action: updatedItem.review_action || 'ACCEPT'
+            };
+          }
+          return it;
+        });
+      });
+    }
+
+    // Refetch queue in background to guarantee full state synchronization
+    api.getReviewQueue()
+      .then(res => {
+        if (Array.isArray(res)) {
+          setItems(res);
+        }
+      })
+      .catch(() => {});
   };
 
   // Filter items based on selected tab

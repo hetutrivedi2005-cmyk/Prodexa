@@ -26,7 +26,9 @@ from src.review.review_service import ReviewService
 from src.review.review_model import ReviewItem
 from src.database.connection import db_manager
 from src.database.repositories import repo
-from src.pipeline.job_manager import pipeline_job_manager, RAW_DIR, JOBS_DIR
+from src.pipeline.job_manager import pipeline_job_manager, RAW_DIR, JOBS_DIR, get_writable_dir
+
+REVIEW_DIR = get_writable_dir("review")
 
 # Application Setup
 app = FastAPI(
@@ -173,16 +175,42 @@ def load_all_field_confidences() -> Dict[Tuple[str, str], dict]:
                         pass
     return results
 
-def build_clean_review_queue():
+def build_clean_review_queue(force_disk_reload: bool = False):
     """
     Build the review queue from the CANONICAL source of truth:
     attribute_confidence.jsonl (which attributes truly need review).
 
-    1. Load attribute_confidence.jsonl → find REVIEW_RECOMMENDED/HUMAN_REVIEW attributes.
-    2. Cross-reference review_queue.jsonl for saved human decisions (APPROVED/EDITED/REJECTED).
-    3. Deduplicate on review_key = (product_id, attribute_name) — keep newest/highest-priority human decision.
-    4. Build clean ReviewItem objects strictly per (product_id, attribute_name).
+    1. Preserve any active in-memory human decisions (APPROVED/EDITED/REJECTED/ESCALATED).
+    2. Cross-reference saved review_queue.jsonl files (in REVIEW_DIR and data/review).
+    3. Load attribute_confidence.jsonl → find REVIEW_RECOMMENDED/HUMAN_REVIEW attributes.
+    4. Deduplicate on review_key = (product_id, attribute_name) — keep newest/highest-priority human decision.
+    5. Build clean ReviewItem objects strictly per (product_id, attribute_name).
     """
+    # 1. Preserve existing in-memory human decisions in review_service if present
+    human_decisions = {}
+    if not force_disk_reload:
+        for it in list(review_service._items.values()):
+            if it.review_status != "PENDING" or it.review_action:
+                key = (it.product_id, it.attribute_name)
+                human_decisions[key] = it.to_dict()
+
+    # 2. Check writable and base review_queue.jsonl files for persisted decisions
+    for q_path in [REVIEW_DIR / "review_queue.jsonl", BASE_DIR / "data" / "review" / "review_queue.jsonl"]:
+        if q_path.exists():
+            try:
+                with open(q_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        if line.strip():
+                            d = json.loads(line)
+                            key = (d.get("product_id"), d.get("attribute_name"))
+                            if key and key not in human_decisions:
+                                human_decisions[key] = d
+                            elif key and d.get("review_status", "PENDING") != "PENDING":
+                                human_decisions[key] = d
+            except Exception:
+                pass
+
+    # 3. Load confidence decisions
     conf_decisions = {}
     conf_file = BASE_DIR / "data" / "confidence" / "attribute_confidence.jsonl"
     if conf_file.exists():
@@ -195,25 +223,6 @@ def build_clean_review_queue():
                             key = (d["product_id"], d["attribute_name"])
                             if key not in conf_decisions:
                                 conf_decisions[key] = d
-                    except Exception:
-                        pass
-
-    # Load existing saved human decisions from review_queue.jsonl
-    human_decisions = {}
-    q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
-    if q_file.exists():
-        with open(q_file, "r", encoding="utf-8") as f:
-            for line in f:
-                if line.strip():
-                    try:
-                        d = json.loads(line)
-                        key = (d["product_id"], d["attribute_name"])
-                        existing = human_decisions.get(key)
-                        # Prefer resolved decisions over PENDING ones
-                        if existing is None:
-                            human_decisions[key] = d
-                        elif d.get("review_status", "PENDING") != "PENDING" and existing.get("review_status") == "PENDING":
-                            human_decisions[key] = d
                     except Exception:
                         pass
 
@@ -1044,15 +1053,15 @@ def get_confidence_metrics():
 # HUMAN REVIEW PERSISTENCE & DATA INTEGRATION
 # -------------------------------------------------------------------
 def save_review_queue_to_disk():
-    try:
-        q_file = BASE_DIR / "data" / "review" / "review_queue.jsonl"
-        q_file.parent.mkdir(parents=True, exist_ok=True)
-        items = review_service.get_review_queue()
-        with open(q_file, "w", encoding="utf-8") as f:
-            for item in items:
-                f.write(json.dumps(item.to_dict()) + "\n")
-    except Exception as e:
-        print(f"[REVIEW] Note: Skipped persisting review_queue.jsonl ({e})")
+    items = review_service.get_review_queue()
+    for q_path in [REVIEW_DIR / "review_queue.jsonl", BASE_DIR / "data" / "review" / "review_queue.jsonl"]:
+        try:
+            q_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(q_path, "w", encoding="utf-8") as f:
+                for item in items:
+                    f.write(json.dumps(item.to_dict()) + "\n")
+        except Exception as e:
+            print(f"[REVIEW] Note: Skipped persisting review queue to {q_path} ({e})")
 
 def update_product_and_regenerate_outputs(product_id: str, attribute_name: str, new_value: Any, action: str):
     try:
@@ -1144,7 +1153,8 @@ class ActionRequest(BaseModel):
 
 @app.get("/api/review/queue")
 def get_review_queue(status_filter: Optional[str] = None):
-    build_clean_review_queue()
+    if not review_service._items:
+        build_clean_review_queue()
     items = review_service.get_review_queue(status_filter=status_filter)
     return [i.to_dict() for i in items]
 
