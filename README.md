@@ -4,6 +4,7 @@ Prodexa is an enterprise-grade product catalog data engineering, matching, enric
 
 ---
 
+
 ## 🚀 Web Application & Architecture Stack
 
 Prodexa includes a full-stack web application designed with an industrial blueprint aesthetic:
