@@ -148,6 +148,7 @@ export const api = {
       return res.json();
     });
   },
+  getActiveJob: () => fetchApi('/jobs/active'),
   getJobStatus: (jobId) => fetchApi(`/jobs/${jobId}`),
   getJobReport: (jobId) => fetchApi(`/jobs/${jobId}/report`),
   getReportById: (reportId) => fetchApi(`/reports/${reportId}`),

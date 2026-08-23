@@ -21,7 +21,6 @@ class ReviewItem:
     confidence_score: float
     confidence_decision: str
     validation_status: str
-    job_id: Optional[str] = None
     review_status: str = "PENDING"
     priority: str = "HIGH"
     previous_value: Optional[Any] = None
@@ -37,6 +36,7 @@ class ReviewItem:
     created_at: str = field(default_factory=lambda: datetime.datetime.now(datetime.timezone.utc).isoformat())
     updated_at: str = field(default_factory=lambda: datetime.datetime.now(datetime.timezone.utc).isoformat())
     resolved_at: Optional[str] = None
+    job_id: Optional[str] = None
 
     def __post_init__(self):
         if self.review_status not in ALLOWED_REVIEW_STATUSES:
@@ -69,6 +69,7 @@ class ReviewItem:
             confidence_score=float(d.get("confidence_score", 0.0)),
             confidence_decision=d.get("confidence_decision", "HUMAN_REVIEW"),
             validation_status=d.get("validation_status", "UNKNOWN"),
+            job_id=d.get("job_id"),
             review_status=d.get("review_status", "PENDING"),
             priority=d.get("priority", "MEDIUM"),
             previous_value=d.get("previous_value"),

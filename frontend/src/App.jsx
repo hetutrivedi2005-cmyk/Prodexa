@@ -100,9 +100,9 @@ export function App() {
             <Route path="reports/:reportId/preview" element={<ReportsPage isPreviewMode={true} />} />
             <Route path="reports/:reportId/print" element={<ReportPrintPage />} />
             <Route path="reports/print" element={<ReportPrintPage />} />
-            <Route path="pipeline" element={<PipelinePage />} />
+            <Route path="pipeline" element={<UploadPage />} />
             <Route path="evaluation" element={<EvaluationPage />} />
-            <Route path="upload" element={<UploadPage />} />
+            <Route path="upload" element={<Navigate to="/user/pipeline" replace />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="help" element={<HelpPage />} />
           </Route>

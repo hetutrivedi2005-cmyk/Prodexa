@@ -164,9 +164,12 @@ class PipelineJobManager:
             self.jobs[job_id] = job
             self._save_job(job_id)
 
-        # Launch background pipeline thread
-        thread = threading.Thread(target=self._run_job_pipeline, args=(job_id,), daemon=True)
-        thread.start()
+        # Launch background pipeline thread or run synchronously on serverless/Vercel
+        if os.environ.get("VERCEL") == "1" or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+            self._run_job_pipeline(job_id)
+        else:
+            thread = threading.Thread(target=self._run_job_pipeline, args=(job_id,), daemon=True)
+            thread.start()
 
         return job
 
@@ -704,7 +707,8 @@ class PipelineJobManager:
                         "status": "PASS" if f_conf >= 0.80 else ("WARNING" if f_conf >= 0.55 else "FAIL"),
                         "reason_codes": reasons,
                         "evidence_id": f"EV-{abs(hash(pid + attr_name)) % 1000000:06d}",
-                        "source_id": "SRC_CATALOG_PRIMARY"
+                        "source_id": "SRC_CATALOG_PRIMARY",
+                        "job_id": job_id
                     }
                     confidence_lines.append(json.dumps(conf_record))
 
@@ -720,6 +724,7 @@ class PipelineJobManager:
                             "confidence_score": f_conf,
                             "confidence_decision": f_status,
                             "validation_status": "WARNING" if f_conf >= 0.55 else "FAIL",
+                            "job_id": job_id,
                             "review_status": "PENDING",
                             "priority": "HIGH" if f_conf < 0.65 else "MEDIUM",
                             "reviewer_id": None,

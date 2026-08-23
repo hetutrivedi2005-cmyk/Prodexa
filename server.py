@@ -235,6 +235,7 @@ def build_clean_review_queue(force_disk_reload: bool = False):
         review_status = saved.get("review_status", "PENDING")
         review_action = saved.get("review_action")
         review_id = saved.get("review_id") or f"REV-{abs(hash(key)) % 1000000:06d}"
+        job_id = saved.get("job_id") or conf_rec.get("job_id") or pipeline_job_manager.get_active_job_id()
 
         # Field confidence from attribute_confidence (canonical)
         conf_score = float(conf_rec.get("confidence_score", 0.0))
@@ -280,6 +281,7 @@ def build_clean_review_queue(force_disk_reload: bool = False):
                 confidence_score=conf_score,
                 confidence_decision=conf_decision,
                 validation_status=val_status if val_status in ("PASS", "FAIL", "WARNING", "UNKNOWN") else "WARNING",
+                job_id=job_id,
                 review_status=review_status,
                 priority=priority,
                 previous_value=previous_value,
@@ -1163,6 +1165,28 @@ def get_review_item(review_id: str):
         raise HTTPException(status_code=404, detail="Review item not found")
     return item.to_dict()
 
+def sync_review_item_to_job(item):
+    job_id = getattr(item, 'job_id', None) or pipeline_job_manager.get_active_job_id()
+    if not job_id:
+        return
+    all_items = review_service.get_review_queue(job_id=job_id)
+    product_items = [i for i in all_items if i.product_id == item.product_id]
+    pending_items = [i for i in product_items if i.review_status == "PENDING"]
+    if pending_items:
+        new_status = "NEEDS_REVIEW"
+        new_confidence = min((i.confidence_score for i in pending_items), default=item.confidence_score)
+    else:
+        if any(i.review_status == "REJECTED" for i in product_items):
+            new_status = "FAILED"
+            new_confidence = 0.0
+        elif any(i.review_status == "ESCALATED" for i in product_items):
+            new_status = "NEEDS_REVIEW"
+            new_confidence = 0.5
+        else:
+            new_status = "SUCCESSFUL"
+            new_confidence = 1.0
+    pipeline_job_manager.update_item_status(job_id, item.product_id, new_status=new_status, new_confidence=new_confidence)
+
 @app.post("/api/review/{review_id}/accept")
 def accept_review_item(review_id: str, req: ActionRequest):
     reason = (req.reason or "").strip() or "Verified and approved based on manufacturer evidence."
@@ -1175,13 +1199,7 @@ def accept_review_item(review_id: str, req: ActionRequest):
         )
         save_review_queue_to_disk()
         update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.current_value, "ACCEPT")
-        
-        # Sync with PipelineJobManager if job_id exists
-        if getattr(item, 'job_id', None):
-            pipeline_job_manager.update_item_status(item.job_id, item.product_id, new_status="SUCCESSFUL", new_confidence=1.0)
-        elif pipeline_job_manager.get_active_job_id():
-            pipeline_job_manager.update_item_status(pipeline_job_manager.get_active_job_id(), item.product_id, new_status="SUCCESSFUL", new_confidence=1.0)
-
+        sync_review_item_to_job(item)
         return {
             "success": True,
             "status": "success",
@@ -1217,6 +1235,7 @@ def edit_review_item(review_id: str, req: ActionRequest):
         )
         save_review_queue_to_disk()
         update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.proposed_value, "EDIT")
+        sync_review_item_to_job(item)
         return {
             "success": True,
             "status": "success",
@@ -1251,6 +1270,7 @@ def reject_review_item(review_id: str, req: ActionRequest):
         )
         save_review_queue_to_disk()
         update_product_and_regenerate_outputs(item.product_id, item.attribute_name, "", "REJECT")
+        sync_review_item_to_job(item)
         return {
             "success": True,
             "status": "success",
@@ -1281,6 +1301,7 @@ def escalate_review_item(review_id: str, req: ActionRequest):
             force=True
         )
         save_review_queue_to_disk()
+        sync_review_item_to_job(item)
         return {
             "success": True,
             "status": "success",
@@ -1557,6 +1578,18 @@ async def create_processing_job(
     except Exception as e:
         print(f"[CREATE JOB ERROR] {e}")
         raise HTTPException(status_code=500, detail=f"Failed to create processing job: {str(e)}")
+
+@app.get("/api/jobs/active")
+def get_active_job(
+    current_user: dict = Depends(get_current_user)
+):
+    job_id = pipeline_job_manager.get_active_job_id()
+    if not job_id:
+        return {"job_id": None}
+    job = pipeline_job_manager.get_job(job_id)
+    if not job:
+        return {"job_id": None}
+    return job
 
 @app.get("/api/jobs/{job_id}")
 def get_job_status(

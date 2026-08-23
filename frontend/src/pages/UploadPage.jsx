@@ -58,11 +58,20 @@ export const UploadPage = () => {
 
   // Safe Job Status Recovery on Navigation / Mount
   useEffect(() => {
-    const targetJobId = urlJobId || localStorage.getItem('prodexa_active_job');
-    if (targetJobId) {
-      setJobId(targetJobId);
-      api.getJobStatus(targetJobId)
-        .then(data => {
+    const fetchActiveJob = async () => {
+      try {
+        let targetJobId = urlJobId || localStorage.getItem('prodexa_active_job');
+        if (!targetJobId) {
+          const activeJob = await api.getActiveJob();
+          if (activeJob && activeJob.job_id) {
+            targetJobId = activeJob.job_id;
+            localStorage.setItem('prodexa_active_job', targetJobId);
+          }
+        }
+        
+        if (targetJobId) {
+          setJobId(targetJobId);
+          const data = await api.getJobStatus(targetJobId);
           if (!data || data.detail || data.error || !data.status) {
             localStorage.removeItem('prodexa_active_job');
             setJobId(null);
@@ -74,23 +83,24 @@ export const UploadPage = () => {
           if (data.status === 'COMPLETED') {
             setCurrentStep('RESULTS');
             fetchResults(targetJobId, 1, '', 'ALL');
-          } else if (data.status === 'PROCESSING' || data.status === 'PENDING') {
+          } else if (data.status === 'PROCESSING' || data.status === 'PENDING' || data.status === 'QUEUED') {
             setCurrentStep('PROCESSING');
             connectSSE(targetJobId);
           } else {
             setCurrentStep('UPLOAD');
           }
-        })
-        .catch(err => {
-          console.warn('Could not restore previous job state:', err);
-          localStorage.removeItem('prodexa_active_job');
-          setJobId(null);
-          setJob(null);
+        } else {
           setCurrentStep('UPLOAD');
-        });
-    } else {
-      setCurrentStep('UPLOAD');
-    }
+        }
+      } catch (err) {
+        console.warn('Could not restore previous job state:', err);
+        localStorage.removeItem('prodexa_active_job');
+        setJobId(null);
+        setJob(null);
+        setCurrentStep('UPLOAD');
+      }
+    };
+    fetchActiveJob();
   }, [urlJobId]);
 
   // Real-time synchronization when review actions occur anywhere in the app
@@ -139,7 +149,7 @@ export const UploadPage = () => {
               if (updated && updated.status) setJob(updated);
             }).catch(() => {});
           }
-          if (data.event === 'job_completed' || data.status === 'COMPLETED') {
+          if (data.event === 'job_completed' || data.status === 'COMPLETED' || (data.job && data.job.status === 'COMPLETED')) {
             es.close();
             setSseConnected(false);
             api.getJobStatus(id).then(finalJob => {
@@ -150,10 +160,10 @@ export const UploadPage = () => {
               setCurrentStep('RESULTS');
               fetchResults(id, 1, '', 'ALL');
             });
-          } else if (data.event === 'job_failed' || data.status === 'FAILED') {
+          } else if (data.event === 'job_failed' || data.status === 'FAILED' || (data.job && data.job.status === 'FAILED')) {
             es.close();
             setSseConnected(false);
-            setError(data.error || 'Job processing encountered an error.');
+            setError(data.error || (data.job && data.job.error) || 'Job processing encountered an error.');
           }
         } catch (err) {
           console.warn('SSE Parse error:', err);

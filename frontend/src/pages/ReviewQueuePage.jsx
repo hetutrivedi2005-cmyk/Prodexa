@@ -17,7 +17,7 @@ export const ReviewQueuePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const activeJobId = queryJobId || localStorage.getItem('prodexa_active_job');
+  const [activeJobId, setActiveJobId] = useState(queryJobId || localStorage.getItem('prodexa_active_job') || '');
 
   const loadQueue = () => {
     setLoading(true);
@@ -28,6 +28,19 @@ export const ReviewQueuePage = () => {
       .catch(err => setError(err.message || 'Failed to load review queue'))
       .finally(() => setLoading(false));
   };
+
+  useEffect(() => {
+    if (!activeJobId) {
+      api.getActiveJob()
+        .then(activeJob => {
+          if (activeJob && activeJob.job_id) {
+            localStorage.setItem('prodexa_active_job', activeJob.job_id);
+            setActiveJobId(activeJob.job_id);
+          }
+        })
+        .catch(err => console.warn('Could not fetch active job:', err));
+    }
+  }, [activeJobId]);
 
   useEffect(() => {
     loadQueue();

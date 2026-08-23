@@ -265,7 +265,7 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
           </button>
           
           <Link
-            to="/user/upload"
+            to="/user/pipeline"
             className="px-3.5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] cursor-pointer"
           >
             <Upload className="w-3.5 h-3.5" />
@@ -357,7 +357,7 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
             </p>
           </div>
           <Link
-            to="/user/upload"
+            to="/user/pipeline"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)]"
           >
             <Upload className="w-4 h-4" />

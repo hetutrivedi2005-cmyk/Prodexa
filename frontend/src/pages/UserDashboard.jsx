@@ -93,7 +93,7 @@ export const UserDashboard = () => {
             <RefreshCw className="w-4 h-4" />
           </button>
           <Link
-            to="/user/upload"
+            to="/user/pipeline"
             className="btn-premium-cyan flex items-center gap-2 cursor-pointer"
           >
             <Upload className="w-4 h-4" />
