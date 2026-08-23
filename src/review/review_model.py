@@ -23,6 +23,7 @@ class ReviewItem:
     validation_status: str
     review_status: str = "PENDING"
     priority: str = "HIGH"
+    job_id: Optional[str] = None
     previous_value: Optional[Any] = None
     reviewer_id: Optional[str] = None
     reviewer_name: Optional[str] = None

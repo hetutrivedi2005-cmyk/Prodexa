@@ -815,8 +815,8 @@ export const UploadPage = () => {
                           )}
                           {r.status === 'NEEDS_REVIEW' && (
                             <div className="space-y-1">
-                              <span className="px-2.5 py-1 rounded bg-[#F59E0B]/10 border border-[#F59E0B]/30 text-[#F59E0B] text-[10px] font-bold inline-block">
-                                ⚠️ Needs Review
+                              <span className="px-2.5 py-1 rounded bg-[#F59E0B]/10 border border-[#F59E0B]/30 text-[#F59E0B] text-[10px] font-bold whitespace-nowrap inline-flex items-center justify-center">
+                                ⚠️ Review Required
                               </span>
                               {r.review_reason && (
                                 <p className="text-[10px] text-[#F59E0B] italic truncate max-w-[150px]">{r.review_reason}</p>

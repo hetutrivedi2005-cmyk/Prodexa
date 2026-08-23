@@ -232,7 +232,7 @@ export const ProductExplorer = () => {
                     const overallStatus = item.overall_status || (String(val.status).toLowerCase() === 'needs_review' ? 'NEEDS_REVIEW' : 'VALIDATED');
 
                     if (overallStatus === 'NEEDS_REVIEW' || val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
-                      statusText = 'Needs Review';
+                      statusText = 'Review Required';
                       statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
                       requiresReview = true;
                     } else if (val.status === 'processing') {
@@ -261,7 +261,7 @@ export const ProductExplorer = () => {
                           <span className="text-[10px] text-[#64748B] block font-mono">Overall Score</span>
                         </td>
                         <td className="py-3.5 px-3">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${statusColorClass}`}>
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border whitespace-nowrap inline-flex items-center justify-center ${statusColorClass}`}>
                             {statusText}
                           </span>
                         </td>

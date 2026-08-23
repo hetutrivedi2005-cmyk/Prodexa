@@ -703,14 +703,14 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
                                 {Math.round(p.confidence * 100)}%
                               </td>
                               <td className="py-2 px-3 text-center">
-                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold border whitespace-nowrap inline-flex items-center justify-center ${
                                   p.status === 'SUCCESSFUL' || p.status === 'VALIDATED'
                                     ? 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300'
-                                    : p.status === 'NEEDS_REVIEW'
+                                    : p.status === 'NEEDS_REVIEW' || p.status === 'Needs Review'
                                     ? 'bg-amber-950/80 border-amber-500/40 text-amber-300'
                                     : 'bg-rose-950/80 border-rose-500/40 text-rose-300'
                                 }`}>
-                                  {p.status}
+                                  {p.status === 'NEEDS_REVIEW' || p.status === 'Needs Review' ? 'Review Required' : p.status}
                                 </span>
                               </td>
                             </tr>

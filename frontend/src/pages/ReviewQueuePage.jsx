@@ -375,7 +375,7 @@ export const ReviewQueuePage = () => {
                           <span className="text-[10px] text-[#64748B] block font-mono">Field Score</span>
                         </td>
                         <td className="py-3.5 px-3">
-                          <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${statusColorClass}`}>
+                          <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border whitespace-nowrap inline-flex items-center justify-center ${statusColorClass}`}>
                             {item.review_status}
                           </span>
                         </td>

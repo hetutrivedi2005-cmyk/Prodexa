@@ -255,7 +255,7 @@ export const UserDashboard = () => {
                 let actionPath = `/user/products/${p.product_id}`;
 
                 if (overallStatus === 'NEEDS_REVIEW' || val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
-                  statusText = 'Needs Review';
+                  statusText = 'Review Required';
                   statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
                   actionText = 'Review →';
                   actionPath = `/user/review`;
@@ -288,7 +288,7 @@ export const UserDashboard = () => {
                       {productName}
                     </td>
                     <td className="py-3 px-3">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${statusColorClass}`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold border whitespace-nowrap inline-flex items-center justify-center ${statusColorClass}`}>
                         {statusText}
                       </span>
                     </td>

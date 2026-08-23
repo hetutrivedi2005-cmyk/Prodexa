@@ -288,14 +288,14 @@ export const ProductDetailPage = () => {
                         <span className="text-[10px] text-slate-500 block">Field Score</span>
                       </td>
                       <td className="py-3 px-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border whitespace-nowrap inline-flex items-center justify-center ${
                           isPending 
                             ? 'bg-amber-950/80 border-amber-500/40 text-amber-400' 
                             : isEdited
                             ? 'bg-cyan-950/80 border-cyan-500/40 text-cyan-300'
                             : 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400'
                         }`}>
-                          {isPending ? 'Needs Review' : isEdited ? 'Edited & Verified' : isApproved ? 'Approved' : 'Validated'}
+                          {isPending ? 'Review Required' : isEdited ? 'Edited & Verified' : isApproved ? 'Approved' : 'Validated'}
                         </span>
                       </td>
                       <td className="py-3 px-3 text-right">
