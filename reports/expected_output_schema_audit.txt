@@ -10,9 +10,9 @@ Final Output Dataset Generated: data/final/unihack_expected_output.csv
 1. SCHEMA DISTINCTION & COVERAGE SUMMARY
 --------------------------------------------------------------------------------
   - Expected schema fields                           : 252
-  - Fields originally present in enriched.csv        : 25
+  - Fields originally present in enriched.csv        : 17
   - Directly matched fields                          : 17
-  - Internal/extra fields in enriched.csv            : 5
+  - Internal/extra fields in enriched.csv            : 3
   - Fields Not Directly Available in enriched.csv    : 235
   - Final delivery columns                           : 252
   - Fields populated in at least one product         : 63 (25.0%)
@@ -43,9 +43,7 @@ Category Counts:
 --------------------------------------------------------------------------------
   - validation_status (Internal validation/confidence flag)
   - confidence_score (Internal validation/confidence flag)
-  - confidence_decision (Internal validation/confidence flag)
   - human_review_status (Internal validation/confidence flag)
-  - evidence_status (Internal validation/confidence flag)
 
 4. COMPLETE FIELD-BY-FIELD MAPPING & AUDIT TABLE
 --------------------------------------------------------------------------------

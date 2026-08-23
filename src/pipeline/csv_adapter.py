@@ -10,6 +10,9 @@ class CSVAdapter:
     """
 
     # Keyword patterns for heuristic column detection
+    PRODUCT_ID_PATTERNS = [
+        r"product[_\s]*id", r"prod[_\s]*id", r"item[_\s]*id", r"^id$", r"product[_\s]*code"
+    ]
     PRODUCT_PATTERNS = [
         r"product[_\s]*name", r"item[_\s]*description", r"product[_\s]*description",
         r"product[_\s]*title", r"item[_\s]*name", r"description", r"product", r"item",
@@ -80,7 +83,7 @@ class CSVAdapter:
     def detect_column_mapping(cls, raw_headers: List[str]) -> Dict[str, str]:
         """
         Maps raw CSV column headers to canonical field names:
-        'product_name', 'brand', 'manufacturer', 'mpn', 'category', 'upc'
+        'product_id', 'product_name', 'brand', 'manufacturer', 'mpn', 'category', 'upc'
         """
         mapping = {}
         matched_canonical = set()
@@ -97,6 +100,7 @@ class CSVAdapter:
                         return
 
         # Priority order matching
+        match_header(raw_headers, cls.PRODUCT_ID_PATTERNS, "product_id")
         match_header(raw_headers, cls.MPN_PATTERNS, "mpn")
         match_header(raw_headers, cls.BRAND_PATTERNS, "brand")
         match_header(raw_headers, cls.MANUFACTURER_PATTERNS, "manufacturer")
@@ -125,6 +129,7 @@ class CSVAdapter:
             source_row_id = row.get("_source_row_id", 1)
             raw_fields = {k: v for k, v in row.items() if k != "_source_row_id"}
 
+            product_id = ""
             product_name = ""
             brand = ""
             manufacturer = ""
@@ -134,7 +139,9 @@ class CSVAdapter:
 
             for raw_col, val in raw_fields.items():
                 canon = column_mapping.get(raw_col)
-                if canon == "product_name" and not product_name:
+                if canon == "product_id" and not product_id:
+                    product_id = val
+                elif canon == "product_name" and not product_name:
                     product_name = val
                 elif canon == "brand" and not brand:
                     brand = val
@@ -156,6 +163,7 @@ class CSVAdapter:
 
             record = {
                 "source_row_id": source_row_id,
+                "explicit_product_id": product_id if product_id else None,
                 "product_name": product_name or f"Product #{source_row_id}",
                 "raw_product_name": product_name,
                 "brand": brand,

