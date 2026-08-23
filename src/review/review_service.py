@@ -71,11 +71,55 @@ class ReviewService:
             self._items[item.review_id] = item
             self._by_key[(item.product_id, item.attribute_name)] = item
 
-    def get_review_queue(self, status_filter: Optional[str] = None) -> List[ReviewItem]:
+    def get_review_queue(self, status_filter: Optional[str] = None, job_id: Optional[str] = None) -> List[ReviewItem]:
         items = list(self._items.values())
+        if job_id:
+            items = [i for i in items if i.job_id == job_id]
         if status_filter:
             items = [i for i in items if i.review_status == status_filter]
         return items
+
+    def sync_job_review_items(self, job_id: str, results: List[dict]) -> List[ReviewItem]:
+        synced = []
+        for r in results:
+            if r.get("status") == "NEEDS_REVIEW":
+                p_id = r.get("product_id") or f"PROD-{job_id[-4:]}-{r.get('source_row_id', 1):04d}"
+                attr_name = r.get("review_attribute") or "manufacturer"
+                r_id = f"REV-{job_id[-4:]}-{r.get('source_row_id', 1):04d}"
+                
+                reason = r.get("review_reason") or "Low confidence on manufacturer grounding specification"
+                conf = float(r.get("confidence", 0.68))
+                prio = "HIGH" if conf < 0.70 else "MEDIUM"
+                
+                # Check if item already exists
+                existing = self._items.get(r_id) or self._by_key.get((p_id, attr_name))
+                if existing:
+                    existing.job_id = job_id
+                    existing.confidence_score = conf
+                    existing.priority = prio
+                    existing.review_comment = reason
+                    synced.append(existing)
+                else:
+                    new_item = ReviewItem(
+                        review_id=r_id,
+                        job_id=job_id,
+                        product_id=p_id,
+                        attribute_name=attr_name,
+                        current_value=r.get("brand") or r.get("manufacturer") or "Unassigned Brand",
+                        proposed_value=r.get("manufacturer") or "Verified Manufacturer",
+                        confidence_score=conf,
+                        confidence_decision="REVIEW_RECOMMENDED",
+                        validation_status="WARNING",
+                        review_status="PENDING",
+                        priority=prio,
+                        review_comment=reason,
+                        reason_codes=[reason],
+                        created_at=datetime.datetime.now(datetime.timezone.utc).isoformat()
+                    )
+                    self._items[new_item.review_id] = new_item
+                    self._by_key[(p_id, attr_name)] = new_item
+                    synced.append(new_item)
+        return synced
 
     def _find_or_create_item(self, review_id: str) -> ReviewItem:
         # 1. Direct match by review_id
@@ -362,3 +406,5 @@ class ReviewService:
             "rejection_rate": round(rejected / tot * 100, 2) if tot > 0 else 0.0,
             "escalation_rate": round(escalated / tot * 100, 2) if tot > 0 else 0.0
         }
+
+review_service = ReviewService()

@@ -77,7 +77,16 @@ export const api = {
   getConfidenceMetrics: () => fetchApi('/confidence'),
 
   // Human Review Queue
-  getReviewQueue: (statusFilter) => fetchApi(`/review/queue${statusFilter ? `?status_filter=${statusFilter}` : ''}`),
+  getReviewQueue: (params = {}) => {
+    let queryParams = {};
+    if (typeof params === 'string') {
+      queryParams = { status_filter: params };
+    } else if (params && typeof params === 'object') {
+      queryParams = { ...params };
+    }
+    const query = new URLSearchParams(queryParams).toString();
+    return fetchApi(`/review/queue${query ? `?${query}` : ''}`);
+  },
   getReviewItem: (id) => fetchApi(`/review/${id}`),
   acceptReviewItem: (id, reviewerId, reason) => fetchApi(`/review/${id}/accept`, { method: 'POST', body: JSON.stringify({ reviewer_id: reviewerId, reason }) }),
   editReviewItem: (id, reviewerId, editedValue, reason) => fetchApi(`/review/${id}/edit`, { method: 'POST', body: JSON.stringify({ reviewer_id: reviewerId, edited_value: editedValue, reason }) }),

@@ -21,6 +21,7 @@ class ReviewItem:
     confidence_score: float
     confidence_decision: str
     validation_status: str
+    job_id: Optional[str] = None
     review_status: str = "PENDING"
     priority: str = "HIGH"
     previous_value: Optional[Any] = None

@@ -2,156 +2,24 @@
   {
     "product": {
       "product_id": "PROD-0001",
-      "mpn": "DCB518",
-      "brand": "Diablo",
-      "manufacturer": "Freud Inc",
-      "product_type": "Abrasive Belts > Sanding Belts",
-      "product_name": "Sanding Belt 1/2 in x 18 in",
-      "job_id": "job_1787494467_a31010"
-    },
-    "attributes": {
-      "mpn": "DCB518",
-      "brand": "Diablo",
-      "manufacturer": "Freud Inc",
-      "dimensions": "1/2 in x 18 in"
-    },
-    "fields": {
-      "mpn": {
-        "field_name": "mpn",
-        "value": "DCB518",
-        "field_confidence": 0.99,
-        "confidence_percentage": 99.0,
-        "review_status": "AUTO_APPROVE",
-        "reason_codes": [
-          "OFFICIAL_SOURCE",
-          "VALIDATED"
-        ]
-      },
-      "brand": {
-        "field_name": "brand",
-        "value": "Diablo",
-        "field_confidence": 0.99,
-        "confidence_percentage": 99.0,
-        "review_status": "AUTO_APPROVE",
-        "reason_codes": [
-          "OFFICIAL_SOURCE",
-          "VALIDATED"
-        ]
-      },
-      "manufacturer": {
-        "field_name": "manufacturer",
-        "value": "Freud Inc",
-        "field_confidence": 0.99,
-        "confidence_percentage": 99.0,
-        "review_status": "AUTO_APPROVE",
-        "reason_codes": [
-          "OFFICIAL_SOURCE",
-          "VALIDATED"
-        ]
-      },
-      "dimensions": {
-        "field_name": "dimensions",
-        "value": "1/2 in x 18 in",
-        "field_confidence": 0.98,
-        "confidence_percentage": 98.0,
-        "review_status": "AUTO_APPROVE",
-        "reason_codes": [
-          "OFFICIAL_SOURCE",
-          "VALIDATED"
-        ]
-      }
-    },
-    "validation": {
-      "status": "approved",
-      "confidence": 0.98
-    },
-    "descriptions": {
-      "title": "Sanding Belt 1/2 in x 18 in",
-      "short_description": "Industrial-grade Abrasive Belts > Sanding Belts manufactured by Freud Inc under brand Diablo. MPN: DCB518.",
-      "long_description": "The Sanding Belt 1/2 in x 18 in is a professional Abrasive Belts > Sanding Belts designed for commercial operations. Verified against authoritative catalog data with quality validation."
-    }
-  },
-  {
-    "product": {
-      "product_id": "PROD-0002",
-      "mpn": "AVM6EV",
-      "brand": "Malco",
-      "manufacturer": "Malco Products",
-      "product_type": "Hardware & Industrial Supplies",
-      "product_name": "Snip Offset Left",
-      "job_id": "job_1787494467_a31010"
-    },
-    "attributes": {
-      "mpn": "",
-      "brand": "Malco",
-      "manufacturer": "Malco Products"
-    },
-    "fields": {
-      "mpn": {
-        "field_name": "mpn",
-        "value": "AVM6EV",
-        "field_confidence": 0.64,
-        "confidence_percentage": 64.0,
-        "review_status": "REVIEW_RECOMMENDED",
-        "reason_codes": [
-          "LOW_CONFIDENCE",
-          "PARTIAL_EVIDENCE"
-        ]
-      },
-      "brand": {
-        "field_name": "brand",
-        "value": "Malco",
-        "field_confidence": 0.59,
-        "confidence_percentage": 59.0,
-        "review_status": "REVIEW_RECOMMENDED",
-        "reason_codes": [
-          "LOW_CONFIDENCE",
-          "PARTIAL_EVIDENCE"
-        ]
-      },
-      "manufacturer": {
-        "field_name": "manufacturer",
-        "value": "Malco Products",
-        "field_confidence": 0.63,
-        "confidence_percentage": 63.0,
-        "review_status": "REVIEW_RECOMMENDED",
-        "reason_codes": [
-          "LOW_CONFIDENCE",
-          "PARTIAL_EVIDENCE"
-        ]
-      }
-    },
-    "validation": {
-      "status": "needs_review",
-      "confidence": 0.67
-    },
-    "descriptions": {
-      "title": "Snip Offset Left",
-      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Malco Products under brand Malco. MPN: AVM6EV.",
-      "long_description": "The Snip Offset Left is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
-    }
-  },
-  {
-    "product": {
-      "product_id": "PROD-0003",
-      "mpn": "DW1234",
+      "mpn": "MPN-TEST-0001",
       "brand": "DEWALT",
       "manufacturer": "Stanley Black & Decker",
-      "product_type": "Building, Decking & Railing Materials > Lumber & Structural Panels",
-      "product_name": "Drill Bit",
-      "job_id": "job_1787494467_a31010"
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #1",
+      "job_id": "job_1787495647_559573"
     },
     "attributes": {
-      "mpn": "DW1234",
+      "mpn": "MPN-TEST-0001",
       "brand": "DeWalt",
       "manufacturer": "Stanley Black & Decker"
     },
     "fields": {
       "mpn": {
         "field_name": "mpn",
-        "value": "DW1234",
-        "field_confidence": 0.94,
-        "confidence_percentage": 94.0,
+        "value": "MPN-TEST-0001",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -161,8 +29,8 @@
       "brand": {
         "field_name": "brand",
         "value": "DeWalt",
-        "field_confidence": 0.94,
-        "confidence_percentage": 94.0,
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
         "review_status": "AUTO_APPROVE",
         "reason_codes": [
           "OFFICIAL_SOURCE",
@@ -186,9 +54,849 @@
       "confidence": 0.91
     },
     "descriptions": {
-      "title": "Drill Bit",
-      "short_description": "Industrial-grade Building, Decking & Railing Materials > Lumber & Structural Panels manufactured by Stanley Black & Decker under brand DEWALT. MPN: DW1234.",
-      "long_description": "The Drill Bit is a professional Building, Decking & Railing Materials > Lumber & Structural Panels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+      "title": "Industrial Angle Grinder #1",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0001.",
+      "long_description": "The Industrial Angle Grinder #1 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0002",
+      "mpn": "MPN-TEST-0002",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #2",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0002",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0002",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #2",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0002.",
+      "long_description": "The Industrial Angle Grinder #2 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0003",
+      "mpn": "MPN-TEST-0003",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #3",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0003",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0003",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #3",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0003.",
+      "long_description": "The Industrial Angle Grinder #3 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0004",
+      "mpn": "MPN-TEST-0004",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #4",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0004",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0004",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #4",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0004.",
+      "long_description": "The Industrial Angle Grinder #4 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0005",
+      "mpn": "MPN-TEST-0005",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #5",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0005",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0005",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #5",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0005.",
+      "long_description": "The Industrial Angle Grinder #5 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0006",
+      "mpn": "MPN-TEST-0006",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #6",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0006",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0006",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #6",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0006.",
+      "long_description": "The Industrial Angle Grinder #6 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0007",
+      "mpn": "MPN-TEST-0007",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #7",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0007",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0007",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #7",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0007.",
+      "long_description": "The Industrial Angle Grinder #7 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0008",
+      "mpn": "MPN-TEST-0008",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Abrasive Discs & Wheels > Grinding Wheels",
+      "product_name": "Industrial Angle Grinder #8",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0008",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0008",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Industrial Angle Grinder #8",
+      "short_description": "Industrial-grade Abrasive Discs & Wheels > Grinding Wheels manufactured by Stanley Black & Decker under brand DEWALT. MPN: MPN-TEST-0008.",
+      "long_description": "The Industrial Angle Grinder #8 is a professional Abrasive Discs & Wheels > Grinding Wheels designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0009",
+      "mpn": "MPN-TEST-0009",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #9",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0009",
+      "brand": "",
+      "manufacturer": "Unassigned Manufacturer"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0009",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 1.0
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #9",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0009.",
+      "long_description": "The Generic Industrial Tool #9 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0010",
+      "mpn": "MPN-TEST-0010",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #10",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0010",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0010",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #10",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0010.",
+      "long_description": "The Generic Industrial Tool #10 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0011",
+      "mpn": "MPN-TEST-0011",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #11",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0011",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0011",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #11",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0011.",
+      "long_description": "The Generic Industrial Tool #11 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0012",
+      "mpn": "MPN-TEST-0012",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #12",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0012",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0012",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #12",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0012.",
+      "long_description": "The Generic Industrial Tool #12 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0013",
+      "mpn": "MPN-TEST-0013",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #13",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0013",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0013",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #13",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0013.",
+      "long_description": "The Generic Industrial Tool #13 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0014",
+      "mpn": "MPN-TEST-0014",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #14",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0014",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0014",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #14",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0014.",
+      "long_description": "The Generic Industrial Tool #14 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0015",
+      "mpn": "MPN-TEST-0015",
+      "brand": "GE",
+      "manufacturer": "Unassigned Manufacturer",
+      "product_type": "Hardware & Industrial Supplies",
+      "product_name": "Generic Industrial Tool #15",
+      "job_id": "job_1787495647_559573"
+    },
+    "attributes": {
+      "mpn": "MPN-TEST-0015",
+      "brand": "",
+      "manufacturer": ""
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "MPN-TEST-0015",
+        "field_confidence": 0.7,
+        "confidence_percentage": 70.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "",
+        "field_confidence": 0.67,
+        "confidence_percentage": 67.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      }
+    },
+    "validation": {
+      "status": "needs_review",
+      "confidence": 0.71
+    },
+    "descriptions": {
+      "title": "Generic Industrial Tool #15",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand GE. MPN: MPN-TEST-0015.",
+      "long_description": "The Generic Industrial Tool #15 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
     }
   }
 ]

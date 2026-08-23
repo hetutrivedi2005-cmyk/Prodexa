@@ -17,10 +17,13 @@ export const ReviewQueuePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const activeJobId = queryJobId || localStorage.getItem('prodexa_active_job');
+
   const loadQueue = () => {
     setLoading(true);
     setError('');
-    api.getReviewQueue()
+    const params = activeJobId ? { job_id: activeJobId } : {};
+    api.getReviewQueue(params)
       .then(res => setItems(res || []))
       .catch(err => setError(err.message || 'Failed to load review queue'))
       .finally(() => setLoading(false));
@@ -28,11 +31,17 @@ export const ReviewQueuePage = () => {
 
   useEffect(() => {
     loadQueue();
-  }, []);
+    const handleUpdate = () => loadQueue();
+    window.addEventListener('prodexa_review_updated', handleUpdate);
+    return () => window.removeEventListener('prodexa_review_updated', handleUpdate);
+  }, [activeJobId]);
 
   const handleActionSuccess = (msg, updatedItem) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(''), 4000);
+
+    // Broadcast review updated event for cross-component real-time sync
+    window.dispatchEvent(new CustomEvent('prodexa_review_updated', { detail: { updatedItem } }));
 
     if (updatedItem) {
       setItems(prevItems => {
@@ -55,8 +64,8 @@ export const ReviewQueuePage = () => {
       });
     }
 
-    // Refetch queue in background to guarantee full state synchronization
-    api.getReviewQueue()
+    const params = activeJobId ? { job_id: activeJobId } : {};
+    api.getReviewQueue(params)
       .then(res => {
         if (Array.isArray(res)) {
           setItems(res);

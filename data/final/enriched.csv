@@ -1,4 +1,16 @@
-product_id,mpn,product_name,brand,manufacturer,category,validation_status,confidence_score,dimensions,human_review_status
-PROD-0001,DCB518,Sanding Belt 1/2 in x 18 in,Diablo,Freud Inc,Abrasive Belts > Sanding Belts,approved,0.98,1/2 in x 18 in,
-PROD-0002,,Snip Offset Left,Malco,Malco Products,Hardware & Industrial Supplies,WARNING,0.67,,NEEDS_REVIEW
-PROD-0003,DW1234,Drill Bit,DeWalt,Stanley Black & Decker,"Building, Decking & Railing Materials > Lumber & Structural Panels",approved,0.91,,
+product_id,mpn,product_name,brand,manufacturer,category,validation_status,confidence_score,human_review_status
+PROD-0001,MPN-TEST-0001,Industrial Angle Grinder #1,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0002,MPN-TEST-0002,Industrial Angle Grinder #2,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0003,MPN-TEST-0003,Industrial Angle Grinder #3,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0004,MPN-TEST-0004,Industrial Angle Grinder #4,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0005,MPN-TEST-0005,Industrial Angle Grinder #5,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0006,MPN-TEST-0006,Industrial Angle Grinder #6,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0007,MPN-TEST-0007,Industrial Angle Grinder #7,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0008,MPN-TEST-0008,Industrial Angle Grinder #8,DeWalt,Stanley Black & Decker,Abrasive Discs & Wheels > Grinding Wheels,approved,0.91,
+PROD-0009,MPN-TEST-0009,Generic Industrial Tool #9,,Unassigned Manufacturer,Hardware & Industrial Supplies,PASS,1.0,APPROVED
+PROD-0010,MPN-TEST-0010,Generic Industrial Tool #10,,,Hardware & Industrial Supplies,needs_review,0.71,
+PROD-0011,MPN-TEST-0011,Generic Industrial Tool #11,,,Hardware & Industrial Supplies,needs_review,0.71,
+PROD-0012,MPN-TEST-0012,Generic Industrial Tool #12,,,Hardware & Industrial Supplies,needs_review,0.71,
+PROD-0013,MPN-TEST-0013,Generic Industrial Tool #13,,,Hardware & Industrial Supplies,needs_review,0.71,
+PROD-0014,MPN-TEST-0014,Generic Industrial Tool #14,,,Hardware & Industrial Supplies,needs_review,0.71,
+PROD-0015,MPN-TEST-0015,Generic Industrial Tool #15,,,Hardware & Industrial Supplies,needs_review,0.71,

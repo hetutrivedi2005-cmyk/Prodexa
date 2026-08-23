@@ -93,6 +93,18 @@ export const UploadPage = () => {
     }
   }, [urlJobId]);
 
+  // Real-time synchronization when review actions occur anywhere in the app
+  useEffect(() => {
+    const handleReviewUpdate = () => {
+      if (jobId) {
+        api.getJobStatus(jobId).then(updated => setJob(updated)).catch(() => {});
+        fetchResults(jobId, page, search, statusFilter);
+      }
+    };
+    window.addEventListener('prodexa_review_updated', handleReviewUpdate);
+    return () => window.removeEventListener('prodexa_review_updated', handleReviewUpdate);
+  }, [jobId, page, search, statusFilter]);
+
   // Cleanup SSE connection on unmount
   useEffect(() => {
     return () => {

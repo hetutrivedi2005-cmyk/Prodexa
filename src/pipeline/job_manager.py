@@ -185,6 +185,48 @@ class PipelineJobManager:
                     pass
             return None
 
+    def get_active_job_id(self) -> Optional[str]:
+        with self.lock:
+            # 1. Look for PROCESSING job
+            for j_id, j in self.jobs.items():
+                if j.get("status") == "PROCESSING":
+                    return j_id
+            # 2. Look for most recent COMPLETED job
+            completed_jobs = [j for j in self.jobs.values() if j.get("status") == "COMPLETED"]
+            if completed_jobs:
+                completed_jobs.sort(key=lambda x: x.get("completed_at") or x.get("created_at") or "", reverse=True)
+                return completed_jobs[0]["job_id"]
+            return None
+
+    def update_item_status(self, job_id: str, product_id: str, new_status: str = "SUCCESSFUL", new_confidence: float = 1.0, review_reason: Optional[str] = None):
+        results_file = JOBS_DIR / f"{job_id}_results.json"
+        if not results_file.exists():
+            return
+        try:
+            with open(results_file, "r", encoding="utf-8") as f:
+                results = json.load(f)
+            updated = False
+            for r in results:
+                if r.get("product_id") == product_id or r.get("mpn") == product_id or str(r.get("source_row_id")) == str(product_id):
+                    r["status"] = new_status
+                    r["confidence"] = new_confidence
+                    r["review_reason"] = review_reason
+                    updated = True
+                    break
+            if updated:
+                with open(results_file, "w", encoding="utf-8") as f:
+                    json.dump(results, f, indent=2)
+                
+                # Recalculate job metadata stats
+                job = self.get_job(job_id)
+                if job:
+                    job["successful_rows"] = sum(1 for r in results if r.get("status") == "SUCCESSFUL")
+                    job["needs_review_rows"] = sum(1 for r in results if r.get("status") == "NEEDS_REVIEW")
+                    job["failed_rows"] = sum(1 for r in results if r.get("status") == "FAILED")
+                    self._save_job(job_id)
+        except Exception as e:
+            print(f"[JOB_MANAGER] Could not update item status for {job_id} / {product_id}: {e}")
+
     def subscribe_events(self, job_id: str) -> queue.Queue:
         q = queue.Queue(maxsize=100)
         with self.lock:
@@ -559,6 +601,13 @@ class PipelineJobManager:
         results_file = JOBS_DIR / f"{job_id}_results.json"
         with open(results_file, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2)
+
+        # Sync generated review items with human review service
+        try:
+            from src.review.review_service import review_service
+            review_service.sync_job_review_items(job_id, results)
+        except Exception as rev_err:
+            print(f"[JOB_MANAGER] Note: Could not sync review items for {job_id}: {rev_err}")
 
         # Generate automated job report
         try:

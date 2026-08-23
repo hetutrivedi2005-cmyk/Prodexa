@@ -153,11 +153,7 @@ def require_admin(user: dict = Depends(get_current_user)):
 # -------------------------------------------------------------------
 # REVIEW SERVICE INSTANCE & CANONICAL QUEUE LOADER
 # -------------------------------------------------------------------
-review_service = ReviewService(
-    audit_filepath="data/review/review_audit.jsonl",
-    lov_csv_path="data/master/attribute_lov.csv",
-    uom_csv_path="data/master/uom_master.csv"
-)
+from src.review.review_service import review_service
 
 def load_all_field_confidences() -> Dict[Tuple[str, str], dict]:
     """Loads all attribute confidence entries indexed by (product_id, attribute_name)."""
@@ -1152,10 +1148,12 @@ class ActionRequest(BaseModel):
     edited_value: Optional[Any] = None
 
 @app.get("/api/review/queue")
-def get_review_queue(status_filter: Optional[str] = None):
-    if not review_service._items:
-        build_clean_review_queue()
-    items = review_service.get_review_queue(status_filter=status_filter)
+def get_review_queue(
+    status_filter: Optional[str] = None,
+    job_id: Optional[str] = Query(None, description="Scope review items to specific job ID")
+):
+    target_job_id = job_id or pipeline_job_manager.get_active_job_id()
+    items = review_service.get_review_queue(status_filter=status_filter, job_id=target_job_id)
     return [i.to_dict() for i in items]
 
 @app.get("/api/review/{review_id}")
@@ -1177,6 +1175,13 @@ def accept_review_item(review_id: str, req: ActionRequest):
         )
         save_review_queue_to_disk()
         update_product_and_regenerate_outputs(item.product_id, item.attribute_name, item.current_value, "ACCEPT")
+        
+        # Sync with PipelineJobManager if job_id exists
+        if getattr(item, 'job_id', None):
+            pipeline_job_manager.update_item_status(item.job_id, item.product_id, new_status="SUCCESSFUL", new_confidence=1.0)
+        elif pipeline_job_manager.get_active_job_id():
+            pipeline_job_manager.update_item_status(pipeline_job_manager.get_active_job_id(), item.product_id, new_status="SUCCESSFUL", new_confidence=1.0)
+
         return {
             "success": True,
             "status": "success",

@@ -16,7 +16,9 @@ export const ReviewModal = ({ item, onClose, onSuccess }) => {
     setErrorMessage('');
     try {
       const res = await api.acceptReviewItem(item.review_id || `${item.product_id}:${item.attribute_name}`, 'Product Specialist', reason.trim() || 'Verified and approved based on manufacturer evidence.');
-      onSuccess?.('Item accepted successfully and specifications updated', res?.item || { ...item, review_status: 'APPROVED', review_action: 'ACCEPT' });
+      const updatedItem = res?.item || { ...item, review_status: 'APPROVED', review_action: 'ACCEPT' };
+      window.dispatchEvent(new CustomEvent('prodexa_review_updated', { detail: { updatedItem } }));
+      onSuccess?.('Item accepted successfully and specifications updated', updatedItem);
       onClose();
     } catch (err) {
       setErrorMessage(err.message || 'Failed to accept review item');
