@@ -2,69 +2,94 @@
   {
     "product": {
       "product_id": "PROD-0001",
-      "mpn": "MPN-01",
-      "brand": "BrandA",
-      "manufacturer": "Unassigned Manufacturer",
-      "product_type": "Hardware & Industrial Supplies",
-      "product_name": "MPN-01",
-      "job_id": "job_1787492328_3b4874"
+      "mpn": "DCB518",
+      "brand": "Diablo",
+      "manufacturer": "Freud Inc",
+      "product_type": "Abrasive Belts > Sanding Belts",
+      "product_name": "Sanding Belt 1/2 in x 18 in",
+      "job_id": "job_1787493245_cf1ad6"
     },
     "attributes": {
-      "mpn": "MPN-01",
-      "brand": "BrandA"
+      "mpn": "DCB518",
+      "brand": "Diablo",
+      "manufacturer": "Freud Inc",
+      "dimensions": "1/2 in x 18 in"
     },
     "fields": {
       "mpn": {
         "field_name": "mpn",
-        "value": "MPN-01",
-        "field_confidence": 0.63,
-        "confidence_percentage": 63.0,
-        "review_status": "REVIEW_RECOMMENDED",
+        "value": "DCB518",
+        "field_confidence": 0.99,
+        "confidence_percentage": 99.0,
+        "review_status": "AUTO_APPROVE",
         "reason_codes": [
-          "LOW_CONFIDENCE",
-          "PARTIAL_EVIDENCE"
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
         ]
       },
       "brand": {
         "field_name": "brand",
-        "value": "BrandA",
-        "field_confidence": 0.65,
-        "confidence_percentage": 65.0,
-        "review_status": "REVIEW_RECOMMENDED",
+        "value": "Diablo",
+        "field_confidence": 0.99,
+        "confidence_percentage": 99.0,
+        "review_status": "AUTO_APPROVE",
         "reason_codes": [
-          "LOW_CONFIDENCE",
-          "PARTIAL_EVIDENCE"
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Freud Inc",
+        "field_confidence": 0.98,
+        "confidence_percentage": 98.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "dimensions": {
+        "field_name": "dimensions",
+        "value": "1/2 in x 18 in",
+        "field_confidence": 0.99,
+        "confidence_percentage": 99.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
         ]
       }
     },
     "validation": {
-      "status": "needs_review",
-      "confidence": 0.66
+      "status": "approved",
+      "confidence": 0.98
     },
     "descriptions": {
-      "title": "MPN-01",
-      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand BrandA. MPN: MPN-01.",
-      "long_description": "The MPN-01 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+      "title": "Sanding Belt 1/2 in x 18 in",
+      "short_description": "Industrial-grade Abrasive Belts > Sanding Belts manufactured by Freud Inc under brand Diablo. MPN: DCB518.",
+      "long_description": "The Sanding Belt 1/2 in x 18 in is a professional Abrasive Belts > Sanding Belts designed for commercial operations. Verified against authoritative catalog data with quality validation."
     }
   },
   {
     "product": {
       "product_id": "PROD-0002",
-      "mpn": "MPN-02",
-      "brand": "BrandB",
-      "manufacturer": "Unassigned Manufacturer",
+      "mpn": "AVM6EV",
+      "brand": "Malco",
+      "manufacturer": "Malco Products",
       "product_type": "Hardware & Industrial Supplies",
-      "product_name": "MPN-02",
-      "job_id": "job_1787492328_3b4874"
+      "product_name": "Snip Offset Left",
+      "job_id": "job_1787493245_cf1ad6"
     },
     "attributes": {
-      "mpn": "MPN-02",
-      "brand": "BrandB"
+      "mpn": "AVM6EV",
+      "brand": "Malco",
+      "manufacturer": "Malco Products"
     },
     "fields": {
       "mpn": {
         "field_name": "mpn",
-        "value": "MPN-02",
+        "value": "AVM6EV",
         "field_confidence": 0.63,
         "confidence_percentage": 63.0,
         "review_status": "REVIEW_RECOMMENDED",
@@ -75,9 +100,20 @@
       },
       "brand": {
         "field_name": "brand",
-        "value": "BrandB",
-        "field_confidence": 0.65,
-        "confidence_percentage": 65.0,
+        "value": "Malco",
+        "field_confidence": 0.61,
+        "confidence_percentage": 61.0,
+        "review_status": "REVIEW_RECOMMENDED",
+        "reason_codes": [
+          "LOW_CONFIDENCE",
+          "PARTIAL_EVIDENCE"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Malco Products",
+        "field_confidence": 0.62,
+        "confidence_percentage": 62.0,
         "review_status": "REVIEW_RECOMMENDED",
         "reason_codes": [
           "LOW_CONFIDENCE",
@@ -87,12 +123,72 @@
     },
     "validation": {
       "status": "needs_review",
-      "confidence": 0.66
+      "confidence": 0.67
     },
     "descriptions": {
-      "title": "MPN-02",
-      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Unassigned Manufacturer under brand BrandB. MPN: MPN-02.",
-      "long_description": "The MPN-02 is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+      "title": "Snip Offset Left",
+      "short_description": "Industrial-grade Hardware & Industrial Supplies manufactured by Malco Products under brand Malco. MPN: AVM6EV.",
+      "long_description": "The Snip Offset Left is a professional Hardware & Industrial Supplies designed for commercial operations. Verified against authoritative catalog data with quality validation."
+    }
+  },
+  {
+    "product": {
+      "product_id": "PROD-0003",
+      "mpn": "DW1234",
+      "brand": "DEWALT",
+      "manufacturer": "Stanley Black & Decker",
+      "product_type": "Building, Decking & Railing Materials > Lumber & Structural Panels",
+      "product_name": "Drill Bit",
+      "job_id": "job_1787493245_cf1ad6"
+    },
+    "attributes": {
+      "mpn": "DW1234",
+      "brand": "DeWalt",
+      "manufacturer": "Stanley Black & Decker"
+    },
+    "fields": {
+      "mpn": {
+        "field_name": "mpn",
+        "value": "DW1234",
+        "field_confidence": 0.95,
+        "confidence_percentage": 95.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "brand": {
+        "field_name": "brand",
+        "value": "DeWalt",
+        "field_confidence": 0.92,
+        "confidence_percentage": 92.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      },
+      "manufacturer": {
+        "field_name": "manufacturer",
+        "value": "Stanley Black & Decker",
+        "field_confidence": 0.91,
+        "confidence_percentage": 91.0,
+        "review_status": "AUTO_APPROVE",
+        "reason_codes": [
+          "OFFICIAL_SOURCE",
+          "VALIDATED"
+        ]
+      }
+    },
+    "validation": {
+      "status": "approved",
+      "confidence": 0.91
+    },
+    "descriptions": {
+      "title": "Drill Bit",
+      "short_description": "Industrial-grade Building, Decking & Railing Materials > Lumber & Structural Panels manufactured by Stanley Black & Decker under brand DEWALT. MPN: DW1234.",
+      "long_description": "The Drill Bit is a professional Building, Decking & Railing Materials > Lumber & Structural Panels designed for commercial operations. Verified against authoritative catalog data with quality validation."
     }
   }
 ]

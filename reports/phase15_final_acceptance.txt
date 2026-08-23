@@ -5,24 +5,24 @@ PRODEXA PHASE 15 — FINAL EVALUATION REPORT
 DATASET
 ------------------------------------------------------------
 Source products:                    1000
-Products evaluated:                 100
+Products evaluated:                 2
 Products excluded:                   2
-Fields evaluated:                   3885
+Fields evaluated:                   3869
 
 FIELD ACCURACY
 ------------------------------------------------------------
 Correct fields:                     0
-Incorrect fields:                   300
+Incorrect fields:                   6
 Field Accuracy:                     0.00%
 Note: Field Accuracy measures correctness among fields that received a prediction;
 missing fields are separately reported through Data Completeness.
 
 DATA COMPLETENESS
 ------------------------------------------------------------
-Expected fields:                    3885
-Missing fields:                     3585
-Data Completeness:                  7.72%
-Missing Data Rate:                  92.28%
+Expected fields:                    3869
+Missing fields:                     3863
+Data Completeness:                  0.16%
+Missing Data Rate:                  99.84%
 
 LOV COMPLIANCE
 ------------------------------------------------------------
@@ -45,7 +45,7 @@ HUMAN REVIEW
 Products entering review queue:     1
 Products resolved:                  0
 Products pending:                   1
-Human Review Rate:                  1.00%
+Human Review Rate:                  50.00%
 
 ENRICHMENT PERFORMANCE
 ------------------------------------------------------------
@@ -56,9 +56,9 @@ Enrichment Recovery Rate:           0.00%
 
 CONFIDENCE QUALITY
 ------------------------------------------------------------
-Average Prodexa Confidence:         65.00%
+Average Prodexa Confidence:         66.00%
 MATCH Confidence:                   95.00%
-MISMATCH Confidence:                65.00%
+MISMATCH Confidence:                66.00%
 High-Confidence Error Rate:         100.00%
 Note: Prodexa Confidence Score measures evidence and validation quality;
 it is not a prediction probability and therefore does not guarantee ground-truth correctness.

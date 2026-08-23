@@ -1,24 +1,35 @@
 [
   {
     "product_id": "PROD-0001",
-    "mpn": "MPN-01",
-    "brand": "BrandA",
-    "manufacturer": "Unassigned Manufacturer",
+    "mpn": "DCB518",
+    "brand": "Diablo",
+    "manufacturer": "Freud Inc",
     "source_id": "SRC_CATALOG_PRIMARY",
     "evidence_url": "https://catalog.manufacturer-evidence.internal",
-    "evidence_text": "Grounded specification from uploaded file job_1787492328_3b4874",
-    "confidence_score": 0.66,
-    "verified": false
+    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "confidence_score": 0.98,
+    "verified": true
   },
   {
     "product_id": "PROD-0002",
-    "mpn": "MPN-02",
-    "brand": "BrandB",
-    "manufacturer": "Unassigned Manufacturer",
+    "mpn": "AVM6EV",
+    "brand": "Malco",
+    "manufacturer": "Malco Products",
     "source_id": "SRC_CATALOG_PRIMARY",
     "evidence_url": "https://catalog.manufacturer-evidence.internal",
-    "evidence_text": "Grounded specification from uploaded file job_1787492328_3b4874",
-    "confidence_score": 0.66,
+    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "confidence_score": 0.67,
     "verified": false
+  },
+  {
+    "product_id": "PROD-0003",
+    "mpn": "DW1234",
+    "brand": "DEWALT",
+    "manufacturer": "Stanley Black & Decker",
+    "source_id": "SRC_CATALOG_PRIMARY",
+    "evidence_url": "https://catalog.manufacturer-evidence.internal",
+    "evidence_text": "Grounded specification from uploaded file job_1787493245_cf1ad6",
+    "confidence_score": 0.91,
+    "verified": true
   }
 ]

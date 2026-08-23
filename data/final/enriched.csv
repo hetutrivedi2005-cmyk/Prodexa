@@ -1,3 +1,4 @@
-product_id,mpn,product_name,brand,manufacturer,category,validation_status,confidence_score
-PROD-0001,MPN-01,MPN-01,BrandA,Unassigned Manufacturer,Hardware & Industrial Supplies,needs_review,0.66
-PROD-0002,MPN-02,MPN-02,BrandB,Unassigned Manufacturer,Hardware & Industrial Supplies,needs_review,0.66
+product_id,mpn,product_name,brand,manufacturer,category,validation_status,confidence_score,dimensions
+PROD-0001,DCB518,Sanding Belt 1/2 in x 18 in,Diablo,Freud Inc,Abrasive Belts > Sanding Belts,approved,0.98,1/2 in x 18 in
+PROD-0002,AVM6EV,Snip Offset Left,Malco,Malco Products,Hardware & Industrial Supplies,needs_review,0.67,
+PROD-0003,DW1234,Drill Bit,DeWalt,Stanley Black & Decker,"Building, Decking & Railing Materials > Lumber & Structural Panels",approved,0.91,

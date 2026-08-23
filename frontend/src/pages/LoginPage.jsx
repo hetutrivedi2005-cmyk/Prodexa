@@ -30,9 +30,23 @@ export const LoginPage = () => {
     }
   };
 
-  const handleQuickLogin = (demoEmail, demoPass) => {
+  const handleQuickLogin = async (demoEmail, demoPass) => {
     setEmail(demoEmail);
     setPassword(demoPass);
+    setLoading(true);
+    setError('');
+    try {
+      const user = await login(demoEmail, demoPass);
+      if (user?.role === 'ADMIN') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/user/dashboard');
+      }
+    } catch (err) {
+      setError(err.message || 'Login failed. Please check credentials.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

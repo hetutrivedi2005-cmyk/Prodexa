@@ -1,3 +1,4 @@
 product_id,mpn,status,confidence,exclusion_reason,reason
-PROD-0001,MPN-01,NEEDS_REVIEW,0.66,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
-PROD-0002,MPN-02,NEEDS_REVIEW,0.66,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0001,DCB518,SUCCESSFUL,0.98,Validated,Validated
+PROD-0002,AVM6EV,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0003,DW1234,SUCCESSFUL,0.91,Validated,Validated
