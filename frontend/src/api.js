@@ -139,6 +139,9 @@ export const api = {
     });
   },
   getJobStatus: (jobId) => fetchApi(`/jobs/${jobId}`),
+  getJobReport: (jobId) => fetchApi(`/jobs/${jobId}/report`),
+  getReportById: (reportId) => fetchApi(`/reports/${reportId}`),
+  getReports: () => fetchApi('/reports'),
   getJobResults: (jobId, params = {}) => {
     const query = new URLSearchParams(params).toString();
     return fetchApi(`/jobs/${jobId}/results?${query}`);

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { api } from '../api';
 import { ReviewModal } from '../components/ReviewModal';
-import { UserCheck, Check, Edit3, X, ShieldAlert, Loader2, AlertTriangle, ArrowUpRight, HelpCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { UserCheck, Check, Edit3, X, ShieldAlert, Loader2, AlertTriangle, ArrowUpRight, HelpCircle, Filter } from 'lucide-react';
 
 export const ReviewQueuePage = () => {
+  const [searchParams] = useSearchParams();
+  const queryJobId = searchParams.get('job_id');
+  const queryStatus = searchParams.get('status');
+
   const [items, setItems] = useState([]);
-  const [activeTab, setActiveTab] = useState('pending'); // 'pending' | 'high-priority' | 'resolved' | 'all'
+  const [activeTab, setActiveTab] = useState(queryStatus || 'pending'); // 'pending' | 'high-priority' | 'resolved' | 'all'
+  const [viewMode, setViewMode] = useState('product'); // 'product' | 'field'
   const [selectedItem, setSelectedItem] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -15,7 +20,6 @@ export const ReviewQueuePage = () => {
   const loadQueue = () => {
     setLoading(true);
     setError('');
-    // Fetch queue
     api.getReviewQueue()
       .then(res => setItems(res || []))
       .catch(err => setError(err.message || 'Failed to load review queue'))
@@ -39,7 +43,7 @@ export const ReviewQueuePage = () => {
       return items.filter(i => String(i.review_status).toUpperCase() === 'PENDING');
     }
     if (status === 'high-priority') {
-      return items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && i.confidence_score < 0.70);
+      return items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && (i.field_confidence ?? i.confidence_score ?? 0) < 0.70);
     }
     if (status === 'resolved') {
       return items.filter(i => String(i.review_status).toUpperCase() !== 'PENDING');
@@ -49,9 +53,35 @@ export const ReviewQueuePage = () => {
 
   const filteredItems = getFilteredItems();
 
+  // Group filtered items by Product ID
+  const groupedProducts = React.useMemo(() => {
+    const groups = {};
+    for (const item of filteredItems) {
+      const pid = item.product_id || 'UNKNOWN';
+      if (!groups[pid]) {
+        groups[pid] = {
+          product_id: pid,
+          mpn: item.mpn,
+          items: [],
+          min_conf: 1.0,
+          pending_count: 0
+        };
+      }
+      groups[pid].items.push(item);
+      const conf = item.field_confidence ?? item.confidence_score ?? 0.0;
+      if (conf < groups[pid].min_conf) {
+        groups[pid].min_conf = conf;
+      }
+      if (String(item.review_status).toUpperCase() === 'PENDING') {
+        groups[pid].pending_count += 1;
+      }
+    }
+    return Object.values(groups);
+  }, [filteredItems]);
+
   const tabOptions = [
     { id: 'pending', label: 'Pending Reviews', count: items.filter(i => String(i.review_status).toUpperCase() === 'PENDING').length },
-    { id: 'high-priority', label: 'High Priority', count: items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && i.confidence_score < 0.70).length },
+    { id: 'high-priority', label: 'High Priority', count: items.filter(i => String(i.review_status).toUpperCase() === 'PENDING' && (i.field_confidence ?? i.confidence_score ?? 0) < 0.70).length },
     { id: 'resolved', label: 'Recently Reviewed', count: items.filter(i => String(i.review_status).toUpperCase() !== 'PENDING').length },
     { id: 'all', label: 'All Items', count: items.length }
   ];
@@ -64,6 +94,28 @@ export const ReviewQueuePage = () => {
         <div className="space-y-1">
           <h1 className="text-2xl font-bold font-display text-[#F1F5F9] tracking-tight">Review Queue</h1>
           <p className="text-xs text-[#94A3B8]">Resolve low-confidence product intelligence before it reaches downstream systems</p>
+        </div>
+        <div className="flex items-center gap-2 bg-[#0E131B] border border-[#202B3B] rounded-xl p-1 font-mono text-xs">
+          <button
+            onClick={() => setViewMode('product')}
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              viewMode === 'product'
+                ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/30'
+                : 'text-[#64748B] hover:text-[#F1F5F9]'
+            }`}
+          >
+            Group by Product ({groupedProducts.length})
+          </button>
+          <button
+            onClick={() => setViewMode('field')}
+            className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              viewMode === 'field'
+                ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/30'
+                : 'text-[#64748B] hover:text-[#F1F5F9]'
+            }`}
+          >
+            Field View ({filteredItems.length})
+          </button>
         </div>
       </div>
 
@@ -116,7 +168,95 @@ export const ReviewQueuePage = () => {
             <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
             <span>Loading Review Workspace Queue...</span>
           </div>
+        ) : viewMode === 'product' ? (
+          /* PRODUCT GROUPED VIEW */
+          <div className="space-y-4">
+            {groupedProducts.length === 0 ? (
+              <div className="py-12 text-center text-[#64748B] font-mono text-xs">
+                No products requiring review for active filters.
+              </div>
+            ) : (
+              groupedProducts.map((grp) => {
+                const confPercent = (grp.min_conf * 100).toFixed(1);
+                return (
+                  <div
+                    key={grp.product_id}
+                    className="p-5 rounded-xl bg-[#0E131B]/70 border border-[#202B3B] hover:border-cyan-500/40 transition-all space-y-4 font-mono"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#202B3B]/60 pb-3">
+                      <div className="flex items-center gap-3">
+                        <Link
+                          to={`/user/products/${grp.product_id}`}
+                          className="text-cyan-400 hover:text-cyan-300 font-bold text-sm underline flex items-center gap-1"
+                        >
+                          {grp.product_id}
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </Link>
+                        {grp.mpn && (
+                          <span className="px-2 py-0.5 rounded bg-[#161F2E] border border-[#202B3B] text-[#94A3B8] text-[11px]">
+                            {grp.mpn}
+                          </span>
+                        )}
+                        <span className="px-2.5 py-0.5 rounded-full bg-amber-950/80 border border-amber-500/40 text-amber-300 text-[10px] font-bold">
+                          {grp.items.length} {grp.items.length === 1 ? 'field needs review' : 'fields need review'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[11px] text-[#64748B]">
+                          Lowest Field Confidence:
+                        </span>
+                        <span className={`font-bold font-mono-tech ${grp.min_conf < 0.80 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                          {confPercent}%
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Field Level Badges and Actions */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {grp.items.map((item) => {
+                        const fieldName = item.field_name || item.attribute_name;
+                        const fConf = item.field_confidence ?? item.confidence_score ?? 0.0;
+                        const fStatus = String(item.review_status).toUpperCase();
+                        let badgeClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
+                        if (fStatus === 'APPROVED' || fStatus === 'EDITED') {
+                          badgeClass = 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400';
+                        } else if (fStatus === 'REJECTED') {
+                          badgeClass = 'bg-rose-950/80 border-rose-500/40 text-rose-400';
+                        }
+
+                        return (
+                          <div
+                            key={item.review_key || item.review_id}
+                            className="p-3 rounded-lg bg-[#11161C] border border-[#202B3B] flex items-center justify-between gap-2 text-xs"
+                          >
+                            <div className="space-y-1 min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-bold text-cyan-300 truncate">{fieldName}</span>
+                                <span className={`px-1.5 py-0.2 rounded text-[9px] uppercase font-bold border ${badgeClass}`}>
+                                  {item.review_status}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-[#64748B] truncate">
+                                Val: <span className="text-[#94A3B8]">{String(item.current_value || '—')}</span>
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => setSelectedItem(item)}
+                              className="px-2.5 py-1 rounded bg-[#0E131B] border border-[#202B3B] text-cyan-300 hover:border-cyan-400 text-[10px] font-bold shrink-0 cursor-pointer"
+                            >
+                              {fStatus === 'PENDING' ? 'Review' : 'View'}
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
         ) : (
+          /* FLAT FIELD VIEW */
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
               <thead>

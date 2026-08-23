@@ -11,25 +11,28 @@ class CSVAdapter:
 
     # Keyword patterns for heuristic column detection
     PRODUCT_ID_PATTERNS = [
-        r"product[_\s]*id", r"prod[_\s]*id", r"item[_\s]*id", r"^id$", r"product[_\s]*code"
-    ]
-    PRODUCT_PATTERNS = [
-        r"product[_\s]*name", r"item[_\s]*description", r"product[_\s]*description",
-        r"product[_\s]*title", r"item[_\s]*name", r"description", r"product", r"item",
-        r"title", r"details", r"part[_\s]*description", r"goods", r"article"
-    ]
-    BRAND_PATTERNS = [
-        r"brand", r"brand[_\s]*name", r"company", r"vendor", r"make", r"trade[_\s]*mark", r"label"
-    ]
-    MANUFACTURER_PATTERNS = [
-        r"manufacturer", r"manufacturer[_\s]*name", r"mfr", r"maker", r"mfg", r"producer"
+        r"product[_\s-]*id", r"prod[_\s-]*id", r"item[_\s-]*id", r"^id$", r"product[_\s-]*code"
     ]
     MPN_PATTERNS = [
-        r"mpn", r"sku", r"part[_\s]*number", r"part[_\s]*no", r"item[_\s]*no",
-        r"model", r"model[_\s]*number", r"part#", r"catalog[_\s]*number", r"identifier"
+        r"mfg[_\s-]*part[_\s-]*num", r"mfg[_\s-]*part[_\s-]*no", r"manufacturer[_\s-]*part[_\s-]*number",
+        r"part[_\s-]*num", r"part[_\s-]*number", r"part[_\s-]*no", r"item[_\s-]*no",
+        r"mpn", r"sku", r"model[_\s-]*number", r"model", r"part#", r"catalog[_\s-]*number", r"identifier"
+    ]
+    PRODUCT_PATTERNS = [
+        r"part[_\s-]*desc", r"part[_\s-]*description", r"product[_\s-]*name", r"item[_\s-]*description",
+        r"product[_\s-]*description", r"product[_\s-]*title", r"item[_\s-]*name", r"description",
+        r"title", r"details", r"goods", r"article", r"product", r"item"
+    ]
+    BRAND_PATTERNS = [
+        r"e1[_\s-]*brand", r"unilog[_\s-]*brand", r"dib[_\s-]*brand", r"brand[_\s-]*name",
+        r"brand", r"company", r"trade[_\s-]*mark", r"label"
+    ]
+    MANUFACTURER_PATTERNS = [
+        r"part[_\s-]*manuf", r"part[_\s-]*manufacturer", r"manufacturer[_\s-]*name",
+        r"manufacturer", r"mfr", r"maker", r"mfg", r"producer", r"vendor"
     ]
     CATEGORY_PATTERNS = [
-        r"category", r"product[_\s]*type", r"segment", r"group", r"classification", r"dept", r"department", r"type"
+        r"category", r"product[_\s-]*type", r"segment", r"group", r"classification", r"dept", r"department", r"type"
     ]
     UPC_PATTERNS = [
         r"upc", r"gtin", r"ean", r"barcode"
@@ -83,37 +86,40 @@ class CSVAdapter:
     def detect_column_mapping(cls, raw_headers: List[str]) -> Dict[str, str]:
         """
         Maps raw CSV column headers to canonical field names:
-        'product_id', 'product_name', 'brand', 'manufacturer', 'mpn', 'category', 'upc'
+        'product_id', 'mpn', 'product_name', 'brand', 'manufacturer', 'category', 'upc'
         """
         mapping = {}
         matched_canonical = set()
+        assigned_headers = set()
 
         def match_header(headers: List[str], patterns: List[str], canonical_field: str):
             if canonical_field in matched_canonical:
                 return
             for h in headers:
-                norm_h = h.lower().strip()
+                if h in assigned_headers:
+                    continue
+                norm_h = re.sub(r"[^\w]", "_", h.lower().strip())
                 for pat in patterns:
-                    if re.search(rf"\b{pat}\b", norm_h) or norm_h == pat:
+                    if re.search(pat, norm_h) or norm_h == pat.replace(r"[_\s-]*", "_"):
                         mapping[h] = canonical_field
                         matched_canonical.add(canonical_field)
+                        assigned_headers.add(h)
                         return
 
-        # Priority order matching
+        # Order of precedence: ID, MPN, Manufacturer, Brand, Product Name, Category, UPC
         match_header(raw_headers, cls.PRODUCT_ID_PATTERNS, "product_id")
         match_header(raw_headers, cls.MPN_PATTERNS, "mpn")
-        match_header(raw_headers, cls.BRAND_PATTERNS, "brand")
         match_header(raw_headers, cls.MANUFACTURER_PATTERNS, "manufacturer")
-        match_header(raw_headers, cls.CATEGORY_PATTERNS, "category")
+        match_header(raw_headers, cls.BRAND_PATTERNS, "brand")
         match_header(raw_headers, cls.PRODUCT_PATTERNS, "product_name")
+        match_header(raw_headers, cls.CATEGORY_PATTERNS, "category")
         match_header(raw_headers, cls.UPC_PATTERNS, "upc")
 
-        # Fallback: If product_name not matched, assign first unmapped column
-        if "product_name" not in matched_canonical:
+        # Fallback: if no product_name matched, pick first unmapped non-empty header
+        if "product_name" not in matched_canonical and raw_headers:
             for h in raw_headers:
                 if h not in mapping:
                     mapping[h] = "product_name"
-                    matched_canonical.add("product_name")
                     break
 
         return mapping

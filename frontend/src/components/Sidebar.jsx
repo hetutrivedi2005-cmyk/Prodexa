@@ -58,7 +58,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className="w-64 bg-[#070A0F] border-r border-[#202B3B] shrink-0 flex flex-col justify-between hidden md:flex font-mono text-xs select-none">
+    <aside className="w-64 fixed top-16 bottom-0 left-0 bg-[#070A0F] border-r border-[#202B3B] z-30 shrink-0 flex flex-col justify-between hidden md:flex font-mono text-xs select-none">
       <div className="p-4 space-y-6 flex-1 overflow-y-auto">
         {/* Workspace Nav */}
         <div>

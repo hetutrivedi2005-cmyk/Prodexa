@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { api, getAuthToken } from '../api';
 import {
   Upload,
@@ -20,7 +21,8 @@ import {
   Filter,
   Eye,
   X,
-  FileText
+  FileText,
+  Printer
 } from 'lucide-react';
 
 export const UploadPage = () => {
@@ -554,6 +556,67 @@ export const UploadPage = () => {
               <span className="text-[#F43F5E] text-xs uppercase">Unresolved / Failed</span>
               <p className="text-3xl font-extrabold text-[#F43F5E]">{(job?.failed_rows || 0).toLocaleString()}</p>
               <span className="text-[10px] text-[#F43F5E]">Requires Data Fix</span>
+            </div>
+          </div>
+
+          {/* Quick Action Navigation Banner */}
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-[#0E131B] via-[#11161C] to-[#0E131B] border border-cyan-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono shadow-[0_0_30px_rgba(6,182,212,0.08)]">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-bold text-slate-100 font-display">Processing Complete — Results Ready</h3>
+              </div>
+              <p className="text-xs text-[#94A3B8]">
+                {(job?.total_rows || totalResults).toLocaleString()} products analyzed across all 15 intelligence stages.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              {(job?.needs_review_rows || 0) > 0 && (
+                <Link
+                  to={`/user/review?job_id=${jobId || ''}&status=pending`}
+                  className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)]"
+                >
+                  <span>Review {job?.needs_review_rows} Items Needing Attention</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              )}
+              <Link
+                to={`/user/reports?job_id=${jobId || ''}&preview=true`}
+                className="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+              >
+                <Eye className="w-4 h-4" />
+                <span>Preview Report</span>
+              </Link>
+              <a
+                href={`/print/reports/${jobId || ''}?auto_print=true`}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print / PDF</span>
+              </a>
+              <Link
+                to={`/user/products?job_id=${jobId || ''}`}
+                className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-[#202B3B] hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all"
+              >
+                <span>View Products</span>
+              </Link>
+              <Link
+                to={`/user/reports?job_id=${jobId || ''}`}
+                className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-[#202B3B] hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all"
+              >
+                <span>View Full Report</span>
+              </Link>
+              <a
+                href={`/api/jobs/${jobId}/report/csv`}
+                download
+                className="px-4 py-2.5 rounded-xl bg-[#0E131B] border border-[#202B3B] hover:border-slate-400 text-slate-300 text-xs flex items-center gap-2 transition-all"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Report CSV</span>
+              </a>
             </div>
           </div>
 

@@ -65,7 +65,7 @@ def test_csv_upload_job_creation_and_pipeline():
     assert job_res.status_code == 200
     job_data = job_res.json()
     assert job_data["job_id"] == job_id
-    assert len(job_data["stages"]) == 11
+    assert len(job_data["stages"]) == 15
 
 def test_job_stream_endpoint():
     sample_csv = "mpn,brand\nMPN-STREAM-01,BrandA\n".encode("utf-8")

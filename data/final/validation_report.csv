@@ -1,4 +1,1001 @@
 product_id,mpn,status,confidence,exclusion_reason,reason
-PROD-0001,DCB518,SUCCESSFUL,0.95,Validated,Validated
-PROD-0002,AVM6EV,SUCCESSFUL,0.88,Validated,Validated
-PROD-0003,DW1234,SUCCESSFUL,0.88,Validated,Validated
+PROD-0001,DCB518ASTS06G,SUCCESSFUL,0.97,Validated,Validated
+PROD-0002,3MABR-7100075678,SUCCESSFUL,0.97,Validated,Validated
+PROD-0003,3MABR-7100045865,SUCCESSFUL,0.97,Validated,Validated
+PROD-0004,3MABR-7100048736,SUCCESSFUL,0.97,Validated,Validated
+PROD-0005,3MABR-7100075690,SUCCESSFUL,0.97,Validated,Validated
+PROD-0006,3MABR-7100075692,SUCCESSFUL,0.97,Validated,Validated
+PROD-0007,3MABR-7100145365,SUCCESSFUL,0.97,Validated,Validated
+PROD-0008,5B-332-080,SUCCESSFUL,0.96,Validated,Validated
+PROD-0009,5B-332-120,SUCCESSFUL,0.96,Validated,Validated
+PROD-0010,9A-570-240,SUCCESSFUL,0.96,Validated,Validated
+PROD-0011,9A-570-320,SUCCESSFUL,0.96,Validated,Validated
+PROD-0012,DBD090094101F,SUCCESSFUL,0.97,Validated,Validated
+PROD-0013,DBDS12125A01F,SUCCESSFUL,0.97,Validated,Validated
+PROD-0014,DBDS12125G01F,SUCCESSFUL,0.97,Validated,Validated
+PROD-0015,DBDS14125A01F,SUCCESSFUL,0.97,Validated,Validated
+PROD-0016,DBDS14125G01F,SUCCESSFUL,0.97,Validated,Validated
+PROD-0017,49-94-0013,SUCCESSFUL,0.92,Validated,Validated
+PROD-0018,49-94-0029,SUCCESSFUL,0.92,Validated,Validated
+PROD-0019,49-94-0033,SUCCESSFUL,0.92,Validated,Validated
+PROD-0020,49-94-0001,SUCCESSFUL,0.92,Validated,Validated
+PROD-0021,49-94-0039,SUCCESSFUL,0.92,Validated,Validated
+PROD-0022,49-94-0043,SUCCESSFUL,0.92,Validated,Validated
+PROD-0023,49-94-0048,SUCCESSFUL,0.97,Validated,Validated
+PROD-0024,49-94-0053,SUCCESSFUL,0.92,Validated,Validated
+PROD-0025,49-94-0058,SUCCESSFUL,0.92,Validated,Validated
+PROD-0026,49-94-0063,SUCCESSFUL,0.97,Validated,Validated
+PROD-0027,49-94-0068,SUCCESSFUL,0.92,Validated,Validated
+PROD-0028,49-94-0073,SUCCESSFUL,0.92,Validated,Validated
+PROD-0029,49-94-0101,SUCCESSFUL,0.92,Validated,Validated
+PROD-0030,49-94-0107,SUCCESSFUL,0.92,Validated,Validated
+PROD-0031,49-94-0117,SUCCESSFUL,0.92,Validated,Validated
+PROD-0032,49-94-0123,SUCCESSFUL,0.92,Validated,Validated
+PROD-0033,49-94-0023,SUCCESSFUL,0.92,Validated,Validated
+PROD-0034,49-94-0121,SUCCESSFUL,0.92,Validated,Validated
+PROD-0035,49-94-0127,SUCCESSFUL,0.92,Validated,Validated
+PROD-0036,49-94-0137,SUCCESSFUL,0.92,Validated,Validated
+PROD-0037,49-94-0160,SUCCESSFUL,0.92,Validated,Validated
+PROD-0038,49-94-0223,SUCCESSFUL,0.92,Validated,Validated
+PROD-0039,49-94-0445,SUCCESSFUL,0.92,Validated,Validated
+PROD-0040,49-94-0803,SUCCESSFUL,0.92,Validated,Validated
+PROD-0041,49-94-0903,SUCCESSFUL,0.92,Validated,Validated
+PROD-0042,49-94-0907,SUCCESSFUL,0.91,Validated,Validated
+PROD-0043,49-94-0923,SUCCESSFUL,0.92,Validated,Validated
+PROD-0044,49-94-1900,SUCCESSFUL,0.92,Validated,Validated
+PROD-0045,49-94-1905,SUCCESSFUL,0.92,Validated,Validated
+PROD-0046,49-94-1915,SUCCESSFUL,0.92,Validated,Validated
+PROD-0047,49-94-1920,SUCCESSFUL,0.92,Validated,Validated
+PROD-0048,49-94-1925,SUCCESSFUL,0.92,Validated,Validated
+PROD-0049,49-94-1935,SUCCESSFUL,0.92,Validated,Validated
+PROD-0050,49-94-1940,SUCCESSFUL,0.92,Validated,Validated
+PROD-0051,49-94-0501,SUCCESSFUL,0.92,Validated,Validated
+PROD-0052,49-94-0503,SUCCESSFUL,0.92,Validated,Validated
+PROD-0053,49-94-0523,SUCCESSFUL,0.92,Validated,Validated
+PROD-0054,49-94-1955,SUCCESSFUL,0.92,Validated,Validated
+PROD-0055,49-94-1965,SUCCESSFUL,0.92,Validated,Validated
+PROD-0056,49-94-0513,SUCCESSFUL,0.92,Validated,Validated
+PROD-0057,49-94-0533,SUCCESSFUL,0.92,Validated,Validated
+PROD-0058,DFBLBLOMFN01G,SUCCESSFUL,0.96,Validated,Validated
+PROD-0059,1700-1PK-BB40,SUCCESSFUL,0.92,Validated,Validated
+PROD-0060,ASH-40-40-04,SUCCESSFUL,0.92,Validated,Validated
+PROD-0061,KDFM404KPS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0062,PDSH4816AF,SUCCESSFUL,0.92,Validated,Validated
+PROD-0063,PDT715SYVFS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0064,LDPH5554D,SUCCESSFUL,0.97,Validated,Validated
+PROD-0065,WDTS7024RZ,SUCCESSFUL,0.92,Validated,Validated
+PROD-0066,PDD415PYYFS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0067,KDTS424SBE,SUCCESSFUL,0.92,Validated,Validated
+PROD-0068,KDTS324SPS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0069,KDPS624SJP,SUCCESSFUL,0.92,Validated,Validated
+PROD-0070,KDTS624SBE,SUCCESSFUL,0.92,Validated,Validated
+PROD-0071,D519127,SUCCESSFUL,0.91,Validated,Validated
+PROD-0072,DF7004WE,SUCCESSFUL,0.96,Validated,Validated
+PROD-0073,DR7004BE,SUCCESSFUL,0.91,Validated,Validated
+PROD-0074,DV2000WE,SUCCESSFUL,0.91,Validated,Validated
+PROD-0075,DC5004WE,SUCCESSFUL,0.91,Validated,Validated
+PROD-0076,DC5004BE,SUCCESSFUL,0.91,Validated,Validated
+PROD-0077,WKE100HWA,SUCCESSFUL,0.97,Validated,Validated
+PROD-0078,FF7011WN,SUCCESSFUL,0.97,Validated,Validated
+PROD-0079,PTD70GBPTDG,SUCCESSFUL,0.96,Validated,Validated
+PROD-0080,PTD70GBSTWS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0081,DR5004WG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0082,DR7004BG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0083,DR7004WG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0084,DV2000WG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0085,DC5004WG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0086,DC5004BG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0087,PTW705BSTWS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0088,MVWP586GW,SUCCESSFUL,0.92,Validated,Validated
+PROD-0089,TV2000WN,SUCCESSFUL,0.92,Validated,Validated
+PROD-0090,TC5003BN,SUCCESSFUL,0.92,Validated,Validated
+PROD-0091,TR7006WN,SUCCESSFUL,0.97,Validated,Validated
+PROD-0092,TR7006BN,SUCCESSFUL,0.97,Validated,Validated
+PROD-0093,TR5006WN,SUCCESSFUL,0.97,Validated,Validated
+PROD-0094,5134545001,SUCCESSFUL,0.91,Validated,Validated
+PROD-0095,LNL65301,NEEDS_REVIEW,0.72,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0096,25-A,SUCCESSFUL,0.92,Validated,Validated
+PROD-0097,38-E,SUCCESSFUL,0.92,Validated,Validated
+PROD-0098,59-J,SUCCESSFUL,0.92,Validated,Validated
+PROD-0099,44-A,SUCCESSFUL,0.92,Validated,Validated
+PROD-0100,543302126,SUCCESSFUL,0.98,Validated,Validated
+PROD-0101,543302146,SUCCESSFUL,0.98,Validated,Validated
+PROD-0102,73019603,SUCCESSFUL,0.85,Validated,Validated
+PROD-0103,73019652,SUCCESSFUL,0.85,Validated,Validated
+PROD-0104,73019517,SUCCESSFUL,0.85,Validated,Validated
+PROD-0105,73019602,SUCCESSFUL,0.85,Validated,Validated
+PROD-0106,73019651,SUCCESSFUL,0.85,Validated,Validated
+PROD-0107,73019516,SUCCESSFUL,0.85,Validated,Validated
+PROD-0108,543300256,SUCCESSFUL,0.98,Validated,Validated
+PROD-0109,543300276,SUCCESSFUL,0.98,Validated,Validated
+PROD-0110,73045028,SUCCESSFUL,0.85,Validated,Validated
+PROD-0111,73045031,SUCCESSFUL,0.86,Validated,Validated
+PROD-0112,543340126,SUCCESSFUL,0.98,Validated,Validated
+PROD-0113,543340127,SUCCESSFUL,0.98,Validated,Validated
+PROD-0114,543340146,SUCCESSFUL,0.98,Validated,Validated
+PROD-0115,543340147,SUCCESSFUL,0.98,Validated,Validated
+PROD-0116,ADB15516CS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0117,ADB15520CS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0118,ADB15516EW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0119,ADB15520EW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0120,ADB15516MH,SUCCESSFUL,0.98,Validated,Validated
+PROD-0121,ADB15520MH,SUCCESSFUL,0.98,Validated,Validated
+PROD-0122,ADB15516WT,SUCCESSFUL,0.98,Validated,Validated
+PROD-0123,ADB15520WT,SUCCESSFUL,0.98,Validated,Validated
+PROD-0124,AGB15512CS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0125,AGB15516CS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0126,AGB15520CS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0127,AGB15512EW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0128,AGB15516EW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0129,AGB15520EW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0130,AGB15512MH,SUCCESSFUL,0.98,Validated,Validated
+PROD-0131,AGB15516MH,SUCCESSFUL,0.98,Validated,Validated
+PROD-0132,AGB15520MH,SUCCESSFUL,0.98,Validated,Validated
+PROD-0133,AGB15512WT,SUCCESSFUL,0.98,Validated,Validated
+PROD-0134,AGB15516WT,SUCCESSFUL,0.98,Validated,Validated
+PROD-0135,AGB15520WT,SUCCESSFUL,0.98,Validated,Validated
+PROD-0136,ADB15516AW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0137,ADB15520AW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0138,ADB15516CG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0139,ADB15520CG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0140,ADB15516FW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0141,ADB15520FW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0142,AGB15512AW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0143,AGB15516AW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0144,AGB15520AW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0145,AGB15512CG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0146,AGB15516CG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0147,AGB15520CG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0148,AGB15512FW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0149,AGB15516FW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0150,AGB15520FW,SUCCESSFUL,0.98,Validated,Validated
+PROD-0151,ADCB15516BS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0152,ADCB15520BS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0153,ADCB15516SG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0154,ADCB15520SG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0155,AGB15512BS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0156,AGB15516BS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0157,AGB15520BS,SUCCESSFUL,0.98,Validated,Validated
+PROD-0158,AGB15512SG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0159,AGB15516SG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0160,AGB15520SG,SUCCESSFUL,0.98,Validated,Validated
+PROD-0161,543140016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0162,543140020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0163,543142016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0164,543142020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0165,543144016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0166,543144020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0167,543143016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0168,543143020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0169,543141016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0170,543141020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0171,543140412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0172,543140416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0173,543140420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0174,543142412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0175,543142416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0176,543142420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0177,543144412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0178,543144416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0179,543144420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0180,543143412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0181,543143416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0182,543143420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0183,543141412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0184,543141416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0185,543141420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0186,1513703,SUCCESSFUL,0.98,Validated,Validated
+PROD-0187,1513704,SUCCESSFUL,0.98,Validated,Validated
+PROD-0188,1513705,SUCCESSFUL,0.98,Validated,Validated
+PROD-0189,1513706,SUCCESSFUL,0.98,Validated,Validated
+PROD-0190,1513707,SUCCESSFUL,0.98,Validated,Validated
+PROD-0191,1513708,SUCCESSFUL,0.98,Validated,Validated
+PROD-0192,1513709,SUCCESSFUL,0.98,Validated,Validated
+PROD-0193,1513710,SUCCESSFUL,0.98,Validated,Validated
+PROD-0194,1513711,SUCCESSFUL,0.98,Validated,Validated
+PROD-0195,1513712,SUCCESSFUL,0.98,Validated,Validated
+PROD-0196,1513717,SUCCESSFUL,0.98,Validated,Validated
+PROD-0197,1513718,SUCCESSFUL,0.98,Validated,Validated
+PROD-0198,1513719,SUCCESSFUL,0.98,Validated,Validated
+PROD-0199,1513720,SUCCESSFUL,0.98,Validated,Validated
+PROD-0200,1513721,SUCCESSFUL,0.98,Validated,Validated
+PROD-0201,1513724,SUCCESSFUL,0.98,Validated,Validated
+PROD-0202,1513725,SUCCESSFUL,0.98,Validated,Validated
+PROD-0203,1513726,SUCCESSFUL,0.98,Validated,Validated
+PROD-0204,1513727,SUCCESSFUL,0.98,Validated,Validated
+PROD-0205,1513728,SUCCESSFUL,0.98,Validated,Validated
+PROD-0206,543076016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0207,543076020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0208,543076412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0209,543076416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0210,543076420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0211,1516870,SUCCESSFUL,0.98,Validated,Validated
+PROD-0212,1516871,SUCCESSFUL,0.98,Validated,Validated
+PROD-0213,1516872,SUCCESSFUL,0.98,Validated,Validated
+PROD-0214,1516873,SUCCESSFUL,0.98,Validated,Validated
+PROD-0215,1516874,SUCCESSFUL,0.98,Validated,Validated
+PROD-0216,1516879,SUCCESSFUL,0.98,Validated,Validated
+PROD-0217,1516880,SUCCESSFUL,0.98,Validated,Validated
+PROD-0218,1516881,SUCCESSFUL,0.98,Validated,Validated
+PROD-0219,1516882,SUCCESSFUL,0.98,Validated,Validated
+PROD-0220,1516883,SUCCESSFUL,0.98,Validated,Validated
+PROD-0221,543005016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0222,543005020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0223,543005412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0224,543005416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0225,543005420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0226,1516891,SUCCESSFUL,0.98,Validated,Validated
+PROD-0227,1516892,SUCCESSFUL,0.98,Validated,Validated
+PROD-0228,1516893,SUCCESSFUL,0.98,Validated,Validated
+PROD-0229,1516894,SUCCESSFUL,0.98,Validated,Validated
+PROD-0230,1516895,SUCCESSFUL,0.98,Validated,Validated
+PROD-0231,543007016,SUCCESSFUL,0.98,Validated,Validated
+PROD-0232,543007020,SUCCESSFUL,0.98,Validated,Validated
+PROD-0233,543007412,SUCCESSFUL,0.98,Validated,Validated
+PROD-0234,543007416,SUCCESSFUL,0.98,Validated,Validated
+PROD-0235,543007420,SUCCESSFUL,0.98,Validated,Validated
+PROD-0236,ADR5117512CS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0237,ADR5117512MH,SUCCESSFUL,0.97,Validated,Validated
+PROD-0238,ADR5117512WT,SUCCESSFUL,0.97,Validated,Validated
+PROD-0239,ADR5117512AW,SUCCESSFUL,0.97,Validated,Validated
+PROD-0240,ADR5117512CG,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0241,ADR5117512FW,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0242,1508395,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0243,1508396,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0244,ADCR5117512BS,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0245,ADCR5117512SG,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0246,543140908,SUCCESSFUL,0.97,Validated,Validated
+PROD-0247,543142908,SUCCESSFUL,0.97,Validated,Validated
+PROD-0248,543143908,SUCCESSFUL,0.97,Validated,Validated
+PROD-0249,543140912,SUCCESSFUL,0.97,Validated,Validated
+PROD-0250,543142912,SUCCESSFUL,0.97,Validated,Validated
+PROD-0251,543143912,SUCCESSFUL,0.97,Validated,Validated
+PROD-0252,1513715,SUCCESSFUL,0.97,Validated,Validated
+PROD-0253,1513716,SUCCESSFUL,0.97,Validated,Validated
+PROD-0254,1513722,SUCCESSFUL,0.97,Validated,Validated
+PROD-0255,1513723,SUCCESSFUL,0.97,Validated,Validated
+PROD-0256,1513729,SUCCESSFUL,0.97,Validated,Validated
+PROD-0257,1513730,SUCCESSFUL,0.97,Validated,Validated
+PROD-0258,543076916,SUCCESSFUL,0.97,Validated,Validated
+PROD-0259,1516876,SUCCESSFUL,0.97,Validated,Validated
+PROD-0260,543076936,SUCCESSFUL,0.97,Validated,Validated
+PROD-0261,1516878,SUCCESSFUL,0.97,Validated,Validated
+PROD-0262,1516884,SUCCESSFUL,0.97,Validated,Validated
+PROD-0263,1516885,SUCCESSFUL,0.97,Validated,Validated
+PROD-0264,543005916,SUCCESSFUL,0.97,Validated,Validated
+PROD-0265,1516902,SUCCESSFUL,0.97,Validated,Validated
+PROD-0266,543007916,SUCCESSFUL,0.97,Validated,Validated
+PROD-0267,543005936,SUCCESSFUL,0.97,Validated,Validated
+PROD-0268,1516905,SUCCESSFUL,0.97,Validated,Validated
+PROD-0269,543007936,SUCCESSFUL,0.97,Validated,Validated
+PROD-0270,543144908,SUCCESSFUL,0.97,Validated,Validated
+PROD-0271,543141908,SUCCESSFUL,0.97,Validated,Validated
+PROD-0272,543144912,SUCCESSFUL,0.97,Validated,Validated
+PROD-0273,543141912,SUCCESSFUL,0.97,Validated,Validated
+PROD-0274,1513713,SUCCESSFUL,0.97,Validated,Validated
+PROD-0275,1513714,SUCCESSFUL,0.97,Validated,Validated
+PROD-0276,73012503,NEEDS_REVIEW,0.72,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0277,73018131,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0278,73018091,SUCCESSFUL,0.85,Validated,Validated
+PROD-0279,73018066,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0280,73018076,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0281,61109087,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0282,73018731,SUCCESSFUL,0.85,Validated,Validated
+PROD-0283,61109090,SUCCESSFUL,0.85,Validated,Validated
+PROD-0284,73053603,SUCCESSFUL,0.85,Validated,Validated
+PROD-0285,73053608,SUCCESSFUL,0.85,Validated,Validated
+PROD-0286,543340896,SUCCESSFUL,0.98,Validated,Validated
+PROD-0287,543340898,SUCCESSFUL,0.98,Validated,Validated
+PROD-0288,73272TBK,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0289,543302127,SUCCESSFUL,0.98,Validated,Validated
+PROD-0290,543302147,SUCCESSFUL,0.98,Validated,Validated
+PROD-0291,73019599,SUCCESSFUL,0.85,Validated,Validated
+PROD-0292,73019648,SUCCESSFUL,0.85,Validated,Validated
+PROD-0293,73019598,SUCCESSFUL,0.85,Validated,Validated
+PROD-0294,73019647,SUCCESSFUL,0.85,Validated,Validated
+PROD-0295,543300257,SUCCESSFUL,0.97,Validated,Validated
+PROD-0296,543300277,SUCCESSFUL,0.97,Validated,Validated
+PROD-0297,SPB-44BPL,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0298,925219,SUCCESSFUL,0.92,Validated,Validated
+PROD-0299,27233,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0300,1517602,SUCCESSFUL,0.97,Validated,Validated
+PROD-0301,1517603,SUCCESSFUL,0.97,Validated,Validated
+PROD-0302,1517604,SUCCESSFUL,0.97,Validated,Validated
+PROD-0303,1517605,SUCCESSFUL,0.97,Validated,Validated
+PROD-0304,FS C01 2004S,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0305,FS C04 2004S,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0306,FS C06 2004S,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0307,1501831,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0308,1501832,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0309,1515974,SUCCESSFUL,0.91,Validated,Validated
+PROD-0310,640383,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0311,653258,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0312,413S-DBA-36,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0313,413S-DBA-72,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0314,1511506,SUCCESSFUL,0.91,Validated,Validated
+PROD-0315,1513577,SUCCESSFUL,0.97,Validated,Validated
+PROD-0316,1513578,SUCCESSFUL,0.97,Validated,Validated
+PROD-0317,1513579,SUCCESSFUL,0.97,Validated,Validated
+PROD-0318,1513580,SUCCESSFUL,0.97,Validated,Validated
+PROD-0319,1501767,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0320,PP-8BL,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0321,PP-10BL,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0322,PP-12BL,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0323,PP-8CH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0324,PP-10CH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0325,PP-12CH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0326,PP-8WH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0327,PP-10WH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0328,1504345,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0329,2733,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0330,7547,SUCCESSFUL,0.85,Validated,Validated
+PROD-0331,8912220,SUCCESSFUL,0.97,Validated,Validated
+PROD-0332,8904015,SUCCESSFUL,0.97,Validated,Validated
+PROD-0333,25796,SUCCESSFUL,0.97,Validated,Validated
+PROD-0334,40503,SUCCESSFUL,0.97,Validated,Validated
+PROD-0335,25825,SUCCESSFUL,0.97,Validated,Validated
+PROD-0336,25822,SUCCESSFUL,0.97,Validated,Validated
+PROD-0337,543650101,SUCCESSFUL,0.97,Validated,Validated
+PROD-0338,543650010,SUCCESSFUL,0.97,Validated,Validated
+PROD-0339,543650048,SUCCESSFUL,0.97,Validated,Validated
+PROD-0340,1506969,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0341,1514681,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0342,1514726,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0343,1728ABL,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0344,402-R,SUCCESSFUL,0.92,Validated,Validated
+PROD-0345,SL1672,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0346,BM-DW20-YLW-6,SUCCESSFUL,0.97,Validated,Validated
+PROD-0347,BHA1-UPC,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0348,G1941-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0349,G1950-UPC,SUCCESSFUL,0.92,Validated,Validated
+PROD-0350,A410RCAR,SUCCESSFUL,0.91,Validated,Validated
+PROD-0351,G1951-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0352,52C3-5/8-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0353,52C14-5/8-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0354,52C3-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0355,54151-F-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0356,54151-HUR-UPC,SUCCESSFUL,0.96,Validated,Validated
+PROD-0357,54151-JR-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0358,54171-R-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0359,52151-S-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0360,72171-3/4-1W-UPC,SUCCESSFUL,0.91,Validated,Validated
+PROD-0361,5522-5EV,SUCCESSFUL,0.91,Validated,Validated
+PROD-0362,AYCL-153PH-LA,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0363,AYCL-153PH-WH,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0364,D23LP-R02-1RW,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0365,TNOCD002,SUCCESSFUL,0.91,Validated,Validated
+PROD-0366,TNDHD002,SUCCESSFUL,0.91,Validated,Validated
+PROD-0367,TNIDP12,SUCCESSFUL,0.91,Validated,Validated
+PROD-0368,TNIW24,SUCCESSFUL,0.91,Validated,Validated
+PROD-0369,65-1222,SUCCESSFUL,0.91,Validated,Validated
+PROD-0370,65-1224,SUCCESSFUL,0.91,Validated,Validated
+PROD-0371,45297BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0372,45573BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0373,37418A,SUCCESSFUL,0.91,Validated,Validated
+PROD-0374,37423A,SUCCESSFUL,0.91,Validated,Validated
+PROD-0375,45496BKCLR,SUCCESSFUL,0.91,Validated,Validated
+PROD-0376,45973BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0377,55155BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0378,55157CPZ,SUCCESSFUL,0.92,Validated,Validated
+PROD-0379,55184BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0380,55185BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0381,55186CH,SUCCESSFUL,0.91,Validated,Validated
+PROD-0382,55210NI,SUCCESSFUL,0.92,Validated,Validated
+PROD-0383,55211BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0384,55211NI,SUCCESSFUL,0.92,Validated,Validated
+PROD-0385,55212NI,SUCCESSFUL,0.92,Validated,Validated
+PROD-0386,55226BKLFU,SUCCESSFUL,0.91,Validated,Validated
+PROD-0387,55239CPZLED,SUCCESSFUL,0.91,Validated,Validated
+PROD-0388,44072DBK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0389,44073NI,SUCCESSFUL,0.91,Validated,Validated
+PROD-0390,52033BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0391,84322WH,SUCCESSFUL,0.91,Validated,Validated
+PROD-0392,52404BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0393,34686A,SUCCESSFUL,0.91,Validated,Validated
+PROD-0394,34687A,SUCCESSFUL,0.91,Validated,Validated
+PROD-0395,34688A,SUCCESSFUL,0.85,Validated,Validated
+PROD-0396,43671BKCLR,SUCCESSFUL,0.91,Validated,Validated
+PROD-0397,52616BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0398,52616NI,SUCCESSFUL,0.91,Validated,Validated
+PROD-0399,52678BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0400,52680CPZ,SUCCESSFUL,0.91,Validated,Validated
+PROD-0401,52772BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0402,82399,SUCCESSFUL,0.91,Validated,Validated
+PROD-0403,65-771R3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0404,42955BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0405,42275BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0406,62-1850,SUCCESSFUL,0.92,Validated,Validated
+PROD-0407,62-1852,SUCCESSFUL,0.96,Validated,Validated
+PROD-0408,62-1875,SUCCESSFUL,0.91,Validated,Validated
+PROD-0409,62-1876,SUCCESSFUL,0.97,Validated,Validated
+PROD-0410,42296BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0411,43913BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0412,HLSMS9129FS1E,SUCCESSFUL,0.91,Validated,Validated
+PROD-0413,64-110,SUCCESSFUL,0.97,Validated,Validated
+PROD-0414,603571,SUCCESSFUL,0.91,Validated,Validated
+PROD-0415,65-572R1,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0416,52476AVI,SUCCESSFUL,0.92,Validated,Validated
+PROD-0417,42199BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0418,42199BKCS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0419,42200BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0420,42200BKCS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0421,43851BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0422,43852BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0423,43853BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0424,43905BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0425,43911BK,SUCCESSFUL,0.92,Validated,Validated
+PROD-0426,52529BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0427,52662BKCLR,SUCCESSFUL,0.92,Validated,Validated
+PROD-0428,52734CPZ,SUCCESSFUL,0.91,Validated,Validated
+PROD-0429,82400,SUCCESSFUL,0.92,Validated,Validated
+PROD-0430,S11606,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0431,S11828,SUCCESSFUL,0.91,Validated,Validated
+PROD-0432,801274,SUCCESSFUL,0.91,Validated,Validated
+PROD-0433,S11860,SUCCESSFUL,0.91,Validated,Validated
+PROD-0434,S11562,SUCCESSFUL,0.91,Validated,Validated
+PROD-0435,S11646,SUCCESSFUL,0.91,Validated,Validated
+PROD-0436,S11801R1,SUCCESSFUL,0.91,Validated,Validated
+PROD-0437,S11848,SUCCESSFUL,0.91,Validated,Validated
+PROD-0438,S11849,SUCCESSFUL,0.91,Validated,Validated
+PROD-0439,HLBSL609FS5,SUCCESSFUL,0.91,Validated,Validated
+PROD-0440,WF4REGSWW590CRIMW,SUCCESSFUL,0.91,Validated,Validated
+PROD-0441,43849WH5CCT,SUCCESSFUL,0.91,Validated,Validated
+PROD-0442,62-1777,SUCCESSFUL,0.91,Validated,Validated
+PROD-0443,62-1778,SUCCESSFUL,0.91,Validated,Validated
+PROD-0444,62-1784,SUCCESSFUL,0.91,Validated,Validated
+PROD-0445,62-1787,SUCCESSFUL,0.91,Validated,Validated
+PROD-0446,62-1788,SUCCESSFUL,0.91,Validated,Validated
+PROD-0447,SHOP/4X2/840/V1,SUCCESSFUL,0.91,Validated,Validated
+PROD-0448,45495BKCLR,SUCCESSFUL,0.91,Validated,Validated
+PROD-0449,55209NI,SUCCESSFUL,0.91,Validated,Validated
+PROD-0450,65-1210,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0451,65-1211,SUCCESSFUL,0.91,Validated,Validated
+PROD-0452,141465,SUCCESSFUL,0.91,Validated,Validated
+PROD-0453,391227,SUCCESSFUL,0.91,Validated,Validated
+PROD-0454,392225,SUCCESSFUL,0.91,Validated,Validated
+PROD-0455,S3539,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0456,S3496,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0457,467316,SUCCESSFUL,0.91,Validated,Validated
+PROD-0458,S3709,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0459,S4720,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0460,S3720,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0461,S3702,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0462,S3703,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0463,S3797,SUCCESSFUL,0.91,Validated,Validated
+PROD-0464,S4724,SUCCESSFUL,0.91,Validated,Validated
+PROD-0465,S4717,SUCCESSFUL,0.91,Validated,Validated
+PROD-0466,S3794,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0467,S3795,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0468,S4726,SUCCESSFUL,0.91,Validated,Validated
+PROD-0469,S11429,SUCCESSFUL,0.92,Validated,Validated
+PROD-0470,S21354,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0471,S21363,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0472,S11445,SUCCESSFUL,0.91,Validated,Validated
+PROD-0473,567313,SUCCESSFUL,0.91,Validated,Validated
+PROD-0474,586875,SUCCESSFUL,0.91,Validated,Validated
+PROD-0475,576355,SUCCESSFUL,0.91,Validated,Validated
+PROD-0476,576363,SUCCESSFUL,0.91,Validated,Validated
+PROD-0477,565374,SUCCESSFUL,0.91,Validated,Validated
+PROD-0478,565390,SUCCESSFUL,0.91,Validated,Validated
+PROD-0479,576371,SUCCESSFUL,0.91,Validated,Validated
+PROD-0480,576496,SUCCESSFUL,0.91,Validated,Validated
+PROD-0481,564856,SUCCESSFUL,0.91,Validated,Validated
+PROD-0482,565796,SUCCESSFUL,0.91,Validated,Validated
+PROD-0483,576389,SUCCESSFUL,0.91,Validated,Validated
+PROD-0484,564492,SUCCESSFUL,0.91,Validated,Validated
+PROD-0485,603449,SUCCESSFUL,0.97,Validated,Validated
+PROD-0486,586909,SUCCESSFUL,0.91,Validated,Validated
+PROD-0487,566364,SUCCESSFUL,0.92,Validated,Validated
+PROD-0488,576397,SUCCESSFUL,0.91,Validated,Validated
+PROD-0489,571497,SUCCESSFUL,0.92,Validated,Validated
+PROD-0490,576306,SUCCESSFUL,0.91,Validated,Validated
+PROD-0491,588533,SUCCESSFUL,0.91,Validated,Validated
+PROD-0492,576520,SUCCESSFUL,0.91,Validated,Validated
+PROD-0493,574004,SUCCESSFUL,0.92,Validated,Validated
+PROD-0494,574012,SUCCESSFUL,0.92,Validated,Validated
+PROD-0495,573971,SUCCESSFUL,0.92,Validated,Validated
+PROD-0496,573989,SUCCESSFUL,0.91,Validated,Validated
+PROD-0497,576769,SUCCESSFUL,0.91,Validated,Validated
+PROD-0498,567446,SUCCESSFUL,0.92,Validated,Validated
+PROD-0499,573997,SUCCESSFUL,0.91,Validated,Validated
+PROD-0500,571463,SUCCESSFUL,0.91,Validated,Validated
+PROD-0501,576512,SUCCESSFUL,0.91,Validated,Validated
+PROD-0502,581181,SUCCESSFUL,0.91,Validated,Validated
+PROD-0503,GT-CB-100C,SUCCESSFUL,0.91,Validated,Validated
+PROD-0504,566430,SUCCESSFUL,0.92,Validated,Validated
+PROD-0505,568337,SUCCESSFUL,0.91,Validated,Validated
+PROD-0506,565788,SUCCESSFUL,0.91,Validated,Validated
+PROD-0507,565770,SUCCESSFUL,0.91,Validated,Validated
+PROD-0508,573436,SUCCESSFUL,0.91,Validated,Validated
+PROD-0509,576538,SUCCESSFUL,0.91,Validated,Validated
+PROD-0510,573451,SUCCESSFUL,0.91,Validated,Validated
+PROD-0511,586883,SUCCESSFUL,0.91,Validated,Validated
+PROD-0512,586859,SUCCESSFUL,0.91,Validated,Validated
+PROD-0513,576488,SUCCESSFUL,0.91,Validated,Validated
+PROD-0514,575217,SUCCESSFUL,0.92,Validated,Validated
+PROD-0515,586479,SUCCESSFUL,0.91,Validated,Validated
+PROD-0516,571471,SUCCESSFUL,0.91,Validated,Validated
+PROD-0517,570762,SUCCESSFUL,0.91,Validated,Validated
+PROD-0518,533352,SUCCESSFUL,0.92,Validated,Validated
+PROD-0519,573519,SUCCESSFUL,0.91,Validated,Validated
+PROD-0520,573378,SUCCESSFUL,0.92,Validated,Validated
+PROD-0521,565622,SUCCESSFUL,0.92,Validated,Validated
+PROD-0522,586891,SUCCESSFUL,0.91,Validated,Validated
+PROD-0523,585448,SUCCESSFUL,0.91,Validated,Validated
+PROD-0524,573444,SUCCESSFUL,0.91,Validated,Validated
+PROD-0525,566687,SUCCESSFUL,0.91,Validated,Validated
+PROD-0526,564385,SUCCESSFUL,0.91,Validated,Validated
+PROD-0527,566661,SUCCESSFUL,0.91,Validated,Validated
+PROD-0528,564898,SUCCESSFUL,0.91,Validated,Validated
+PROD-0529,538319,SUCCESSFUL,0.91,Validated,Validated
+PROD-0530,576009,SUCCESSFUL,0.91,Validated,Validated
+PROD-0531,564450,SUCCESSFUL,0.91,Validated,Validated
+PROD-0532,572669,SUCCESSFUL,0.91,Validated,Validated
+PROD-0533,564906,SUCCESSFUL,0.92,Validated,Validated
+PROD-0534,573410,SUCCESSFUL,0.91,Validated,Validated
+PROD-0535,576504,SUCCESSFUL,0.91,Validated,Validated
+PROD-0536,576017,SUCCESSFUL,0.91,Validated,Validated
+PROD-0537,574392,SUCCESSFUL,0.91,Validated,Validated
+PROD-0538,576751,SUCCESSFUL,0.91,Validated,Validated
+PROD-0539,583161,SUCCESSFUL,0.91,Validated,Validated
+PROD-0540,566695,SUCCESSFUL,0.92,Validated,Validated
+PROD-0541,577007,SUCCESSFUL,0.91,Validated,Validated
+PROD-0542,566653,SUCCESSFUL,0.91,Validated,Validated
+PROD-0543,566679,SUCCESSFUL,0.91,Validated,Validated
+PROD-0544,573311,SUCCESSFUL,0.92,Validated,Validated
+PROD-0545,573394,SUCCESSFUL,0.92,Validated,Validated
+PROD-0546,573329,SUCCESSFUL,0.91,Validated,Validated
+PROD-0547,564930,SUCCESSFUL,0.91,Validated,Validated
+PROD-0548,565000,SUCCESSFUL,0.92,Validated,Validated
+PROD-0549,564922,SUCCESSFUL,0.91,Validated,Validated
+PROD-0550,573295,SUCCESSFUL,0.91,Validated,Validated
+PROD-0551,564914,SUCCESSFUL,0.91,Validated,Validated
+PROD-0552,573485,SUCCESSFUL,0.91,Validated,Validated
+PROD-0553,573337,SUCCESSFUL,0.91,Validated,Validated
+PROD-0554,544874,SUCCESSFUL,0.91,Validated,Validated
+PROD-0555,570846,SUCCESSFUL,0.91,Validated,Validated
+PROD-0556,565473,SUCCESSFUL,0.91,Validated,Validated
+PROD-0557,573402,SUCCESSFUL,0.92,Validated,Validated
+PROD-0558,573352,SUCCESSFUL,0.91,Validated,Validated
+PROD-0559,573428,SUCCESSFUL,0.91,Validated,Validated
+PROD-0560,573386,SUCCESSFUL,0.92,Validated,Validated
+PROD-0561,564948,SUCCESSFUL,0.91,Validated,Validated
+PROD-0562,573303,SUCCESSFUL,0.91,Validated,Validated
+PROD-0563,573188,SUCCESSFUL,0.91,Validated,Validated
+PROD-0564,573469,SUCCESSFUL,0.91,Validated,Validated
+PROD-0565,565671,SUCCESSFUL,0.91,Validated,Validated
+PROD-0566,573204,SUCCESSFUL,0.91,Validated,Validated
+PROD-0567,581199,SUCCESSFUL,0.92,Validated,Validated
+PROD-0568,565887,SUCCESSFUL,0.92,Validated,Validated
+PROD-0569,586867,SUCCESSFUL,0.92,Validated,Validated
+PROD-0570,568451,SUCCESSFUL,0.91,Validated,Validated
+PROD-0571,568444,SUCCESSFUL,0.91,Validated,Validated
+PROD-0572,573196,SUCCESSFUL,0.92,Validated,Validated
+PROD-0573,564500,SUCCESSFUL,0.91,Validated,Validated
+PROD-0574,571513,SUCCESSFUL,0.91,Validated,Validated
+PROD-0575,588566,SUCCESSFUL,0.91,Validated,Validated
+PROD-0576,565655,SUCCESSFUL,0.91,Validated,Validated
+PROD-0577,565812,SUCCESSFUL,0.91,Validated,Validated
+PROD-0578,586917,SUCCESSFUL,0.91,Validated,Validated
+PROD-0579,46719,SUCCESSFUL,0.92,Validated,Validated
+PROD-0580,59061BSL,SUCCESSFUL,0.92,Validated,Validated
+PROD-0581,59062BSL,SUCCESSFUL,0.92,Validated,Validated
+PROD-0582,59124BKT,SUCCESSFUL,0.92,Validated,Validated
+PROD-0583,59025BK,SUCCESSFUL,0.91,Validated,Validated
+PROD-0584,DCL183,SUCCESSFUL,0.96,Validated,Validated
+PROD-0585,73020,SUCCESSFUL,0.91,Validated,Validated
+PROD-0586,NEB-FLT-1021,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0587,NEB-FLT-0053,SUCCESSFUL,0.91,Validated,Validated
+PROD-0588,97708,SUCCESSFUL,0.91,Validated,Validated
+PROD-0589,WORK6000XLTPPLUG,SUCCESSFUL,0.91,Validated,Validated
+PROD-0590,HOM2040M200PRB,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0591,HOM3060L225PGC,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0592,QO612L100RBCP,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0593,13093005,SUCCESSFUL,0.91,Validated,Validated
+PROD-0594,12-4 SO,SUCCESSFUL,0.85,Validated,Validated
+PROD-0595,96263-46-06,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0596,R50003-ID,SUCCESSFUL,0.91,Validated,Validated
+PROD-0597,10-4 SO,SUCCESSFUL,0.91,Validated,Validated
+PROD-0598,23346-0408,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0599,2/2/4 UD ALUM,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0600,55418901,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0601,CG50K,SUCCESSFUL,0.91,Validated,Validated
+PROD-0602,R02-D215P-1RW,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0603,PBUC013,SUCCESSFUL,0.91,Validated,Validated
+PROD-0604,R00-GFNT1-00K,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0605,R92-GFWT1-0KW,SUCCESSFUL,0.91,Validated,Validated
+PROD-0606,R12-AGTR1-0KW,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0607,R62-GFTA1-0KW,SUCCESSFUL,0.91,Validated,Validated
+PROD-0608,165-04729-00C,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0609,161-04720-00C,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0610,R02-GUAC1-0BW,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0611,R56-CBR15-00T,SUCCESSFUL,0.91,Validated,Validated
+PROD-0612,R20-05378-P00,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0613,WC1V12W-SG-UPC,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0614,R51-GSRA1-THD,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0615,R62-CBR15-00W,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0616,S03-05226-IS,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0617,174-0CSB3-15W,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0618,R50-0SL13-000,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0619,R52-0PJ13-00W,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0620,XOU2470BCGS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0621,XOU24BCGSR,SUCCESSFUL,0.96,Validated,Validated
+PROD-0622,XOU24WDZGBR,SUCCESSFUL,0.96,Validated,Validated
+PROD-0623,C7CDAAS3PD3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0624,C7CDAAS4PW3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0625,C7CDABS2RS3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0626,C7CDABS3RD3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0627,C7CDABS4RW3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0628,C7CEBBS2RS3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0629,C7CEBBS4RW3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0630,C7CESAS2RS3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0631,C7CESAS3RD3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0632,C7CESAS4RW3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0633,WOSP30100SS,SUCCESSFUL,0.91,Validated,Validated
+PROD-0634,MSER2090S,SUCCESSFUL,0.97,Validated,Validated
+PROD-0635,GCST16S1WSS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0636,PCWK15C1WSS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0637,SMC2266KS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0638,SMD2479JS,SUCCESSFUL,0.92,Validated,Validated
+PROD-0639,PEP9030DTBB,SUCCESSFUL,0.96,Validated,Validated
+PROD-0640,CES700P3MD1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0641,PS960YPFS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0642,PB900YVFS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0643,PCFE3080AF,SUCCESSFUL,0.96,Validated,Validated
+PROD-0644,SLER30524SS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0645,LSEL6333ZE,SUCCESSFUL,0.96,Validated,Validated
+PROD-0646,KSES530SBE,SUCCESSFUL,0.96,Validated,Validated
+PROD-0647,GCFG3661AF,SUCCESSFUL,0.96,Validated,Validated
+PROD-0648,WSGS7530RZ,SUCCESSFUL,0.96,Validated,Validated
+PROD-0649,CHP90301TBB,SUCCESSFUL,0.91,Validated,Validated
+PROD-0650,CVM517P3RD1,SUCCESSFUL,0.92,Validated,Validated
+PROD-0651,PMOS1980AF,SUCCESSFUL,0.92,Validated,Validated
+PROD-0652,WMMS3330RZ,SUCCESSFUL,0.91,Validated,Validated
+PROD-0653,KMMF530PBE,SUCCESSFUL,0.92,Validated,Validated
+PROD-0654,JXGRILL1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0655,C9TMA2S3PD3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0656,C9TMA2S4PW3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0657,C90AAAS2RS3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0658,C9TMA2SP2PS3,SUCCESSFUL,0.91,Validated,Validated
+PROD-0659,GDE21EMKES,SUCCESSFUL,0.96,Validated,Validated
+PROD-0660,FCM16SLWW,SUCCESSFUL,0.96,Validated,Validated
+PROD-0661,GNE27JYMFS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0662,CVE28DP3ND1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0663,GNE25JMKES,SUCCESSFUL,0.96,Validated,Validated
+PROD-0664,PRFS2883AF,SUCCESSFUL,0.96,Validated,Validated
+PROD-0665,PAD28BYTFS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0666,PGE29BYTFS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0667,ERFD19CGCS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0668,LT18S2100W,SUCCESSFUL,0.96,Validated,Validated
+PROD-0669,LT18S2100SS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0670,EUF17CDBW,SUCCESSFUL,0.91,Validated,Validated
+PROD-0671,EUF21CDBW,SUCCESSFUL,0.91,Validated,Validated
+PROD-0672,TP-1935,SUCCESSFUL,0.85,Validated,Validated
+PROD-0673,K527APBXR,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0674,603150,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0675,d10cnk,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0676,e28cnkha,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0677,51334,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0678,59210,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0679,52485,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0680,52486,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0681,52487,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0682,52488,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0683,52655,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0684,59261,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0685,51731,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0686,XLC10ZW,SUCCESSFUL,0.96,Validated,Validated
+PROD-0687,HS-DA,SUCCESSFUL,0.91,Validated,Validated
+PROD-0688,73002252,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0689,48-22-8396R,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0690,48-22-8397R,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0691,DCGG581B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0692,DCGG581GD1,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0693,DWST41092,SUCCESSFUL,0.96,Validated,Validated
+PROD-0694,156436WHT,NEEDS_REVIEW,0.79,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0695,173950TBK,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0696,173951TBK,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0697,173952TBK,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0698,1624157,SUCCESSFUL,0.91,Validated,Validated
+PROD-0699,40025,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0700,48-22-3301,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0701,48-22-3302,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0702,48-22-3303,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0703,TSDKAP218-G2,SUCCESSFUL,0.97,Validated,Validated
+PROD-0704,XPAP418,SUCCESSFUL,0.96,Validated,Validated
+PROD-0705,XDAP419,SUCCESSFUL,0.96,Validated,Validated
+PROD-0706,XB11PCVS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0707,KB121VS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0708,KB126VS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0709,TC121VS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0710,TC126VS,SUCCESSFUL,0.96,Validated,Validated
+PROD-0711,MK113MPAP,SUCCESSFUL,0.96,Validated,Validated
+PROD-0712,LS117MPAP,SUCCESSFUL,0.96,Validated,Validated
+PROD-0713,FE-EFX-6L,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0714,FE-EFX-9L,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0715,1046793,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0716,1046870,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0717,M701B-21L,SUCCESSFUL,0.92,Validated,Validated
+PROD-0718,M701B-21M,SUCCESSFUL,0.92,Validated,Validated
+PROD-0719,M701B-21S,SUCCESSFUL,0.92,Validated,Validated
+PROD-0720,M701B-21XL,SUCCESSFUL,0.92,Validated,Validated
+PROD-0721,MWUG42010124,SUCCESSFUL,0.91,Validated,Validated
+PROD-0722,MWUG42010224,SUCCESSFUL,0.91,Validated,Validated
+PROD-0723,MWUG42010324,SUCCESSFUL,0.91,Validated,Validated
+PROD-0724,MWUG42010424,SUCCESSFUL,0.96,Validated,Validated
+PROD-0725,MWUG42010524,SUCCESSFUL,0.91,Validated,Validated
+PROD-0726,MWUG42010624,SUCCESSFUL,0.91,Validated,Validated
+PROD-0727,MWUG36010225,SUCCESSFUL,0.91,Validated,Validated
+PROD-0728,MWUG36010325,SUCCESSFUL,0.91,Validated,Validated
+PROD-0729,MWUG36010425,SUCCESSFUL,0.96,Validated,Validated
+PROD-0730,MWUG36010525,SUCCESSFUL,0.91,Validated,Validated
+PROD-0731,MWUG36010625,SUCCESSFUL,0.91,Validated,Validated
+PROD-0732,DPG15,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0733,F200B-21L,SUCCESSFUL,0.91,Validated,Validated
+PROD-0734,F200B-21M,SUCCESSFUL,0.91,Validated,Validated
+PROD-0735,M200B-21L,SUCCESSFUL,0.91,Validated,Validated
+PROD-0736,M200B-21M,SUCCESSFUL,0.91,Validated,Validated
+PROD-0737,M200B-21XL,SUCCESSFUL,0.91,Validated,Validated
+PROD-0738,M200G-21L,SUCCESSFUL,0.91,Validated,Validated
+PROD-0739,M200G-21M,SUCCESSFUL,0.91,Validated,Validated
+PROD-0740,M200G-21XL,SUCCESSFUL,0.91,Validated,Validated
+PROD-0741,48-11-2330,SUCCESSFUL,0.96,Validated,Validated
+PROD-0742,DCBP250C,SUCCESSFUL,0.96,Validated,Validated
+PROD-0743,5328,NEEDS_REVIEW,0.72,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0744,3200-20,SUCCESSFUL,0.96,Validated,Validated
+PROD-0745,3202-20,SUCCESSFUL,0.96,Validated,Validated
+PROD-0746,3203-20,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0747,BC-12300,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0748,BC-24600,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0749,DW08302CG,SUCCESSFUL,0.96,Validated,Validated
+PROD-0750,GCL165-42GL,SUCCESSFUL,0.92,Validated,Validated
+PROD-0751,DW08802CG,SUCCESSFUL,0.96,Validated,Validated
+PROD-0752,DW088CG,SUCCESSFUL,0.96,Validated,Validated
+PROD-0753,DW089CG,SUCCESSFUL,0.97,Validated,Validated
+PROD-0754,DCLE34520GB,SUCCESSFUL,0.96,Validated,Validated
+PROD-0755,DCLE34031B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0756,DW0822CG,SUCCESSFUL,0.96,Validated,Validated
+PROD-0757,25459,SUCCESSFUL,0.96,Validated,Validated
+PROD-0758,35459,SUCCESSFUL,0.96,Validated,Validated
+PROD-0759,25759,SUCCESSFUL,0.96,Validated,Validated
+PROD-0760,35112,SUCCESSFUL,0.91,Validated,Validated
+PROD-0761,35115,SUCCESSFUL,0.91,Validated,Validated
+PROD-0762,25168,SUCCESSFUL,0.97,Validated,Validated
+PROD-0763,35468,SUCCESSFUL,0.91,Validated,Validated
+PROD-0764,35494,SUCCESSFUL,0.91,Validated,Validated
+PROD-0765,MLSQ0120,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0766,MLSQ1120,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0767,55227,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0768,37300952,SUCCESSFUL,0.85,Validated,Validated
+PROD-0769,6008,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0770,6009,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0771,3000A,SUCCESSFUL,0.91,Validated,Validated
+PROD-0772,MID6630201US,SUCCESSFUL,0.91,Validated,Validated
+PROD-0773,DCF6202,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0774,25468,SUCCESSFUL,0.91,Validated,Validated
+PROD-0775,25762,SUCCESSFUL,0.91,Validated,Validated
+PROD-0776,21839NN,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0777,VN56920,SUCCESSFUL,0.92,Validated,Validated
+PROD-0778,133164,SUCCESSFUL,0.91,Validated,Validated
+PROD-0779,DWHT10993,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0780,DWHT10994,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0781,QB22RU,SUCCESSFUL,0.91,Validated,Validated
+PROD-0782,QB22KU,SUCCESSFUL,0.91,Validated,Validated
+PROD-0783,AVM6EV,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0784,AVM6EV,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0785,DSA0250B,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0786,DSA0375B,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0787,DSA0500B,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0788,42-04-9107,SUCCESSFUL,0.91,Validated,Validated
+PROD-0789,48-22-9491,SUCCESSFUL,0.91,Validated,Validated
+PROD-0790,DWMT45422,SUCCESSFUL,0.96,Validated,Validated
+PROD-0791,DWMT45424,SUCCESSFUL,0.96,Validated,Validated
+PROD-0792,48-22-9483,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0793,48-22-9484,SUCCESSFUL,0.91,Validated,Validated
+PROD-0794,48-22-9485,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0795,48-44-2770,SUCCESSFUL,0.92,Validated,Validated
+PROD-0796,IWHT48441RC,SUCCESSFUL,0.96,Validated,Validated
+PROD-0797,XRU23SM1,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0798,XRU15PT1,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0799,XRU23Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0800,0887-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0801,DCBL724B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0802,2954-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0803,2955-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0804,9A-219-180,SUCCESSFUL,0.96,Validated,Validated
+PROD-0805,9A-219-120RP,SUCCESSFUL,0.96,Validated,Validated
+PROD-0806,3033-20,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0807,3033-21,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0808,3034-20,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0809,D25333K,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0810,DCD803B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0811,DCF860B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0812,3401-20,SUCCESSFUL,0.91,Validated,Validated
+PROD-0813,KPTDR050A,SUCCESSFUL,0.96,Validated,Validated
+PROD-0814,DCD1007B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0815,DCD799B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0816,58006,SUCCESSFUL,0.96,Validated,Validated
+PROD-0817,2909-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0818,2909-21,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0819,918200,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0820,2541-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0821,DCN930B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0822,DCN930P1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0823,XNB04Z,SUCCESSFUL,0.96,Validated,Validated
+PROD-0824,XNB05Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0825,XNB06Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0826,XNB07Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0827,DZN930,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0828,220USB25U,SUCCESSFUL,0.91,Validated,Validated
+PROD-0829,XRF03Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0830,220USBP5U,SUCCESSFUL,0.91,Validated,Validated
+PROD-0831,49-66-4567,SUCCESSFUL,0.91,Validated,Validated
+PROD-0832,IBMG90K003,SUCCESSFUL,0.91,Validated,Validated
+PROD-0833,IBPH250P15T,SUCCESSFUL,0.91,Validated,Validated
+PROD-0834,DPH12B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0835,DPH135B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0836,DPH21B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0837,DPH22B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0838,DPH235B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0839,DPH26B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0840,DPH2R1B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0841,DPH31B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0842,DPH32B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0843,DPH335B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0844,DSQ12B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0845,DSQ22B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0846,DSQ26B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0847,DSQ32B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0848,DT102B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0849,DT152B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0850,DT1535B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0851,DT202B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0852,DT2035B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0853,DT206B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0854,DT252B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0855,DT2535B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0856,DT256B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0857,DT302B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0858,DT402B,SUCCESSFUL,0.92,Validated,Validated
+PROD-0859,DDWSSB,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0860,191V02-0,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0861,XTS02Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0862,DCF809D1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0863,2761-20,SUCCESSFUL,0.91,Validated,Validated
+PROD-0864,2761-22,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0865,3450-20,SUCCESSFUL,0.91,Validated,Validated
+PROD-0866,KPTDV025A,SUCCESSFUL,0.96,Validated,Validated
+PROD-0867,3048-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0868,3049-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0869,2563-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0870,DCF961B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0871,DCF964B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0872,2563P-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0873,DCF921P2,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0874,XLT03Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0875,XLT04Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0876,XLT05Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0877,DCF510B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0878,3052-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0879,3054-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0880,DCF513EB,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0881,XVP01Z,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0882,DCM200B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0883,DCG410B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0884,DCG460B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0885,DCG402B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0886,3485-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0887,DCG420B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0888,DCG422B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0889,924422,NEEDS_REVIEW,0.67,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0890,DCW620B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0891,2535-20,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0892,2837-20,SUCCESSFUL,0.91,Validated,Validated
+PROD-0893,577728,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0894,577738,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0895,KPTRS500A,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0896,24-35M-320,SUCCESSFUL,0.91,Validated,Validated
+PROD-0897,9A-129-120,SUCCESSFUL,0.96,Validated,Validated
+PROD-0898,578800,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0899,578801,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0900,578802,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0901,578808,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0902,578809,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0903,578810,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0904,578811,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0905,578192,SUCCESSFUL,0.96,Validated,Validated
+PROD-0906,578806,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0907,D0860X,SUCCESSFUL,0.97,Validated,Validated
+PROD-0908,48-40-0740,SUCCESSFUL,0.92,Validated,Validated
+PROD-0909,48-41-0740,SUCCESSFUL,0.92,Validated,Validated
+PROD-0910,A-96095,SUCCESSFUL,0.97,Validated,Validated
+PROD-0911,D0760UX,SUCCESSFUL,0.97,Validated,Validated
+PROD-0912,230.312.08,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0913,D0708LF,SUCCESSFUL,0.92,Validated,Validated
+PROD-0914,D1012LF,SUCCESSFUL,0.92,Validated,Validated
+PROD-0915,D1216LF,SUCCESSFUL,0.92,Validated,Validated
+PROD-0916,DWA47421,SUCCESSFUL,0.97,Validated,Validated
+PROD-0917,DWA4769,SUCCESSFUL,0.97,Validated,Validated
+PROD-0918,49-93-9204,SUCCESSFUL,0.92,Validated,Validated
+PROD-0919,49-93-9207,SUCCESSFUL,0.92,Validated,Validated
+PROD-0920,49-93-9210,SUCCESSFUL,0.92,Validated,Validated
+PROD-0921,49-93-9202,SUCCESSFUL,0.92,Validated,Validated
+PROD-0922,49-93-9205,SUCCESSFUL,0.92,Validated,Validated
+PROD-0923,49-22-4702,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0924,DJT155HHM,SUCCESSFUL,0.97,Validated,Validated
+PROD-0925,790.82,SUCCESSFUL,0.92,Validated,Validated
+PROD-0926,794.321,SUCCESSFUL,0.92,Validated,Validated
+PROD-0927,49-22-5641,SUCCESSFUL,0.92,Validated,Validated
+PROD-0928,D0604TSH,SUCCESSFUL,0.97,Validated,Validated
+PROD-0929,D0620TSR,SUCCESSFUL,0.97,Validated,Validated
+PROD-0930,D0648TSF,SUCCESSFUL,0.97,Validated,Validated
+PROD-0931,D0652TSL,SUCCESSFUL,0.97,Validated,Validated
+PROD-0932,JT1-549,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0933,JT1-1371,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0934,JT9-714400K,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0935,2834-21HD,SUCCESSFUL,0.92,Validated,Validated
+PROD-0936,DCS383B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0937,DCS590B,SUCCESSFUL,0.97,Validated,Validated
+PROD-0938,KPTCS725A,SUCCESSFUL,0.97,Validated,Validated
+PROD-0939,KPTCS450A,SUCCESSFUL,0.97,Validated,Validated
+PROD-0940,2545-20,SUCCESSFUL,0.92,Validated,Validated
+PROD-0941,KPTJS100A,SUCCESSFUL,0.96,Validated,Validated
+PROD-0942,DCS714B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0943,DCS785B,SUCCESSFUL,0.96,Validated,Validated
+PROD-0944,GSL02M1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0945,DW7029,SUCCESSFUL,0.96,Validated,Validated
+PROD-0946,DCS384B,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0947,XRJ08Z,SUCCESSFUL,0.96,Validated,Validated
+PROD-0948,G0771Z,SUCCESSFUL,0.97,Validated,Validated
+PROD-0949,TS1017,SUCCESSFUL,0.92,Validated,Validated
+PROD-0950,XT524,SUCCESSFUL,0.92,Validated,Validated
+PROD-0951,XT536,SUCCESSFUL,0.92,Validated,Validated
+PROD-0952,XT546,SUCCESSFUL,0.92,Validated,Validated
+PROD-0953,XTP235,SUCCESSFUL,0.92,Validated,Validated
+PROD-0954,TGP2-FA,SUCCESSFUL,0.92,Validated,Validated
+PROD-0955,ATGI-FA,SUCCESSFUL,0.92,Validated,Validated
+PROD-0956,ATGP-FA,SUCCESSFUL,0.92,Validated,Validated
+PROD-0957,TGI2-FA,SUCCESSFUL,0.92,Validated,Validated
+PROD-0958,TGI2-T36A,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0959,KPTBPS100A,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0960,DCB606C,SUCCESSFUL,0.96,Validated,Validated
+PROD-0961,BL1850BDC1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0962,DCB205C,NEEDS_REVIEW,0.73,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0963,DCB2108,SUCCESSFUL,0.97,Validated,Validated
+PROD-0964,DCB2108-2,SUCCESSFUL,0.97,Validated,Validated
+PROD-0965,VB0212,SUCCESSFUL,0.92,Validated,Validated
+PROD-0966,BCB2A20A,SUCCESSFUL,0.97,Validated,Validated
+PROD-0967,BATT4A,SUCCESSFUL,0.97,Validated,Validated
+PROD-0968,BATT2A,SUCCESSFUL,0.97,Validated,Validated
+PROD-0969,BL1850BDC2X1,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0970,48-11-2422,SUCCESSFUL,0.92,Validated,Validated
+PROD-0971,DCB1104,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0972,48-59-1804,SUCCESSFUL,0.97,Validated,Validated
+PROD-0973,CRGR401A,SUCCESSFUL,0.96,Validated,Validated
+PROD-0974,48-59-1211,SUCCESSFUL,0.96,Validated,Validated
+PROD-0975,2847-20,SUCCESSFUL,0.96,Validated,Validated
+PROD-0976,DWV9401,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0977,578512,SUCCESSFUL,0.97,Validated,Validated
+PROD-0978,577871,SUCCESSFUL,0.97,Validated,Validated
+PROD-0979,577874,SUCCESSFUL,0.97,Validated,Validated
+PROD-0980,577876,SUCCESSFUL,0.97,Validated,Validated
+PROD-0981,578441,SUCCESSFUL,0.97,Validated,Validated
+PROD-0982,DCK225D2,SUCCESSFUL,0.96,Validated,Validated
+PROD-0983,DCK2101QQ2,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding
+PROD-0984,4000-2/32,SUCCESSFUL,0.97,Validated,Validated
+PROD-0985,15-01-3100,SUCCESSFUL,0.97,Validated,Validated
+PROD-0986,T-90043,SUCCESSFUL,0.92,Validated,Validated
+PROD-0987,T-90059,SUCCESSFUL,0.92,Validated,Validated
+PROD-0988,T-90065,SUCCESSFUL,0.92,Validated,Validated
+PROD-0989,10047VS,SUCCESSFUL,0.97,Validated,Validated
+PROD-0990,MAG:2044-230-1,SUCCESSFUL,0.96,Validated,Validated
+PROD-0991,XTP242,SUCCESSFUL,0.92,Validated,Validated
+PROD-0992,AAS-P,SUCCESSFUL,0.91,Validated,Validated
+PROD-0993,SSCMS,SUCCESSFUL,0.91,Validated,Validated
+PROD-0994,4225.201,SUCCESSFUL,0.97,Validated,Validated
+PROD-0995,KC-426C,SUCCESSFUL,0.92,Validated,Validated
+PROD-0996,10045.201,SUCCESSFUL,0.97,Validated,Validated
+PROD-0997,10014.201,SUCCESSFUL,0.97,Validated,Validated
+PROD-0998,4430.201,SUCCESSFUL,0.97,Validated,Validated
+PROD-0999,10055.201,SUCCESSFUL,0.97,Validated,Validated
+PROD-1000,T27417,NEEDS_REVIEW,0.78,Low confidence on manufacturer/attribute grounding,Low confidence on manufacturer/attribute grounding

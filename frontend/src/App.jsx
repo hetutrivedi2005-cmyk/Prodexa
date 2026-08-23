@@ -23,6 +23,7 @@ import { EvaluationPage } from './pages/EvaluationPage';
 import { UploadPage } from './pages/UploadPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { HelpPage } from './pages/HelpPage';
+import { ReportPrintPage } from './pages/ReportPrintPage';
 
 // Protected App Layout Wrapper
 const AppLayout = () => {
@@ -41,12 +42,14 @@ const AppLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#070A0F] text-[#F1F5F9] flex flex-col font-sans">
       <Navbar />
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex flex-1 pt-16 min-h-[calc(100vh-4rem)]">
         <Sidebar />
-        <main className="flex-1 p-6 md:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
-          <Outlet />
+        <main className="flex-1 md:ml-64 p-6 sm:p-8 min-w-0 w-full transition-all duration-300">
+          <div className="w-full">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>
@@ -55,8 +58,8 @@ const AppLayout = () => {
 
 // Admin Protection Guard
 const AdminGuard = () => {
-  const { role } = useAuth();
-  if (role !== 'ADMIN') {
+  const { user } = useAuth();
+  if (!user || user.role !== 'ADMIN') {
     return <Navigate to="/user/dashboard" replace />;
   }
   return <Outlet />;
@@ -72,6 +75,10 @@ export function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
+          {/* Standalone Clean Print View (Zero App Chrome) */}
+          <Route path="/print/reports/:reportId" element={<ReportPrintPage />} />
+          <Route path="/print/reports" element={<ReportPrintPage />} />
+
           {/* User Protected Routes */}
           <Route path="/user" element={<AppLayout />}>
             <Route path="dashboard" element={<UserDashboard />} />
@@ -84,6 +91,10 @@ export function App() {
             <Route path="descriptions" element={<DescriptionsPage />} />
             <Route path="outputs" element={<FinalOutputsPage />} />
             <Route path="reports" element={<ReportsPage />} />
+            <Route path="reports/:reportId" element={<ReportsPage />} />
+            <Route path="reports/:reportId/preview" element={<ReportsPage isPreviewMode={true} />} />
+            <Route path="reports/:reportId/print" element={<ReportPrintPage />} />
+            <Route path="reports/print" element={<ReportPrintPage />} />
             <Route path="pipeline" element={<PipelinePage />} />
             <Route path="evaluation" element={<EvaluationPage />} />
             <Route path="upload" element={<UploadPage />} />

@@ -10,7 +10,7 @@ Final Output Dataset Generated: data/final/unihack_expected_output.csv
 1. SCHEMA DISTINCTION & COVERAGE SUMMARY
 --------------------------------------------------------------------------------
   - Expected schema fields                           : 252
-  - Fields originally present in enriched.csv        : 17
+  - Fields originally present in enriched.csv        : 10
   - Directly matched fields                          : 17
   - Internal/extra fields in enriched.csv            : 3
   - Fields Not Directly Available in enriched.csv    : 235

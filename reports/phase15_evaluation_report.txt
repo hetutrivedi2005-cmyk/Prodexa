@@ -1,8 +1,8 @@
 ============================================================
 PRODEXA PHASE 15 — EVALUATION REPORT
 ============================================================
-Products evaluated:                 3
-Overall Field Accuracy:             22.22%
+Products evaluated:                 100
+Overall Field Accuracy:             0.00%
 LOV Compliance:                     0.00%
 UOM Compliance:                     0.00%
 Protected files verified:           26/26
