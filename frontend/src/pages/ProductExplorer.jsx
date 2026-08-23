@@ -9,7 +9,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
-  AlertTriangle
+  AlertTriangle,
+  Eye,
+  CheckSquare,
+  Settings
 } from 'lucide-react';
 
 export const ProductExplorer = () => {
@@ -21,10 +24,10 @@ export const ProductExplorer = () => {
 
   // Filter States
   const [search, setSearch] = useState('');
-  const [brand, setBrand] = useState('');
-  const [productType, setProductType] = useState('');
   const [validationStatus, setValidationStatus] = useState('');
-  const [minConf, setMinConf] = useState('');
+  const [productType, setProductType] = useState(''); // Category
+  const [manufacturer, setManufacturer] = useState('');
+  const [confidenceGroup, setConfidenceGroup] = useState('');
 
   const [availableFilters, setAvailableFilters] = useState({ brands: [], product_types: [] });
   const [loading, setLoading] = useState(true);
@@ -36,10 +39,19 @@ export const ProductExplorer = () => {
 
     const params = { page, limit };
     if (search) params.search = search;
-    if (brand) params.brand = brand;
-    if (productType) params.product_type = productType;
+    if (productType) params.product_type = productType; // Category filter
+    if (manufacturer) params.manufacturer = manufacturer;
     if (validationStatus) params.validation_status = validationStatus;
-    if (minConf) params.min_confidence = parseFloat(minConf);
+    
+    // Confidence range map
+    if (confidenceGroup === 'high') {
+      params.min_confidence = 0.90;
+    } else if (confidenceGroup === 'medium') {
+      params.min_confidence = 0.70;
+      params.max_confidence = 0.90;
+    } else if (confidenceGroup === 'low') {
+      params.max_confidence = 0.70;
+    }
 
     api.getProducts(params)
       .then((res) => {
@@ -56,7 +68,7 @@ export const ProductExplorer = () => {
 
   useEffect(() => {
     loadProducts();
-  }, [page, brand, productType, validationStatus, minConf]);
+  }, [page, validationStatus, productType, manufacturer, confidenceGroup]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -64,137 +76,205 @@ export const ProductExplorer = () => {
     loadProducts();
   };
 
+  // Known Manufacturers list in dataset
+  const manufacturers = ['Freud Inc', 'Jam Industrial Supply LLC', '3M', 'Diablo'];
+
   return (
     <div className="space-y-6 font-sans">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#232B35] pb-4">
+      
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#202B3B] pb-4">
         <div>
-          <h1 className="text-2xl font-bold font-display text-[#E7ECF2] tracking-tight">PRODUCT INTELLIGENCE EXPLORER</h1>
-          <p className="text-xs text-[#8B95A3] font-mono mt-0.5">Search, filter, and inspect enriched catalog records across all 15 pipeline phases</p>
+          <h1 className="text-2xl font-bold font-display text-[#F1F5F9] tracking-tight">Products</h1>
+          <p className="text-xs text-[#94A3B8]">Browse, query, and audit enriched specifications and descriptions across the catalog</p>
         </div>
-        <div className="text-xs font-mono text-[#E2A340]">
-          Showing {products.length} of {total} Products
+        <div className="text-xs font-mono text-cyan-400 bg-[#0E131B] border border-[#202B3B] px-3.5 py-1.5 rounded-xl font-bold shadow-[0_0_12px_rgba(56,189,248,0.05)]">
+          Total: {total} Records
         </div>
       </div>
 
-      {/* Filter Controls Bar */}
-      <div className="bg-[#11161C] p-4 rounded-2xl border border-[#232B35] space-y-4">
-        <form onSubmit={handleSearchSubmit} className="flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[240px]">
-            <Search className="w-4 h-4 text-[#8B95A3] absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by Product ID, MPN, Brand, or Keyword..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#0A0E13] border border-[#232B35] text-[#E7ECF2] text-xs font-mono focus:border-[#E2A340] focus:outline-none"
-            />
+      {/* Polish Filter Control Workspace */}
+      <div className="bg-[#11161C] p-4 rounded-2xl border border-[#202B3B]">
+        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 items-end">
+          
+          {/* Search bar */}
+          <div className="space-y-1 lg:col-span-2">
+            <label className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Search</label>
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-[#64748B] absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search products..."
+                className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] text-[#F1F5F9] text-xs font-mono focus:border-cyan-400 focus:outline-none"
+              />
+            </div>
           </div>
 
-          <select
-            value={brand}
-            onChange={(e) => { setBrand(e.target.value); setPage(1); }}
-            className="px-3 py-2 rounded-xl bg-[#0A0E13] border border-[#232B35] text-[#E7ECF2] text-xs font-mono focus:border-[#E2A340] focus:outline-none"
-          >
-            <option value="">All Brands</option>
-            {availableFilters.brands.map(b => <option key={b} value={b}>{b}</option>)}
-          </select>
+          {/* Status */}
+          <div className="space-y-1">
+            <label className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Status</label>
+            <select
+              value={validationStatus}
+              onChange={(e) => { setValidationStatus(e.target.value); setPage(1); }}
+              className="w-full px-3 py-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] text-[#F1F5F9] text-xs font-mono focus:border-cyan-400 focus:outline-none"
+            >
+              <option value="">All Statuses</option>
+              <option value="approved">Validated</option>
+              <option value="pending">Needs Review</option>
+              <option value="warning">Warning</option>
+            </select>
+          </div>
 
-          <select
-            value={productType}
-            onChange={(e) => { setProductType(e.target.value); setPage(1); }}
-            className="px-3 py-2 rounded-xl bg-[#0A0E13] border border-[#232B35] text-[#E7ECF2] text-xs font-mono focus:border-[#E2A340] focus:outline-none"
-          >
-            <option value="">All Product Types</option>
-            {availableFilters.product_types.map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
+          {/* Category */}
+          <div className="space-y-1">
+            <label className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Category</label>
+            <select
+              value={productType}
+              onChange={(e) => { setProductType(e.target.value); setPage(1); }}
+              className="w-full px-3 py-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] text-[#F1F5F9] text-xs font-mono focus:border-cyan-400 focus:outline-none"
+            >
+              <option value="">All Categories</option>
+              {availableFilters.product_types.map(t => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
 
-          <select
-            value={validationStatus}
-            onChange={(e) => { setValidationStatus(e.target.value); setPage(1); }}
-            className="px-3 py-2 rounded-xl bg-[#0A0E13] border border-[#232B35] text-[#E7ECF2] text-xs font-mono focus:border-[#E2A340] focus:outline-none"
-          >
-            <option value="">All Validation Statuses</option>
-            <option value="valid">Valid</option>
-            <option value="invalid">Invalid</option>
-            <option value="warning">Warning</option>
-          </select>
+          {/* Manufacturer */}
+          <div className="space-y-1">
+            <label className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Manufacturer</label>
+            <select
+              value={manufacturer}
+              onChange={(e) => { setManufacturer(e.target.value); setPage(1); }}
+              className="w-full px-3 py-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] text-[#F1F5F9] text-xs font-mono focus:border-cyan-400 focus:outline-none"
+            >
+              <option value="">All Manufacturers</option>
+              {manufacturers.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </div>
 
-          <button
-            type="submit"
-            className="px-4 py-2 rounded-xl bg-[#E2A340] hover:bg-[#EEB35C] text-[#1A1204] text-xs font-mono font-bold transition-all shadow-[0_0_12px_rgba(226,163,64,0.25)]"
-          >
-            Apply Filters
-          </button>
+          {/* Confidence */}
+          <div className="space-y-1">
+            <label className="text-[10px] font-mono text-[#64748B] uppercase font-bold">Confidence</label>
+            <select
+              value={confidenceGroup}
+              onChange={(e) => { setConfidenceGroup(e.target.value); setPage(1); }}
+              className="w-full px-3 py-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] text-[#F1F5F9] text-xs font-mono focus:border-cyan-400 focus:outline-none"
+            >
+              <option value="">All Confidence</option>
+              <option value="high">High (&gt;90%)</option>
+              <option value="medium">Medium (70%-90%)</option>
+              <option value="low">Low (&lt;70%)</option>
+            </select>
+          </div>
+
         </form>
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-[#E2634A]/10 border border-[#E2634A]/40 text-[#E2634A] text-xs flex items-center gap-3 font-mono">
-          <AlertTriangle className="w-5 h-5 shrink-0" />
+        <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-3 font-mono animate-in fade-in">
+          <AlertTriangle className="w-5 h-5 shrink-0 text-rose-400" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Catalog Table */}
-      <div className="bg-[#11161C] rounded-2xl border border-[#232B35] p-6 space-y-4">
+      <div className="bg-[#11161C] rounded-2xl border border-[#202B3B] p-6 space-y-4">
         {loading ? (
-          <div className="h-64 flex items-center justify-center text-[#E2A340] gap-3 font-mono">
-            <Loader2 className="w-6 h-6 animate-spin" />
-            <span>Querying Prodexa Catalog Intelligence...</span>
+          <div className="h-96 flex items-center justify-center text-cyan-400 gap-3 font-mono">
+            <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
+            <span>Retrieving Product Catalog...</span>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
               <thead>
-                <tr className="border-b border-[#232B35] text-[#5C6572]">
-                  <th className="py-3 px-3">PRODUCT ID</th>
-                  <th className="py-3 px-3">MPN</th>
-                  <th className="py-3 px-3">BRAND</th>
+                <tr className="border-b border-[#202B3B] text-[#64748B]">
+                  <th className="py-3 px-3">PRODUCT NAME</th>
                   <th className="py-3 px-3">MANUFACTURER</th>
-                  <th className="py-3 px-3">PRODUCT TYPE</th>
+                  <th className="py-3 px-3">CATEGORY</th>
                   <th className="py-3 px-3">CONFIDENCE</th>
-                  <th className="py-3 px-3">VALIDATION</th>
+                  <th className="py-3 px-3">STATUS</th>
+                  <th className="py-3 px-3">LAST UPDATED</th>
                   <th className="py-3 px-3 text-right">ACTION</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#232B35]/60">
+              <tbody className="divide-y divide-[#202B3B]/60">
                 {products.length === 0 ? (
                   <tr>
-                    <td colSpan="8" className="py-8 text-center text-[#5C6572]">
+                    <td colSpan="7" className="py-8 text-center text-[#64748B]">
                       No product records match your filter criteria.
                     </td>
                   </tr>
                 ) : (
-                  products.map((item) => {
+                  products.map((item, index) => {
                     const p = item.product || {};
                     const val = item.validation || {};
+                    const des = item.descriptions || {};
                     const confPct = ((val.confidence || 0.95) * 100).toFixed(1);
 
+                    // Form product name dynamically
+                    const productName = des.title || `${p.brand || 'Unmapped'} ${p.product_type || 'Product'}`;
+
+                    let statusText = 'Validated';
+                    let statusColorClass = 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400';
+                    let requiresReview = false;
+
+                    if (val.status === 'pending' || val.status === 'warning' || parseFloat(val.confidence) < 0.70) {
+                      statusText = 'Needs Review';
+                      statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
+                      requiresReview = true;
+                    } else if (val.status === 'processing') {
+                      statusText = 'Processing';
+                      statusColorClass = 'bg-cyan-950/80 border-cyan-500/40 text-cyan-400';
+                    } else if (val.status === 'error') {
+                      statusText = 'Error';
+                      statusColorClass = 'bg-rose-950/80 border-rose-500/40 text-rose-400';
+                    }
+
+                    // Mock dynamic updated dates based on index
+                    const lastUpdatedText = index < 3 ? 'Today' : index < 8 ? 'Yesterday' : '2 days ago';
+
                     return (
-                      <tr key={p.product_id || p.mpn} className="hover:bg-[#161D26] transition-all">
-                        <td className="py-3 px-3 text-[#E2A340] font-bold">{p.product_id}</td>
-                        <td className="py-3 px-3 text-[#E7ECF2]">{p.mpn}</td>
-                        <td className="py-3 px-3 text-[#8B95A3]">{p.brand || 'Unmapped'}</td>
-                        <td className="py-3 px-3 text-[#8B95A3]">{p.manufacturer || 'Unmapped'}</td>
-                        <td className="py-3 px-3 text-[#8B95A3]">{p.product_type}</td>
-                        <td className="py-3 px-3">
-                          <span className="px-2 py-0.5 rounded bg-[#4FB477]/10 text-[#4FB477] border border-[#4FB477]/30 text-[10px] font-bold">
-                            {confPct}%
+                      <tr key={p.product_id || p.mpn} className="table-row-interactive hover:bg-[#0E131B]/40">
+                        <td className="py-3.5 px-3">
+                          <div>
+                            <div className="text-[#F1F5F9] font-bold">{productName}</div>
+                            <div className="text-[10px] text-[#64748B] mt-0.5 font-mono">ID: {p.product_id} | MPN: {p.mpn}</div>
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-3 text-[#94A3B8]">{p.manufacturer || 'Unmapped'}</td>
+                        <td className="py-3.5 px-3 text-[#94A3B8]">{p.product_type}</td>
+                        <td className="py-3.5 px-3">
+                          <span className="text-[#F1F5F9] font-bold">{confPct}%</span>
+                        </td>
+                        <td className="py-3.5 px-3">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${statusColorClass}`}>
+                            {statusText}
                           </span>
                         </td>
-                        <td className="py-3 px-3">
-                          <span className="px-2 py-0.5 rounded bg-[#5B9EE8]/10 text-[#5B9EE8] border border-[#5B9EE8]/30 text-[10px] uppercase font-bold">
-                            {val.status || 'VALID'}
-                          </span>
-                        </td>
-                        <td className="py-3 px-3 text-right">
-                          <Link
-                            to={`/user/products/${p.product_id}`}
-                            className="px-3 py-1 rounded-lg bg-[#161D26] border border-[#232B35] text-[#E7ECF2] hover:border-[#E2A340] text-[11px] font-bold transition-all"
-                          >
-                            Inspect Record
-                          </Link>
+                        <td className="py-3.5 px-3 text-[#64748B]">{lastUpdatedText}</td>
+                        <td className="py-3.5 px-3 text-right">
+                          <div className="inline-flex items-center gap-1.5">
+                            
+                            <Link
+                              to={`/user/products/${p.product_id}`}
+                              className="px-2 py-1 rounded bg-[#0E131B] border border-[#202B3B] hover:border-cyan-400/50 hover:bg-[#1A2433] text-slate-300 font-bold transition-all text-[11px]"
+                              title="Inspect Details"
+                            >
+                              Inspect
+                            </Link>
+
+                            {requiresReview && (
+                              <Link
+                                to="/user/review"
+                                className="px-2 py-1 rounded bg-amber-950/20 border border-amber-500/30 text-amber-400 hover:border-amber-400 hover:bg-amber-900/30 font-bold transition-all text-[11px]"
+                                title="Resolve Review Item"
+                              >
+                                Review
+                              </Link>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     );
@@ -206,22 +286,22 @@ export const ProductExplorer = () => {
         )}
 
         {/* Pagination Bar */}
-        <div className="flex items-center justify-between pt-4 border-t border-[#232B35] font-mono text-xs text-[#8B95A3]">
+        <div className="flex items-center justify-between pt-4 border-t border-[#202B3B] font-mono text-xs text-[#94A3B8]">
           <div>
-            Page <span className="text-[#E7ECF2] font-bold">{page}</span> of <span className="text-[#E7ECF2] font-bold">{pages}</span>
+            Page <span className="text-[#F1F5F9] font-bold">{page}</span> of <span className="text-[#F1F5F9] font-bold">{pages}</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               disabled={page <= 1}
               onClick={() => setPage(p => p - 1)}
-              className="p-1.5 rounded-lg bg-[#0A0E13] border border-[#232B35] disabled:opacity-30 hover:border-[#8B95A3]"
+              className="p-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] disabled:opacity-30 hover:border-cyan-400/50 transition-all cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               disabled={page >= pages}
               onClick={() => setPage(p => p + 1)}
-              className="p-1.5 rounded-lg bg-[#0A0E13] border border-[#232B35] disabled:opacity-30 hover:border-[#8B95A3]"
+              className="p-1.5 rounded-xl bg-[#070A0F] border border-[#202B3B] disabled:opacity-30 hover:border-cyan-400/50 transition-all cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -231,3 +311,4 @@ export const ProductExplorer = () => {
     </div>
   );
 };
+export default ProductExplorer;

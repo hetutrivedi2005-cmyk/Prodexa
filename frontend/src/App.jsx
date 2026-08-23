@@ -21,6 +21,8 @@ import { ReportsPage } from './pages/ReportsPage';
 import { PipelinePage } from './pages/PipelinePage';
 import { EvaluationPage } from './pages/EvaluationPage';
 import { UploadPage } from './pages/UploadPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { HelpPage } from './pages/HelpPage';
 
 // Protected App Layout Wrapper
 const AppLayout = () => {
@@ -85,6 +87,8 @@ export function App() {
             <Route path="pipeline" element={<PipelinePage />} />
             <Route path="evaluation" element={<EvaluationPage />} />
             <Route path="upload" element={<UploadPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="help" element={<HelpPage />} />
           </Route>
 
           {/* Admin Protected Routes */}

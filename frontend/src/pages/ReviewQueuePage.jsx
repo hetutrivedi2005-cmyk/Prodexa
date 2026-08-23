@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { ReviewModal } from '../components/ReviewModal';
-import { UserCheck, Check, Edit3, X, ShieldAlert, Loader2, AlertTriangle } from 'lucide-react';
+import { UserCheck, Check, Edit3, X, ShieldAlert, Loader2, AlertTriangle, ArrowUpRight, HelpCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const ReviewQueuePage = () => {
   const [items, setItems] = useState([]);
-  const [statusFilter, setStatusFilter] = useState('');
+  const [activeTab, setActiveTab] = useState('pending'); // 'pending' | 'high-priority' | 'resolved' | 'all'
   const [selectedItem, setSelectedItem] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,8 @@ export const ReviewQueuePage = () => {
   const loadQueue = () => {
     setLoading(true);
     setError('');
-    api.getReviewQueue(statusFilter)
+    // Fetch queue
+    api.getReviewQueue()
       .then(res => setItems(res || []))
       .catch(err => setError(err.message || 'Failed to load review queue'))
       .finally(() => setLoading(false));
@@ -22,7 +24,7 @@ export const ReviewQueuePage = () => {
 
   useEffect(() => {
     loadQueue();
-  }, [statusFilter]);
+  }, []);
 
   const handleActionSuccess = (msg) => {
     setToastMessage(msg);
@@ -30,31 +32,42 @@ export const ReviewQueuePage = () => {
     loadQueue();
   };
 
+  // Filter items based on selected tab
+  const getFilteredItems = () => {
+    if (activeTab === 'pending') {
+      return items.filter(i => i.review_status === 'pending');
+    }
+    if (activeTab === 'high-priority') {
+      return items.filter(i => i.review_status === 'pending' && i.confidence < 0.70);
+    }
+    if (activeTab === 'resolved') {
+      return items.filter(i => i.review_status !== 'pending');
+    }
+    return items; // All
+  };
+
+  const filteredItems = getFilteredItems();
+
+  const tabOptions = [
+    { id: 'pending', label: 'Pending Reviews', count: items.filter(i => i.review_status === 'pending').length },
+    { id: 'high-priority', label: 'High Priority', count: items.filter(i => i.review_status === 'pending' && i.confidence < 0.70).length },
+    { id: 'resolved', label: 'Recently Reviewed', count: items.filter(i => i.review_status !== 'pending').length },
+    { id: 'all', label: 'All Items', count: items.length }
+  ];
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-100 font-mono-tech tracking-wide">HUMAN-IN-THE-LOOP (HITL) REVIEW QUEUE</h1>
-          <p className="text-xs text-slate-400">Phase 12 Human review workspace: Accept, Edit, Reject, or Escalate items</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs font-mono focus:border-cyan-400 focus:outline-none"
-          >
-            <option value="">All Review Statuses</option>
-            <option value="pending">Pending ({items.filter(i => i.review_status === 'pending').length})</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-            <option value="escalated">Escalated</option>
-          </select>
+    <div className="space-y-6 font-sans">
+      
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#202B3B] pb-4">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold font-display text-[#F1F5F9] tracking-tight">Review Queue</h1>
+          <p className="text-xs text-[#94A3B8]">Resolve low-confidence product intelligence before it reaches downstream systems</p>
         </div>
       </div>
 
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs flex items-center justify-between font-mono animate-in fade-in">
+        <div className="p-3 bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-mono rounded-xl flex items-center justify-between animate-in fade-in">
           <div className="flex items-center gap-2">
             <Check className="w-4 h-4 text-emerald-400" />
             <span>{toastMessage}</span>
@@ -63,77 +76,118 @@ export const ReviewQueuePage = () => {
       )}
 
       {error && (
-        <div className="p-4 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-3">
+        <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-3 font-mono animate-in fade-in">
           <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
-      {/* Review Queue Table */}
-      <div className="glass-panel rounded-2xl border border-slate-800 p-6 space-y-4">
+      {/* Tabs Menu */}
+      <div className="flex items-center gap-2 border-b border-[#202B3B]/60 pb-1 overflow-x-auto">
+        {tabOptions.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 border-b-2 font-mono text-xs font-bold transition-all relative cursor-pointer shrink-0 ${
+              activeTab === tab.id
+                ? 'border-cyan-400 text-cyan-300'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F1F5F9]'
+            }`}
+          >
+            <span className="flex items-center gap-2">
+              {tab.label}
+              <span className={`px-1.5 py-0.2 rounded text-[10px] ${
+                activeTab === tab.id
+                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/20'
+                  : 'bg-[#0E131B] text-[#64748B] border border-[#202B3B]'
+              }`}>
+                {tab.count}
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Review Queue List */}
+      <div className="bg-[#11161C] rounded-2xl border border-[#202B3B] p-6 space-y-4">
         {loading ? (
           <div className="h-64 flex items-center justify-center text-cyan-400 gap-3 font-mono">
-            <Loader2 className="w-6 h-6 animate-spin" />
-            <span>Loading Review Queue...</span>
+            <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
+            <span>Loading Review Workspace Queue...</span>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-mono">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400">
-                  <th className="py-3 px-3">REVIEW ID</th>
-                  <th className="py-3 px-3">PRODUCT ID</th>
-                  <th className="py-3 px-3">ATTRIBUTE</th>
-                  <th className="py-3 px-3">EXTRACTED VALUE</th>
+                <tr className="border-b border-[#202B3B] text-[#64748B]">
+                  <th className="py-3 px-3">PRODUCT</th>
+                  <th className="py-3 px-3">QUESTION/ISSUE</th>
+                  <th className="py-3 px-3">CURRENT VALUE</th>
+                  <th className="py-3 px-3">SUGGESTED VALUE</th>
                   <th className="py-3 px-3">CONFIDENCE</th>
-                  <th className="py-3 px-3">REVIEW REASON</th>
                   <th className="py-3 px-3">STATUS</th>
                   <th className="py-3 px-3 text-right">ACTION</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
-                {items.length === 0 ? (
+              <tbody className="divide-y divide-[#202B3B]/60">
+                {filteredItems.length === 0 ? (
                   <tr>
-                    <td colSpan="8" className="py-8 text-center text-slate-500">
-                      No review items found for current filter.
+                    <td colSpan="7" className="py-8 text-center text-[#64748B]">
+                      No review items found for active filters.
                     </td>
                   </tr>
                 ) : (
-                  items.map((item) => (
-                    <tr key={item.review_id} className="hover:bg-slate-900/50 transition-all">
-                      <td className="py-3 px-3 text-cyan-400 font-bold">{item.review_id}</td>
-                      <td className="py-3 px-3 text-slate-200">{item.product_id}</td>
-                      <td className="py-3 px-3 text-slate-300 uppercase">{item.attribute_name}</td>
-                      <td className="py-3 px-3 font-bold text-slate-100">
-                        {item.human_override_value || item.extracted_value}
-                      </td>
-                      <td className="py-3 px-3 text-amber-400 font-bold">
-                        {(item.confidence * 100).toFixed(1)}%
-                      </td>
-                      <td className="py-3 px-3 text-slate-400 text-[11px] max-w-[200px] truncate">
-                        {item.review_reason}
-                      </td>
-                      <td className="py-3 px-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${
-                          item.review_status === 'pending'
-                            ? 'bg-amber-950/80 border border-amber-500/40 text-amber-400'
-                            : item.review_status === 'approved'
-                            ? 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400'
-                            : 'bg-rose-950/80 border border-rose-500/40 text-rose-400'
-                        }`}>
-                          {item.review_status}
-                        </span>
-                      </td>
-                      <td className="py-3 px-3 text-right">
-                        <button
-                          onClick={() => setSelectedItem(item)}
-                          className="px-3 py-1 rounded-lg bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-900 text-[11px] font-bold transition-all"
-                        >
-                          Process Review
-                        </button>
-                      </td>
-                    </tr>
-                  ))
+                  filteredItems.map((item) => {
+                    const confPercent = (item.confidence * 100).toFixed(1);
+                    
+                    let statusColorClass = 'bg-amber-950/80 border-amber-500/40 text-amber-400';
+                    if (item.review_status === 'approved') {
+                      statusColorClass = 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400';
+                    } else if (item.review_status === 'rejected') {
+                      statusColorClass = 'bg-rose-950/80 border-rose-500/40 text-rose-400';
+                    } else if (item.review_status === 'escalated') {
+                      statusColorClass = 'bg-purple-950/80 border-purple-500/40 text-purple-400';
+                    }
+
+                    return (
+                      <tr key={item.review_id} className="table-row-interactive hover:bg-[#0E131B]/40">
+                        <td className="py-3.5 px-3">
+                          <Link
+                            to={`/user/products/${item.product_id}`}
+                            className="text-cyan-400 hover:text-cyan-300 font-bold underline flex items-center gap-0.5"
+                          >
+                            {item.product_id}
+                            <ArrowUpRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </td>
+                        <td className="py-3.5 px-3 text-slate-300 max-w-[200px] truncate" title={item.review_reason}>
+                          {item.review_reason}
+                        </td>
+                        <td className="py-3.5 px-3 text-[#94A3B8] font-bold uppercase">
+                          {item.extracted_value}
+                        </td>
+                        <td className="py-3.5 px-3 text-cyan-300 font-bold uppercase">
+                          {item.human_override_value || 'None'}
+                        </td>
+                        <td className="py-3.5 px-3 font-bold text-slate-200">
+                          {confPercent}%
+                        </td>
+                        <td className="py-3.5 px-3">
+                          <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border ${statusColorClass}`}>
+                            {item.review_status}
+                          </span>
+                        </td>
+                        <td className="py-3.5 px-3 text-right">
+                          <button
+                            onClick={() => setSelectedItem(item)}
+                            className="px-3.5 py-1.5 rounded-xl bg-[#0E131B] border border-[#202B3B] text-cyan-300 hover:border-cyan-400 hover:bg-[#1A2433] text-[11px] font-bold transition-all cursor-pointer"
+                          >
+                            {item.review_status === 'pending' ? 'Process Review' : 'View Action'}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
@@ -141,7 +195,7 @@ export const ReviewQueuePage = () => {
         )}
       </div>
 
-      {/* Review Modal */}
+      {/* Review Modal popup */}
       {selectedItem && (
         <ReviewModal
           item={selectedItem}
@@ -152,3 +206,4 @@ export const ReviewQueuePage = () => {
     </div>
   );
 };
+export default ReviewQueuePage;
