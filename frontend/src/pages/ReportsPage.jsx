@@ -56,16 +56,17 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
   const eventSourceRef = useRef(null);
 
   // Load list of all generated reports
-  const loadReportsList = (autoSelectFirst = true) => {
+  const loadReportsList = (autoSelectFirst = true, overrideJobId = null) => {
     setLoading(true);
     setError('');
     api.getReports()
       .then((res) => {
         const reportList = Array.isArray(res) ? res : [];
         setReports(reportList);
-        if (queryJobId) {
-          loadReportDetail(queryJobId, shouldOpenPreview);
-        } else if (autoSelectFirst && reportList.length > 0 && !selectedJobId) {
+        const targetId = overrideJobId || queryJobId || selectedJobId;
+        if (targetId && targetId !== 'undefined' && targetId !== 'null') {
+          loadReportDetail(targetId, shouldOpenPreview);
+        } else if (autoSelectFirst && reportList.length > 0) {
           loadReportDetail(reportList[0].job_id, false);
         }
       })
@@ -76,7 +77,9 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
   };
 
   useEffect(() => {
-    loadReportsList();
+    if (!reportData || (queryJobId && reportData.job_id !== queryJobId)) {
+      loadReportsList(true, queryJobId);
+    }
     return () => {
       if (eventSourceRef.current) {
         eventSourceRef.current.close();
@@ -86,19 +89,19 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
 
   // Load report detail for a specific job/report ID
   const loadReportDetail = (identifier, openPreview = false) => {
-    if (!identifier || identifier === 'undefined') return;
+    if (!identifier || identifier === 'undefined' || identifier === 'null') return;
     const targetJobId = identifier.startsWith('RPT-') ? identifier.replace('RPT-', '') : identifier;
 
     setSelectedJobId(targetJobId);
+    setReportLoading(true);
+    setError('');
+
     if (openPreview) {
       setIsPreviewOpen(true);
       setSearchParams({ job_id: targetJobId, preview: 'true' });
     } else {
       setSearchParams({ job_id: targetJobId });
     }
-
-    setReportLoading(true);
-    setError('');
 
     // Close any previous SSE
     if (eventSourceRef.current) {
@@ -109,18 +112,31 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
       .then((data) => {
         if (data && !data.error) {
           setReportData(data);
+          setError('');
           // If job is still processing, attach live SSE stream
           if (data.status === 'PROCESSING' || data.status === 'QUEUED' || data.pipeline_status?.includes('PROCESSING')) {
             connectLiveStream(targetJobId);
           }
         } else {
-          setError(data?.error || `Report for job '${targetJobId}' could not be generated.`);
+          setReportData(null);
+          setError(data?.error || `Report unavailable for dataset '${targetJobId}'.`);
         }
       })
       .catch((err) => {
-        setError(err.message || `Failed to fetch report for job ${targetJobId}`);
+        setReportData(null);
+        setError(err.message || `Report unavailable for dataset '${targetJobId}'.`);
       })
       .finally(() => setReportLoading(false));
+  };
+
+  const handleRetry = () => {
+    setError('');
+    const targetId = selectedJobId || queryJobId || (reports.length > 0 ? reports[0].job_id : null);
+    if (targetId) {
+      loadReportDetail(targetId, isPreviewOpen);
+    } else {
+      loadReportsList(true);
+    }
   };
 
   // Real-time SSE connection for active jobs
@@ -256,7 +272,7 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
 
         <div className="flex items-center gap-2.5 font-mono text-xs">
           <button
-            onClick={() => loadReportsList(true)}
+            onClick={() => loadReportsList(false, selectedJobId)}
             className="px-3 py-2 rounded-xl bg-[#0E131B] border border-[#202B3B] hover:border-cyan-500/50 text-slate-300 flex items-center gap-1.5 transition-all cursor-pointer"
             title="Refresh Reports Directory"
           >
@@ -282,7 +298,7 @@ export const ReportsPage = ({ isPreviewMode = false }) => {
             <span>{error}</span>
           </div>
           <button
-            onClick={() => loadReportsList(true)}
+            onClick={handleRetry}
             className="px-3 py-1 bg-rose-900/50 hover:bg-rose-800/80 border border-rose-500/40 rounded-lg text-rose-200 cursor-pointer"
           >
             Retry

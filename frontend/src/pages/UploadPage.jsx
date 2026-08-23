@@ -656,14 +656,14 @@ export const UploadPage = () => {
                 </Link>
               )}
               <Link
-                to={`/user/reports?job_id=${jobId || ''}&preview=true`}
+                to={jobId ? `/user/reports?job_id=${jobId}&preview=true` : `/user/reports?preview=true`}
                 className="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)]"
               >
                 <Eye className="w-4 h-4" />
                 <span>Preview Report</span>
               </Link>
               <a
-                href={`/print/reports/${jobId || ''}?auto_print=true`}
+                href={jobId ? `/print/reports/${jobId}?auto_print=true` : `/print/reports?auto_print=true`}
                 target="_blank"
                 rel="noreferrer"
                 className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer"
@@ -672,13 +672,13 @@ export const UploadPage = () => {
                 <span>Print / PDF</span>
               </a>
               <Link
-                to={`/user/products?job_id=${jobId || ''}`}
+                to={jobId ? `/user/products?job_id=${jobId}` : `/user/products`}
                 className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-[#202B3B] hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all"
               >
                 <span>View Products</span>
               </Link>
               <Link
-                to={`/user/reports?job_id=${jobId || ''}`}
+                to={jobId ? `/user/reports?job_id=${jobId}` : `/user/reports`}
                 className="px-4 py-2.5 rounded-xl bg-[#161F2E] border border-[#202B3B] hover:border-cyan-400 text-cyan-300 font-bold text-xs flex items-center gap-2 transition-all"
               >
                 <span>View Full Report</span>
